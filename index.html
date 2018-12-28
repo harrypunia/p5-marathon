@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spiral Hell</title>
+    <script src="lib/p5.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            width: 100vw;
+            height: 100vh;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .play {
+            position: absolute;
+            left: 50vw;
+            top: 50vh;
+            width: 40px;
+            height: 20px;
+            background: red;
+            cursor: pointer;
+            transform: translate(-50%, -50%)
+        }
+    </style>
+</head>
+
+<body>
+    <div class="play" onclick="startSketch()"></div>
+    <script src="js/Particle.js"></script>
+    <script src="js/sketch.js"></script>
+</body>
+</html>
