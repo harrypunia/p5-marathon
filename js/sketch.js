@@ -1,10 +1,9 @@
 let col = {
-        4: {
-            r: 0,
-            g: 26,
-            b: 35
+        0: {
+            r: 49,
+            g: 73,
+            b: 60
         },
-
         1: {
             r: 122,
             g: 158,
@@ -20,10 +19,10 @@ let col = {
             g: 23,
             b: 47
         },
-        0: {
-            r: 49,
-            g: 73,
-            b: 60
+        4: {
+            r: 0,
+            g: 26,
+            b: 35
         }
     },
     song,
@@ -46,7 +45,7 @@ function setup() {
         particles[i] = new Particle(2000);
     }
     for (let i = 0; i < 5; i++) {
-        spirals[i] = new Spiral((i + 1) * 80, (i + 1) * 30, (i + 1) / 1000, i, (i + 2) * 350); //(radius, number, freq, dir, sensitvity);
+        spirals[i] = new Spiral((i + 1) * 60 + (i * 30), (i + 1) * 30, (i + 1) / 1000, i, (i + 2) * 150); //(radius, number, freq, dir, sensitvity);
         spirals[i].defineShape();
     }
 }
