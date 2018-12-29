@@ -35,7 +35,7 @@ let col = {
     resetBackground = false;
 
 function preload() {
-    song = loadSound('assets/hell.mp3');
+    song = loadSound('../assets/hell.mp3');
 }
 
 function setup() {
@@ -53,7 +53,6 @@ function setup() {
 function draw() {
     background(col[4].r, col[4].g, col[4].b);
     spectrum = fft.analyze();
-    say(spectrum);
     if (init) {
         for (let i in particles) {
             particles[i].show();
@@ -70,6 +69,7 @@ function windowResized() {
 }
 
 const startSketch = () => {
+    song.play();
     init = true;
     let play = document.getElementsByClassName('play')[0];
     play.style.display = 'none';
