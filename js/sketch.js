@@ -45,8 +45,8 @@ function setup() {
     for (let i = 0; i < 80; i++) {
         particles[i] = new Particle;
     }
-    for (let i = 0; i < 6; i++) {
-        spirals[i] = new Spiral(i * 100, i * 40, i / 1000, i); //(radius, number, freq, dir);
+    for (let i = 0; i < 1; i++) {
+        spirals[i] = new Spiral((i + 1) * 100, (i + 1) * 40, (i + 1) / 1000, i); //(radius, number, freq, dir);
         spirals[i].defineShape();
     }
 }
