@@ -1,12 +1,14 @@
 class Spiral {
-    constructor(r, n, freq, dir) {
+    constructor(r, n, freq, dir, sens) {
         this.a = 0;
         this.r = r;
         this.n = n;
         this.freq = freq;
         this.dir = dir;
-        this.sensitivity = 1000;
+        this.sensitivity = sens;
         this.pos = createVector(0, 0);
+        this.vel = createVector(0, 0);
+        this.acc = createVector(0, 0);
         this.elements = [];
         this.chance = 0;
         this.shape = [];
@@ -30,19 +32,14 @@ class Spiral {
             this.pos.y = this.r * Math.sin(this.a + offset);
             let eq = center.sub(this.pos);
             eq.mult(mapSpec);
-            //stroke(255);
-            //strokeWeight(2);
-            //noFill();
             applyMatrix();
             translate(width / 2, height / 2);
-            //point(eq.x, eq.y);
             this.pos.add(eq)
             noStroke();
             fill(col[this.color[i]].r, col[this.color[i]].g, col[this.color[i]].b);
             this.elements[i] = this.shape[i] == 0 ? ellipse(this.pos.x, this.pos.y, 10, 10) : this.shape[i] == 1 ? triangle(this.pos.x - 5, this.pos.y + 5, this.pos.x, this.pos.y - 5, this.pos.x + 5, this.pos.y + 5) : rect(this.pos.x, this.pos.y, 10, 10);
             resetMatrix();
-
         }
-        (this.dir & 2) == 1 ? this.a += this.freq : this.a -= this.freq;
+        (this.dir % 2) == 1 ? this.a += this.freq : this.a -= this.freq;
     }
 }

@@ -43,10 +43,10 @@ function setup() {
     createCanvas(window.innerWidth, window.innerHeight, P2D);
     fft = new p5.FFT();
     for (let i = 0; i < 120; i++) {
-        particles[i] = new Particle;
+        particles[i] = new Particle(800);
     }
     for (let i = 0; i < 5; i++) {
-        spirals[i] = new Spiral((i + 1) * 100, (i + 1) * 30, (i + 1) / 1000, i); //(radius, number, freq, dir);
+        spirals[i] = new Spiral((i + 1) * 80, (i + 1) * 30, (i + 1) / 1000, i, (i + 2) * 350); //(radius, number, freq, dir, sensitvity);
         spirals[i].defineShape();
     }
 }
