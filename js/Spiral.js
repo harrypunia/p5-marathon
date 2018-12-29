@@ -6,6 +6,7 @@ class Spiral {
         this.freq = freq;
         this.dir = dir;
         this.pos = createVector(0, 0);
+        this.center = createVector(width / 2, height / 2)
         this.elements = [];
         this.chance = 0;
         this.shape = [];
@@ -18,13 +19,17 @@ class Spiral {
         }
         rectMode(CENTER);
     }
-    show(audio) {
+    show(spec) {
         for (let i = 0; i < this.n; i++) {
             noStroke();
             let mapIndex = map(i / this.n, 0, 1, 0, 2),
-                offset = Math.PI * mapIndex;
-            this.pos.x = this.r * Math.cos(this.a + offset) + (width / 2) + audio;
-            this.pos.y = this.r * Math.sin(this.a + offset) + (height / 2) + audio;
+                offset = Math.PI * mapIndex,
+                capSpec = spec[i] > 100 ? 100 : spec[i],
+                mapSpec = map(capSpec, 0, 100, -10, 10);
+            this.pos.x = this.r * Math.cos(this.a + offset) + (width / 2);
+            this.pos.y = this.r * Math.sin(this.a + offset) + (height / 2);
+            let radiate =
+                this.pos.add(eq)
             fill(col[this.color[i]].r, col[this.color[i]].g, col[this.color[i]].b);
             this.elements[i] = this.shape[i] == 0 ? ellipse(this.pos.x, this.pos.y, 10, 10) : this.shape[i] == 1 ? triangle(this.pos.x - 5, this.pos.y + 5, this.pos.x, this.pos.y - 5, this.pos.x + 5, this.pos.y + 5) : rect(this.pos.x, this.pos.y, 10, 10);
         }
