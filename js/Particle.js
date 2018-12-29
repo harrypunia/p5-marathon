@@ -14,15 +14,18 @@ class Particle {
         ellipse(this.pos.x, this.pos.y, this.r, this.r);
         resetMatrix();
     }
-    update() {
-        let capSpec = spec[i] > this.sensitivity ? this.sensitivity : spec[i],
-            mapSpec = map(capSpec, 0, this.sensitivity, -2, 2);
-        this.applyForce(mapSpec)
+    update(spec) {
+        let capSpec = spec > this.sensitivity ? this.sensitivity : spec,
+            mapSpec = map(capSpec, 0, this.sensitivity, -0.1, 4);
+        this.vel.add(mapSpec);
         this.depth(this.pos);
         this.boundry(this.pos)
         this.vel.add(this.acc);
         this.pos.add(this.vel);
         this.acc.mult(0);
+    }
+    applyForce(force) {
+        this.acc.add(force);
     }
     depth(pos) {
         let z = {
