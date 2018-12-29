@@ -41,12 +41,12 @@ function preload() {
 
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight, P2D);
-    fft = new p5.FFT(0, 256);
-    for (let i = 0; i < 80; i++) {
+    fft = new p5.FFT();
+    for (let i = 0; i < 120; i++) {
         particles[i] = new Particle;
     }
-    for (let i = 0; i < 1; i++) {
-        spirals[i] = new Spiral((i + 1) * 100, (i + 1) * 40, (i + 1) / 1000, i); //(radius, number, freq, dir);
+    for (let i = 0; i < 5; i++) {
+        spirals[i] = new Spiral((i + 1) * 100, (i + 1) * 30, (i + 1) / 1000, i); //(radius, number, freq, dir);
         spirals[i].defineShape();
     }
 }
@@ -57,7 +57,7 @@ function draw() {
     if (init) {
         for (let i in particles) {
             particles[i].show();
-            particles[i].update();
+            particles[i].update(spectrum[i]);
         }
         for (let i in spirals) {
             spirals[i].show(spectrum);
