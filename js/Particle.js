@@ -7,7 +7,7 @@ class Particle {
         this.sensitivity = sens
     };
     show() {
-        fill(col[2].r, col[2].g, col[2].b);
+        fill(col[2].r, col[2].g, col[2].b, 80);
         noStroke();
         applyMatrix();
         translate(width / 2, height / 2);
@@ -22,12 +22,12 @@ class Particle {
         this.acc.mult(0);
         applyMatrix();
         let capSpec = spec > this.sensitivity ? this.sensitivity : spec,
-            mapSpec = map(capSpec, 0, this.sensitivity, 0, 50),
+            mapSpec = map(capSpec, 0, this.sensitivity, 0, 20),
             center = createVector(0, 0),
             eq = center.copy().sub(this.pos);
         translate(width / 2, height / 2);
-        eq.setMag(-mapSpec);
-        this.pos.add(eq)
+        eq.setMag(-mapSpec * 2);
+        mapSpec > 1 ? (this.pos.add(eq)) : 0;
         resetMatrix();
     }
     applyForce(force) {
