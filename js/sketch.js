@@ -1,69 +1,61 @@
 let col = {
-        dark: {
+        4: {
             r: 0,
             g: 26,
             b: 35
         },
-        blue: {
-            r: 1,
-            g: 23,
-            b: 47
-        },
-        dGreen: {
-            r: 49,
-            g: 73,
-            b: 60
-        },
-        green: {
+
+        1: {
             r: 122,
             g: 158,
             b: 126
         },
-        red: {
+        2: {
             r: 124,
             g: 53,
             b: 69
+        },
+        3: {
+            r: 1,
+            g: 23,
+            b: 47
+        },
+        0: {
+            r: 49,
+            g: 73,
+            b: 60
         }
     },
     particles = [],
+    spirals = [],
     init = false,
-    a = 0,
     resetBackground = false;
 
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight, P2D);
-    background(col.dark.r, col.dark.g, col.dark.b);
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 80; i++) {
         particles[i] = new Particle;
+    }
+    for (let i = 0; i < 6; i++) {
+        spirals[i] = new Spiral(i * 100, i * 40, i / 1000, i); //(radius, number, freq, dir);
+        spirals[i].defineShape();
     }
 }
 
 function draw() {
-    //resetBackground ? (background(col.dark.r, col.dark.g, col.dark.b), resetBackground = false) : background(col.dark.r, col.dark.g, col.dark.b, 20);
-    background(col.dark.r, col.dark.g, col.dark.b);
+    background(col[4].r, col[4].g, col[4].b);
     if (init) {
         for (let i in particles) {
             particles[i].show();
             particles[i].update();
         }
-        spiral(100, .01, 10);
+        for (let i in spirals) {
+            spirals[i].show();
+        }
     }
-}
-
-const spiral = (r, freq, n) => {
-    fill(255);
-    for (let i = 0; i < n; i++) {
-        let mapIndex = map(n / i, 0, n, 0, 2),
-            offset = Math.PI * mapIndex,
-            posX = r * Math.cos(a + offset) + (width / 2),
-            posY = r * Math.sin(a + offset) + (height / 2);
-        ellipse(posX, posY, 10, 10);
-    }
-    a += freq
 }
 
 function windowResized() {
-    //resetBackground = true;
     resizeCanvas(window.innerWidth, window.innerHeight);
 }
 
