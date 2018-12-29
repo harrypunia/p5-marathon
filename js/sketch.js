@@ -59,7 +59,9 @@ function draw() {
             particles[i].update();
         }
         for (let i in spirals) {
-            spirals[i].show(spectrum);
+            let capSpectrum = spectrum[i].limit(10),
+                freq = map(capSpectrum, 0, 10, -10, 10);
+            spirals[i].show(freq);
         }
     }
 }
