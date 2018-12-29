@@ -40,7 +40,7 @@ function preload() {
 
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight, P2D);
-    fft = new p5.FFT();
+    fft = new p5.FFT(0, 256);
     for (let i = 0; i < 80; i++) {
         particles[i] = new Particle;
     }
@@ -59,7 +59,7 @@ function draw() {
             particles[i].update();
         }
         for (let i in spirals) {
-            spirals[i].show();
+            spirals[i].show(spectrum);
         }
     }
 }
