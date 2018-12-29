@@ -61,7 +61,8 @@ function windowResized() {
 
 const startSketch = () => {
     init = true;
-    let play = document.getElementsByClassName('play')[0];
+    let play = document.getElementsByClassName('play')[0],
+        music = new Audio('assets/hell.mp3');
     play.style.display = 'none';
 }
 

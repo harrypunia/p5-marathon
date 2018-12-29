@@ -29,4 +29,5 @@ class Spiral {
         }
         ((this.dir % 2) == 1) ? this.a += this.freq: this.a -= this.freq;
     }
+    eq() {}
 }
