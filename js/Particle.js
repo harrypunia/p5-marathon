@@ -3,7 +3,7 @@ class Particle {
         this.pos = createVector(0, 0);
         this.vel = createVector(random(-1, 1), random(-1, 1));
         this.acc = createVector(0, 0);
-        this.r = 1
+        this.r = 10
         this.sensitivity = sens
     };
     show() {
@@ -15,23 +15,22 @@ class Particle {
         resetMatrix();
     }
     update(spec) {
-        let capSpec = spec > this.sensitivity ? this.sensitivity : spec,
-            mapSpec = map(capSpec, 0, this.sensitivity, 0, 10),
-            center = createVector(0, 0);
-        let eq = center.sub(this.pos);
-        applyMatrix();
-        stroke(255);
-        translate(width / 2, height / 2);
-
-        line(center.x, center.y, eq.x, eq.y);
-        resetMatrix();
-        eq.mult(mapSpec);
-        mapSpec > 1 ? (this.pos.add(eq), say('hey')) : 0;
         this.depth(this.pos);
         this.boundry(this.pos)
         this.vel.add(this.acc);
         this.pos.add(this.vel);
         this.acc.mult(0);
+        applyMatrix();
+        let capSpec = spec > this.sensitivity ? this.sensitivity : spec,
+            mapSpec = map(capSpec, 0, this.sensitivity, 1, 2),
+            center = createVector(0, 0),
+            eq = center.copy().sub(this.pos);
+        stroke(255);
+        translate(width / 2, height / 2);
+        eq.setMag(mapSpec);
+        this.vel.mult(mapSpec)
+        //        line(center.x, center.y, eq.x, eq.y);
+        resetMatrix();
     }
     applyForce(force) {
         this.acc.add(force);
@@ -41,7 +40,7 @@ class Particle {
             x: Math.abs(map(this.pos.x, -width / 2, width / 2, -30, 30)),
             y: Math.abs(map(this.pos.y, -height / 2, height / 2, -30, 30))
         }
-        this.r = (z.x + z.y) / 2;
+        //this.r = (z.x + z.y) / 2;
     }
     boundry(pos) {
         (pos.x < -(width / 2) - 10 || pos.y < -(height / 2) - 10 || pos.y > (height / 2) + 10 || pos.x > (width / 2) + 10) ? this.resetPos(pos): 0;
