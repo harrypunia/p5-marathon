@@ -16,8 +16,17 @@ class Particle {
     }
     update(spec) {
         let capSpec = spec > this.sensitivity ? this.sensitivity : spec,
-            mapSpec = map(capSpec, 0, this.sensitivity, -0.1, 4);
-        this.vel.add(mapSpec);
+            mapSpec = map(capSpec, 0, this.sensitivity, 0, 10),
+            center = createVector(0, 0);
+        let eq = center.sub(this.pos);
+        applyMatrix();
+        stroke(255);
+        translate(width / 2, height / 2);
+
+        line(center.x, center.y, eq.x, eq.y);
+        resetMatrix();
+        eq.mult(mapSpec);
+        mapSpec > 1 ? (this.pos.add(eq), say('hey')) : 0;
         this.depth(this.pos);
         this.boundry(this.pos)
         this.vel.add(this.acc);
