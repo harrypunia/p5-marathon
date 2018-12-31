@@ -40,7 +40,7 @@ let creepersLeft = [],
 var song;
 
 function preload() {
-    song = loadSound('/assets/wall.mp3');
+    song = loadSound('assets/wall.mp3');
 
 }
 
