@@ -29,7 +29,7 @@ class CrazyTriangle {
     update(vol) {
         vol > 20 ? this.chance = 50 : this.chance == 200;
         if (this.i == 0 && vol > 20) {
-            fill(0, 10);
+            fill(0, 6);
             applyMatrix();
             translate(width / 2, height / 2);
             rotate(3.14);
