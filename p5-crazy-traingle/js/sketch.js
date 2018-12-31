@@ -48,18 +48,18 @@ function setup() {
     fft = new p5.FFT(0, 256);
     amp = new p5.Amplitude();
     for (let i = 0; i < 6; i++) {
-        crazyTriangles[i] = new CrazyTriangle(((i + 1) * 100), i);
+        crazyTriangles[i] = new CrazyTriangle(((i + 2) * 30), i);
     }
 }
 
 function draw() {
-    reset ? (background(col[0].r, col[0].g, col[0].b), reset = false) : background(col[0].r, col[0].g, col[0].b, 80);
+    reset ? (background(col[0].r, col[0].g, col[0].b), reset = false) : background(col[0].r, col[0].g, col[0].b, 60);
     freq = fft.analyze();
     vol = amp.getLevel();
     if (init) {
         for (let i in crazyTriangles) {
             crazyTriangles[i].show();
-            crazyTriangles[i].update(vol * 20);
+            crazyTriangles[i].update(vol * 10);
         }
     }
 }

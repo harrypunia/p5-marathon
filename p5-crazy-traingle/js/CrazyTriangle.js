@@ -13,23 +13,23 @@ class CrazyTriangle {
         this.acc1 = createVector(0, 0);
         this.acc2 = createVector(0, 0);
         this.acc3 = createVector(0, 0);
-        //this.chance = 100;
+        this.chance = 100;
         this.i = i;
     }
     show() {
         applyMatrix();
-        noFill();
-        let altC = 8 % (this.i + 1) == 0 ? 3 : 9 % (this.i + 1);
-        stroke(col[altC].r, col[altC].g, col[altC].b);
         translate(width / 2, height / 2);
+        let altC = 9 % (this.i + 1) == 0 ? 3 : 9 % (this.i + 1);
+        stroke(col[altC].r, col[altC].g, col[altC].b);
+        fill(col[altC].r, col[altC].g, col[altC].b, 10);
         triangle(this.pos1.x, this.pos1.y, this.pos2.x, this.pos2.y, this.pos3.x, this.pos3.y);
         resetMatrix();
     }
     update(vol) {
-        this.return();
-        this.degradeVelocity(0.1, this.vel1);
-        this.degradeVelocity(0.1, this.vel2);
-        this.degradeVelocity(0.1, this.vel3);
+        //this.return();
+        this.degradeVelocity(1, this.pos1, this.initPos1);
+        this.degradeVelocity(1, this.pos2, this.initPos2);
+        this.degradeVelocity(1, this.pos3, this.initPos3);
         this.triggerCrazy(vol);
         this.physicsEngine(this.pos1, this.vel1, this.acc1);
         this.physicsEngine(this.pos2, this.vel2, this.acc2);
@@ -40,37 +40,32 @@ class CrazyTriangle {
         pos.add(vel);
         acc.mult(0);
     }
-    applyForce(acc, force) {
-        acc.add(force);
+    applyForce(vel, force) {
+        vel.add(force);
     }
     triggerCrazy(vol) {
-        //let chance = Math.floor(random(this.chance)) == 1;
-        this.crazy(vol, this.vel1);
-        //let chance2 = Math.floor(random(this.chance)) == 1;
-        this.crazy(vol, this.vel2);
-        //let chance3 = Math.floor(random(this.chance)) == 1;
-        this.crazy(vol, this.vel3);
+        let chance = Math.floor(random(this.chance));
+        if (chance == 1) {
+            this.crazy(vol, this.vel1);
+        } else if (chance == 2) {
+            this.crazy(vol, this.vel2);
+        } else if (chance == 3) {
+            this.crazy(vol, this.vel3);
+        }
     }
     crazy(vol, vel) {
-        let chance = Math.floor(random(4)),
-            force;
-        chance == 0 ? force = createVector(-vol, -vol) : chance == 1 ? force = createVector(-vol, vol) : chance == 2 ? force = createVector(vol, -vol) : force = createVector(vol, vol);
+        let force,
+            chance = Math.floor(random(2));
+        if (vel == this.vel1) {
+            chance == 0 ? force = createVector(0, -vol) : force = createVector(0, vol);
+        } else if (vel == this.vel2) {
+            chance == 0 ? force = createVector(0, vol) : force = createVector(0, -vol);
+        } else {
+            chance == 0 ? force = createVector(0, vol) : force = createVector(0, -vol);
+        }
+        vol * ((this.i * 2) + 1)
         vel.x = force.x;
         vel.y = force.y;
-    }
-    return () {
-        if (this.moved(this.pos1, this.initPos1)) {
-            let returnForce = this.initPos1.copy().sub(this.pos1);
-            this.applyForce(this.acc1, returnForce);
-        }
-        if (this.moved(this.pos2, this.initPos2)) {
-            let returnForce = this.initPos2.copy().sub(this.pos2);
-            this.applyForce(this.acc2, returnForce);
-        }
-        if (this.moved(this.pos3, this.initPos3)) {
-            let returnForce = this.initPos3.copy().sub(this.pos3);
-            this.applyForce(this.acc3, returnForce);
-        }
     }
     moved(a, b) {
         if (a.x != b.x || a.y != b.y) {
@@ -79,7 +74,8 @@ class CrazyTriangle {
             return false;
         }
     }
-    degradeVelocity(force, vel) {
-        vel.x > 0 ? vel.x -= force : vel < 0 ? vel.x += force : 0;
+    degradeVelocity(force, pos, initPos) {
+        pos.x > initPos.x ? pos.x -= force : pos.x < initPos.x ? pos.x += force : 0;
+        pos.y > initPos.y ? pos.y -= force : pos.y < initPos.y ? pos.y += force : 0;
     }
 }
