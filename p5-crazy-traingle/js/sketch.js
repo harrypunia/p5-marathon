@@ -17,9 +17,9 @@ let init = false,
             b: 20
         },
         3: {
-            r: 255,
-            g: 220,
-            b: 220
+            r: 155,
+            g: 120,
+            b: 120
         },
         4: {
             r: 222,
@@ -35,7 +35,7 @@ let init = false,
     crazyTriangles = [];
 
 function preload() {
-    song = loadSound('../assets/wall.mp3');
+    song = loadSound('../assets/akatsuki.mp3');
 }
 
 function setup() {

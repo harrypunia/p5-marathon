@@ -29,16 +29,20 @@ class CrazyTriangle {
     update(vol) {
         vol > 20 ? this.chance = 50 : this.chance == 200;
         if (this.i == 0 && vol > 20) {
-            fill(200, 100, 100, 20);
-            triangle((width / 2), (height / 2) - this.s, (width / 2) + this.x, (height / 2) + this.S, (width / 2) - this.s, (height / 2) + this.s);
-            background(255, 1);
+            fill(0, 10);
+            applyMatrix();
+            translate(width / 2, height / 2);
+            rotate(3.14);
+            triangle(0, -(this.s / 2) - 20, this.s / 2, 30 - (this.s / 2), -this.s / 2, 30 - (this.s / 2));
+            resetMatrix();
+            background(0, 5);
         }
-        this.degradePos(3, this.pos1, this.initPos1);
-        this.degradePos(3, this.pos2, this.initPos2);
-        this.degradePos(3, this.pos3, this.initPos3);
-        this.degradeVel(.7, this.vel1);
-        this.degradeVel(.7, this.vel2);
-        this.degradeVel(.7, this.vel3);
+        this.degradePos(4, this.pos1, this.initPos1);
+        this.degradePos(4, this.pos2, this.initPos2);
+        this.degradePos(4, this.pos3, this.initPos3);
+        this.degradeVel(.8, this.vel1);
+        this.degradeVel(.8, this.vel2);
+        this.degradeVel(.8, this.vel3);
         this.triggerCrazy(vol);
         this.physicsEngine(this.pos1, this.vel1, this.acc1);
         this.physicsEngine(this.pos2, this.vel2, this.acc2);
