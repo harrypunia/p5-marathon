@@ -32,7 +32,7 @@ let init = false,
     freq,
     vol,
     song,
-    crazyTriangle;
+    crazyTriangles = [];
 
 function preload() {
     song = loadSound('../assets/wall.mp3');
@@ -47,16 +47,20 @@ function setup() {
     background(col[0].r, col[0].g, col[0].b);
     fft = new p5.FFT(0, 256);
     amp = new p5.Amplitude();
-    crazyTriangle = new CrazyTriangle(100);
+    for (let i = 0; i < 6; i++) {
+        crazyTriangles[i] = new CrazyTriangle(((i + 1) * 100), i);
+    }
 }
 
 function draw() {
-    reset ? (background(col[0].r, col[0].g, col[0].b), reset = false) : background(col[0].r, col[0].g, col[0].b, 10);
+    reset ? (background(col[0].r, col[0].g, col[0].b), reset = false) : background(col[0].r, col[0].g, col[0].b, 80);
     freq = fft.analyze();
     vol = amp.getLevel();
     if (init) {
-        crazyTriangle.show();
-        crazyTriangle.update(vol * 20);
+        for (let i in crazyTriangles) {
+            crazyTriangles[i].show();
+            crazyTriangles[i].update(vol * 20);
+        }
     }
 }
 
