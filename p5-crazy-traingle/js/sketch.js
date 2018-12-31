@@ -56,7 +56,7 @@ function draw() {
     vol = amp.getLevel();
     if (init) {
         crazyTriangle.show();
-        crazyTriangle.update(vol);
+        crazyTriangle.update(vol * 20);
     }
 }
 
