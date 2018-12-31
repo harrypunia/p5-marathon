@@ -17,9 +17,9 @@ let init = false,
             b: 126
         },
         3: {
-            r: 124,
-            g: 53,
-            b: 69
+            r: 154,
+            g: 3,
+            b: 30
         },
         4: {
             r: 1,
@@ -47,7 +47,7 @@ function setup() {
     background(col[0].r, col[0].g, col[0].b);
     fft = new p5.FFT(0, 256);
     amp = new p5.Amplitude();
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 80; i++) {
         crazyTriangles[i] = new CrazyTriangle(((i + 2) * 30), i);
     }
 }
@@ -59,7 +59,7 @@ function draw() {
     if (init) {
         for (let i in crazyTriangles) {
             crazyTriangles[i].show();
-            crazyTriangles[i].update(vol + (freq[i] / 500));
+            crazyTriangles[i].update(vol + (freq[i] / 10));
         }
     }
 }

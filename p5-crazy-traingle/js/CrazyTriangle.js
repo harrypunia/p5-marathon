@@ -13,23 +13,26 @@ class CrazyTriangle {
         this.acc1 = createVector(0, 0);
         this.acc2 = createVector(0, 0);
         this.acc3 = createVector(0, 0);
-        this.chance = 100;
+        this.chance = 200;
+        this.altC = Math.floor(random(5))
         this.i = i;
     }
     show() {
         applyMatrix();
         translate(width / 2, height / 2);
-        let altC = 9 % (this.i + 1) == 0 ? 3 : 9 % (this.i + 1);
-        stroke(col[altC].r, col[altC].g, col[altC].b);
-        fill(col[altC].r, col[altC].g, col[altC].b, 10);
+        stroke(col[this.altC].r, col[this.altC].g, col[this.altC].b, 1);
+        fill(col[this.altC].r, col[this.altC].g, col[this.altC].b, 1);
         triangle(this.pos1.x, this.pos1.y, this.pos2.x, this.pos2.y, this.pos3.x, this.pos3.y);
         resetMatrix();
     }
     update(vol) {
-        //this.return();
-        this.degradeVelocity(1, this.pos1, this.initPos1);
-        this.degradeVelocity(1, this.pos2, this.initPos2);
-        this.degradeVelocity(1, this.pos3, this.initPos3);
+        vol > 2.6 ? this.chance = 50 : this.chance == 200;
+        this.degradePos(2, this.pos1, this.initPos1);
+        this.degradePos(2, this.pos2, this.initPos2);
+        this.degradePos(2, this.pos3, this.initPos3);
+        this.degradeVel(.7, this.vel1);
+        this.degradeVel(.7, this.vel2);
+        this.degradeVel(.7, this.vel3);
         this.triggerCrazy(vol);
         this.physicsEngine(this.pos1, this.vel1, this.acc1);
         this.physicsEngine(this.pos2, this.vel2, this.acc2);
@@ -60,7 +63,7 @@ class CrazyTriangle {
         } else if (vel == this.vel2) {
             force = createVector(vol, vol)
         } else {
-            force = createVector(-vol, -vol)
+            force = createVector(-vol, vol)
         }
         vel.x = force.x;
         vel.y = force.y;
@@ -72,8 +75,12 @@ class CrazyTriangle {
             return false;
         }
     }
-    degradeVelocity(force, pos, initPos) {
+    degradePos(force, pos, initPos) {
         pos.x > initPos.x ? pos.x -= force : pos.x < initPos.x ? pos.x += force : 0;
         pos.y > initPos.y ? pos.y -= force : pos.y < initPos.y ? pos.y += force : 0;
+    }
+    degradeVel(force, vel) {
+        vel.x > 0 ? vel.x -= force : vel.x < 0 ? vel.x += force : 0;
+        vel.y > 0 ? vel.y -= force : vel.y < 0 ? vel.y += force : 0;
     }
 }
