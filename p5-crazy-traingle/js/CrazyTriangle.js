@@ -54,16 +54,14 @@ class CrazyTriangle {
         }
     }
     crazy(vol, vel) {
-        let force,
-            chance = Math.floor(random(2));
+        let force;
         if (vel == this.vel1) {
-            chance == 0 ? force = createVector(0, -vol) : force = createVector(0, vol);
+            force = createVector(0, -vol)
         } else if (vel == this.vel2) {
-            chance == 0 ? force = createVector(0, vol) : force = createVector(0, -vol);
+            force = createVector(vol, vol)
         } else {
-            chance == 0 ? force = createVector(0, vol) : force = createVector(0, -vol);
+            force = createVector(-vol, -vol)
         }
-        vol * ((this.i * 2) + 1)
         vel.x = force.x;
         vel.y = force.y;
     }

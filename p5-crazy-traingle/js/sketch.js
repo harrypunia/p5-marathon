@@ -59,7 +59,7 @@ function draw() {
     if (init) {
         for (let i in crazyTriangles) {
             crazyTriangles[i].show();
-            crazyTriangles[i].update(vol * 10);
+            crazyTriangles[i].update(vol + (freq[i] / 500));
         }
     }
 }
