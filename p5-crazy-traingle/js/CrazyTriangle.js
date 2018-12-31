@@ -14,22 +14,28 @@ class CrazyTriangle {
         this.acc2 = createVector(0, 0);
         this.acc3 = createVector(0, 0);
         this.chance = 200;
-        this.altC = Math.floor(random(5))
+        this.altC = Math.floor(random(1, 5));
         this.i = i;
     }
     show() {
         applyMatrix();
         translate(width / 2, height / 2);
-        stroke(col[this.altC].r, col[this.altC].g, col[this.altC].b, 1);
-        fill(col[this.altC].r, col[this.altC].g, col[this.altC].b, 1);
+        noStroke();
+        stroke(255, (1 - (this.i / 5)));
+        fill(col[this.altC].r, col[this.altC].g, col[this.altC].b, (1 - (this.i / 100)));
         triangle(this.pos1.x, this.pos1.y, this.pos2.x, this.pos2.y, this.pos3.x, this.pos3.y);
         resetMatrix();
     }
     update(vol) {
-        vol > 2.6 ? this.chance = 50 : this.chance == 200;
-        this.degradePos(2, this.pos1, this.initPos1);
-        this.degradePos(2, this.pos2, this.initPos2);
-        this.degradePos(2, this.pos3, this.initPos3);
+        vol > 20 ? this.chance = 50 : this.chance == 200;
+        if (this.i == 0 && vol > 20) {
+            fill(200, 100, 100, 20);
+            triangle((width / 2), (height / 2) - this.s, (width / 2) + this.x, (height / 2) + this.S, (width / 2) - this.s, (height / 2) + this.s);
+            background(255, 1);
+        }
+        this.degradePos(3, this.pos1, this.initPos1);
+        this.degradePos(3, this.pos2, this.initPos2);
+        this.degradePos(3, this.pos3, this.initPos3);
         this.degradeVel(.7, this.vel1);
         this.degradeVel(.7, this.vel2);
         this.degradeVel(.7, this.vel3);
