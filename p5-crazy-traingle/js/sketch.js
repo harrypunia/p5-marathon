@@ -31,10 +31,11 @@ let init = false,
     amp,
     freq,
     vol,
-    song;
+    song,
+    crazyTriangle;
 
 function preload() {
-    song = loadSound('assets/wall.mp3');
+    song = loadSound('../assets/wall.mp3');
 }
 
 function setup() {
@@ -44,6 +45,9 @@ function setup() {
     }
     createCanvas(window.innerWidth, window.innerHeight, P2D);
     background(col[0].r, col[0].g, col[0].b);
+    fft = new p5.FFT(0, 256);
+    amp = new p5.Amplitude();
+    crazyTriangle = new CrazyTriangle(100);
 }
 
 function draw() {
@@ -51,16 +55,8 @@ function draw() {
     freq = fft.analyze();
     vol = amp.getLevel();
     if (init) {
-        for (let i in creepersLeft) {
-            creepersLeft[i].show(freq[i]);
-            creepersTop[i].show(freq[i]);
-            creepersRight[i].show(freq[i]);
-            creepersBottom[i].show(freq[i]);
-        }
-        for (let i in cores) {
-            cores[i].show();
-            cores[i].update(vol * ((i + 1) * 20));
-        }
+        crazyTriangle.show();
+        crazyTriangle.update(vol);
     }
 }
 
