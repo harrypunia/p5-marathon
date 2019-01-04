@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rita</title>
+    <script src="lib/p5.min.js"></script>
+    <script src="lib/rita-full.min.js"></script>
+    <style>
+        body,
+        html {
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: black;
+            font-size: 62.5%;
+        }
+
+        #play {
+            position: absolute;
+            left: 50vw;
+            top: 50vh;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: url('assets/play.png') no-repeat;
+            background-size: contain;
+            transform: translate(-50%, 0) rotate(-30deg);
+            opacity: 0;
+            cursor: pointer;
+            transition: width .2s ease-in, height .2s ease-in;
+        }
+
+        #play:hover {
+            width: 60px;
+            height: 60px;
+            transition: width .2s ease-out, height .2s ease-out;
+        }
+
+        .in {
+            animation: play-in .2s ease-in;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes play-in {
+            to {
+                transform: translate(-50%, -50%) rotate(0);
+                opacity: 1;
+            }
+        }
+        
+        #input  {
+            display: none;
+            position: absolute;
+            left: 50vw;
+            top: 100px;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 50px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.2);
+            color: white;
+            border-radius: 2px;
+            outline: 0;
+            border: 1px solid grey;
+            font-size: 4em;
+            font-weight: 100;
+            line-height: 50px;
+            letter-spacing: 1px;
+            text-transform: capitalize;
+        }
+        
+        #input:focus {
+            outline: none;
+            border: 1px solid white;
+        }
+    </style>
+</head>
+
+<body>
+    <input id="input" type="text" oninput="updateRita(this.value)" />
+    <div id="play" onclick="initSketch()"></div>
+    <script src="js/sketch.js"></script>
+</body>
+
+</html>
