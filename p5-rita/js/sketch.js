@@ -28,7 +28,14 @@ let init = false,
         },
     },
     input = document.getElementById('input'),
-    spirals = [];
+    spirals1 = [],
+    spirals2 = [],
+    spirals3 = [],
+    spirals4 = [],
+    spirals5 = [],
+    spirals6 = [],
+    spirals7 = [],
+    spirals8 = [];
 //Parameters: nouns, verbs, adverbs, pronouns, determiners, others.
 
 function setup() {
@@ -40,16 +47,29 @@ function setup() {
         btn.classList.add('in');
     }
     for (let i = 0; i < 6; i++) {
-        spirals[i] = new Spiral(i * 10);
+        spirals1[i] = new Spiral(i, width / 4, height / 4);
+        spirals2[i] = new Spiral(i, width / 1.5, height / 4);
+        spirals3[i] = new Spiral(i, width / 4, height / 1.5);
+        spirals4[i] = new Spiral(i, width / 1.5, height / 1.5);
+        spirals5[i] = new Spiral(i, width / 4, height / 4);
+        spirals6[i] = new Spiral(i, width / 1.5, height / 4);
+        spirals7[i] = new Spiral(i, width / 4, height / 1.5);
+        spirals8[i] = new Spiral(i, width / 1.5, height / 1.5);
     }
 }
 
 function draw() {
-    reset ? (background(col[0].r, col[0].g, col[0].b), reset = false) : background(col[0].r, col[0].g, col[0].b, 60);
+    reset ? (background(col[0].r, col[0].g, col[0].b), reset = false) : background(col[0].r, col[0].g, col[0].b, 90);
     if (init) {
         for (let i = 0; i < 6; i++) {
-            spirals[i].show(amplify(nouns, 2));
-            spirals[i].update(amplify(nouns, 100), amplify(verbs, 50), amplify(pronouns, 50));
+            spirals1[i].show(amplify(nouns, 4));
+            spirals1[i].update(amplify(nouns, 50), amplify(others, 20), amplify(pronouns, 50));
+            spirals2[i].show(amplify(adverbs, 4));
+            spirals2[i].update(amplify(adverbs, 50), amplify(nouns, 20), amplify(others, 50));
+            spirals3[i].show(amplify(pronouns, 4));
+            spirals3[i].update(amplify(pronouns, 50), amplify(adverbs, 20), amplify(nouns, 50));
+            spirals4[i].show(amplify(others, 4));
+            spirals4[i].update(amplify(others, 50), amplify(pronouns, 20), amplify(adverbs, 50));
         }
     }
 }
