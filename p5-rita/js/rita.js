@@ -1,5 +1,4 @@
 let text,
-    defaultText = ['What a beautiful fuck', 'Pencils are underrated', 'Why breathe-in from nose, when you have a butthole', 'Have a bad ass day', 'Please take some time to shut up'],
     rita,
     pronouns = 0,
     adverbs = 0,

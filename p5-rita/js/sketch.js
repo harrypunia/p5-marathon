@@ -27,6 +27,7 @@ let init = false,
             b: 120
         },
     },
+    defaultText = ['What a beautiful fuck', 'Pencils are underrated', 'Why breathe-in from nose, when you have a butthole', 'Have a bad ass day', 'Please take some time to shut up', 'Yeah i am brown', 'Ever tried oxygen? try it with CO', 'Omer Landau (trans)', 'Wonder why she call your selfie a dick pic', 'I wear rings cuz I love filling holes', 'A crazy cock can wake the laziest bitch in the morning'],
     input = document.getElementById('input'),
     spirals1 = [],
     spirals2 = [],
@@ -40,7 +41,7 @@ let init = false,
 
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
-    input.value = defaultText[Math.floor(random(5))];
+    input.value = defaultText[Math.floor(random(defaultText.length))];
     updateRita(input.value);
     if (0 == 0) {
         let btn = document.getElementById('play');
