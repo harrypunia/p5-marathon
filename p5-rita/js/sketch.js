@@ -48,8 +48,8 @@ function draw() {
 }
 
 const updateRita = str => {
-    let r = str;
-    console.log(r);
+    let r = new RiString(str);
+    console.log(r.pos());
 }
 
 function windowResized() {
