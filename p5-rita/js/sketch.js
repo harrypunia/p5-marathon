@@ -27,7 +27,9 @@ let init = false,
             b: 120
         },
     },
-    input = document.getElementById('input');
+    input = document.getElementById('input'),
+    spirals = [];
+//Parameters: nouns, verbs, adverbs, pronouns, determiners, others.
 
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
@@ -37,13 +39,18 @@ function setup() {
         let btn = document.getElementById('play');
         btn.classList.add('in');
     }
+    for (let i = 0; i < 6; i++) {
+        spirals[i] = new Spiral(i * 10);
+    }
 }
 
 function draw() {
-    reset ? (background(col[0].r, col[0].g, col[0].b), reset = false) : background(col[0].r, col[0].g, col[0].b, 90);
-
+    reset ? (background(col[0].r, col[0].g, col[0].b), reset = false) : background(col[0].r, col[0].g, col[0].b, 60);
     if (init) {
-
+        for (let i = 0; i < 6; i++) {
+            spirals[i].show(amplify(nouns, 2));
+            spirals[i].update(amplify(nouns, 100), amplify(verbs, 50), amplify(pronouns, 50));
+        }
     }
 }
 

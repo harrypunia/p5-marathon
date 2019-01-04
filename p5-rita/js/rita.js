@@ -2,7 +2,7 @@ let text,
     defaultText = ['What a beautiful fuck', 'Pencils are underrated', 'Why breathe-in from nose, when you have a butthole', 'Have a bad ass day', 'Please take some time to shut up'],
     rita,
     pronouns = 0,
-    adberbs = 0,
+    adverbs = 0,
     verbs = 0,
     others = 0,
     determiners = 0,
@@ -18,7 +18,7 @@ const updateRita = str => {
             if (rita[i].match(/nn*/g)) {
                 nouns++
             } else if (rita[i].match(/rb*/g)) {
-                adberbs++
+                adverbs++
             } else if (rita[i].match(/prp*/g)) {
                 pronouns++
             } else if (rita[i].match(/vb*/g)) {
@@ -46,7 +46,7 @@ const resetCounters = () => {
     pronouns = 0;
     nouns = 0;
     verbs = 0;
-    adberbs = 0;
+    adverbs = 0;
     determiners = 0;
     others = 0;
 }
