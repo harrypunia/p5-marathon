@@ -47,14 +47,14 @@ function setup() {
         btn.classList.add('in');
     }
     for (let i = 0; i < 6; i++) {
-        spirals1[i] = new Spiral(i, width / 4, height / 4);
-        spirals2[i] = new Spiral(i, width / 1.5, height / 4);
-        spirals3[i] = new Spiral(i, width / 4, height / 1.5);
-        spirals4[i] = new Spiral(i, width / 1.5, height / 1.5);
-        spirals5[i] = new Spiral(i, width / 4, height / 4);
-        spirals6[i] = new Spiral(i, width / 1.5, height / 4);
-        spirals7[i] = new Spiral(i, width / 4, height / 1.5);
-        spirals8[i] = new Spiral(i, width / 1.5, height / 1.5);
+        spirals1[i] = new Spiral(i, width / 6, height / 4);
+        spirals2[i] = new Spiral(i, width / 3, height / 4);
+        spirals3[i] = new Spiral(i, width / 1.75, height / 4);
+        spirals4[i] = new Spiral(i, width / 1.25, height / 4);
+        spirals5[i] = new Spiral(i, width / 6, height / 1.5);
+        spirals6[i] = new Spiral(i, width / 3, height / 1.5);
+        spirals7[i] = new Spiral(i, width / 1.75, height / 1.5);
+        spirals8[i] = new Spiral(i, width / 1.25, height / 1.5);
     }
 }
 
@@ -70,6 +70,16 @@ function draw() {
             spirals3[i].update(amplify(pronouns, 50), amplify(adverbs, 20), amplify(nouns, 50));
             spirals4[i].show(amplify(others, 4));
             spirals4[i].update(amplify(others, 50), amplify(pronouns, 20), amplify(adverbs, 50));
+
+
+            spirals5[i].show(amplify(adverbs, 4));
+            spirals5[i].update(amplify(adverbs, 50), amplify(others, 20), amplify(determiners, 50));
+            spirals6[i].show(amplify(determiners, 4));
+            spirals6[i].update(amplify(determiners, 50), amplify(verbs, 20), amplify(adverbs, 50));
+            spirals7[i].show(amplify(others, 4));
+            spirals7[i].update(amplify(others, 50), amplify(determiners, 20), amplify(verbs, 50));
+            spirals8[i].show(amplify(verbs, 4));
+            spirals8[i].update(amplify(verbs, 50), amplify(adverbs, 20), amplify(others, 50));
         }
     }
 }
