@@ -48,15 +48,21 @@ function setup() {
 function draw() {
     if (init) {
         //        image(img, width, height, width, height);
-        for (let y = 0; y < height; y++) {
-            for (let x = 0; x < width; x++) {
-                let pixi = (x + y * img.width) * 4;
-                //                if (0 == Math.floor(random(10))) {
-                pixels[pixi + 0] = img.pixels[pixi]
-                pixels[pixi + 1] = 0;
-                pixels[pixi + 2] = img.pixels[pixi + 2]
-                pixels[pixi + 3] = img.pixels[pixi + 3]
-                //                }
+        for (let y = 0; y < img.height; y++) {
+            for (let x = 0; x < img.width; x++) {
+                let pixi = (x + y * img.width) * 4,
+                    cani = (y * width + x) * 4;
+                if (0 == Math.floor(random(10))) {
+                    pixels[cani + 0] = img.pixels[pixi]
+                    pixels[cani + 1] = 0;
+                    pixels[cani + 2] = img.pixels[pixi + 2]
+                    pixels[cani + 3] = img.pixels[pixi + 3]
+                } else {
+                    pixels[cani + 0] = 30;
+                    pixels[cani + 1] = 10;
+                    pixels[cani + 2] = 22;
+                    pixels[cani + 3] = 255;
+                }
             }
         }
         updatePixels();
