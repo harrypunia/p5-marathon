@@ -35,6 +35,7 @@ function preload() {
 
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
+    pixelDensity(4);
     if (0 == 0) { //Condition here
         let btn = document.getElementById('play');
         btn.classList.add('in');
@@ -46,8 +47,10 @@ function draw() {
     if (init) {
         image(img, 0, 0, width, img.height);
         img.loadPixels();
-        for (let i = 0; i < width; i++) {
-            pixels[i] = 255;
+        for (let y = 0; y < height; y++) {
+            for (let x = 0; x < width; x++) {
+                let index = (x + (y * width)) * 4;
+            }
         }
         img.updatePixels();
     }
