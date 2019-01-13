@@ -46,6 +46,10 @@ function draw() {
     if (init) {
         image(img, 0, 0, width, img.height);
         img.loadPixels();
+        for (let i = 0; i < width; i++) {
+            pixels[i] = 255;
+        }
+        img.updatePixels();
     }
 }
 
