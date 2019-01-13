@@ -1,5 +1,6 @@
 let init = false,
     reset = false,
+    img,
     col = {
         0: {
             r: 30,
@@ -28,6 +29,10 @@ let init = false,
         },
     };
 
+function preload() {
+    img = loadImage('assets/madara.jpg');
+}
+
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
     if (0 == 0) { //Condition here
@@ -38,8 +43,10 @@ function setup() {
 
 function draw() {
     reset ? (background(col[0].r, col[0].g, col[0].b), reset = false) : background(col[0].r, col[0].g, col[0].b, 90);
-
-    if (init) {}
+    if (init) {
+        image(img, 0, 0, width, img.height);
+        img.loadPixels();
+    }
 }
 
 function windowResized() {
