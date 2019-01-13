@@ -35,32 +35,33 @@ function preload() {
 
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
-    pixelDensity(4);
+    pixelDensity(1);
     if (0 == 0) { //Condition here
         let btn = document.getElementById('play');
         btn.classList.add('in');
     }
+    background(col[0].r, col[0].g, col[0].b);
+    img.loadPixels();
+    loadPixels();
 }
 
 function draw() {
-    reset ? (background(col[0].r, col[0].g, col[0].b), reset = false) : background(col[0].r, col[0].g, col[0].b, 90);
     if (init) {
-        image(img, 0, 0, width, img.height);
-        img.loadPixels();
+        //        image(img, width, height, width, height);
         for (let y = 0; y < height; y++) {
             for (let x = 0; x < width; x++) {
-                let index = (x + (y * width)) * 4;
+                let pixi = (x + y * img.width) * 4;
+                //                if (0 == Math.floor(random(10))) {
+                pixels[pixi + 0] = img.pixels[pixi]
+                pixels[pixi + 1] = 0;
+                pixels[pixi + 2] = img.pixels[pixi + 2]
+                pixels[pixi + 3] = img.pixels[pixi + 3]
+                //                }
             }
         }
-        img.updatePixels();
+        updatePixels();
     }
 }
-
-function windowResized() {
-    reset = true;
-    resizeCanvas(window.innerWidth, window.innerHeight);
-}
-
 
 const initSketch = () => {
     init = true;
