@@ -58,6 +58,11 @@ function setup() {
 }
 
 function draw() {
+    for (let i in circles) {
+        circles[i].show();
+        circles[i].update(vol * 10);
+        circles[i].degrade();
+    }
     if (init) {
         freq = fft.analyze();
         vol = amp.getLevel();
@@ -79,6 +84,7 @@ function draw() {
             }
         }
         updatePixels();
+
     }
 }
 

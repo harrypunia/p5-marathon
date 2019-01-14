@@ -7,11 +7,12 @@ class Circle {
     }
     show() {
         fill(255);
+        noStroke();
         ellipse(this.x, this.y, this.r * 2, this.r * 2);
     }
     update(vol) {
-        if (vol > 2) {
-            this.r = 20
+        if (this.alive == false) {
+            this.r = 20;
             this.x = random(width);
             this.y = random(height);
             this.alive = true;
@@ -19,7 +20,7 @@ class Circle {
     }
     degrade() {
         if (this.r > 0) {
-            this.r -= 0.2;
+            this.r -= 0.1;
         } else {
             this.r = 0;
             this.x = 0;
