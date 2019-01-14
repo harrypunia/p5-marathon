@@ -16,37 +16,42 @@ function preload() {
 
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
-    //    pixelDensity(1);
-    if (song.isLoaded()) { //Condition here
+    pixelDensity(1);
+    if (song.isLoaded()) {
         let btn = document.getElementById('play');
         btn.classList.add('in');
     }
     fft = new p5.FFT();
     amp = new p5.Amplitude();
     img.loadPixels();
-    //loadPixels();
+    loadPixels();
 }
 
 function draw() {
-    background(10, 10, 10);
     if (init) {
         freq = fft.analyze();
         vol = amp.getLevel();
-        for (let y = 0; y < height; y++) {
-            for (let x = 0; x < width; x++) {
-                let pixi = (x + y * img.width) * 4;
-                if (x % 15 == 0 && y % 15 == 0) {
-                    let str = map(noise(xoff, yoff), 0, 1, 0, 20);
-                    noFill();
-                    stroke(img.pixels[pixi + 0] + (vol * 20), img.pixels[pixi + 1], img.pixels[pixi + 2], 255);
-                    strokeWeight(Math.floor(str));
-                    point(x, y);
+        for (let y = 0; y < img.height; y++) {
+            for (let x = 0; x < img.width; x++) {
+                var pixi,
+                    cani = (x + y * width) * 4,
+                    str = Math.ceil(map((vol * 4), 0, 2, 0, 2));
+                if (vol < .4) {
+                    pixi = (x + y * img.width) * 4;
+                } else {
+                    pixi = (img.width - x + y * img.width) * 4;
                 }
-                xoff += (vol / 100);
+                pixels[cani + 0] = img.pixels[pixi + str] / 2;
+                pixels[cani + 1] = img.pixels[pixi + str] / 100;
+                pixels[cani + 2] = img.pixels[pixi + str] / 100;
+                pixels[cani + 3] = 255;
             }
-            yoff += (vol / 100);
+            xoff += 0.01;
         }
+        yoff += 0.01;
+        console.log(frameRate());
     }
+    updatePixels();
 }
 
 const initSketch = () => {
