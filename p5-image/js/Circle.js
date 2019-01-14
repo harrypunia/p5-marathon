@@ -11,7 +11,7 @@ class Circle {
         ellipse(this.x, this.y, this.r * 2, this.r * 2);
     }
     update(vol) {
-        if (this.alive == false) {
+        if (this.alive == false && vol > 2) {
             this.r = 20;
             this.x = random(width);
             this.y = random(height);

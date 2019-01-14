@@ -43,7 +43,7 @@ function preload() {
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
     for (let i = 0; i < 20; i++) {
-        cirlces = new Circle();
+        circles[i] = new Circle();
     }
     pixelDensity(1);
     if (song.isLoaded()) { //Condition here
@@ -58,7 +58,7 @@ function setup() {
 }
 
 function draw() {
-    for (let i in circles) {
+    for (let i = 0; i < circles.length; i++) {
         circles[i].show();
         circles[i].update(vol * 10);
         circles[i].degrade();
