@@ -2,13 +2,16 @@ class Circle {
     constructor() {
         this.x = 0;
         this.y = 0;
-        this.r = 0;
+        this.r = 20;
         this.alive = false;
     }
     show() {
         fill(255);
         noStroke();
+        applyMatrix();
+        translate(width / 2, height / 2);
         ellipse(this.x, this.y, this.r * 2, this.r * 2);
+        resetMatrix();
     }
     update(vol) {
         if (this.alive == false && vol > 2) {

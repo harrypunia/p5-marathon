@@ -58,11 +58,6 @@ function setup() {
 }
 
 function draw() {
-    for (let i = 0; i < circles.length; i++) {
-        circles[i].show();
-        circles[i].update(vol * 10);
-        circles[i].degrade();
-    }
     if (init) {
         freq = fft.analyze();
         vol = amp.getLevel();
@@ -70,21 +65,13 @@ function draw() {
             for (let x = 0; x < img.width; x++) {
                 let pixi = (x + y * img.width) * 4,
                     cani = (x + y * width) * 4;
-                if (0 == Math.floor(random(20))) {
-                    pixels[cani + 0] = img.pixels[pixi]
-                    pixels[cani + 1] = 0;
-                    pixels[cani + 2] = img.pixels[pixi + 2]
-                    pixels[cani + 3] = img.pixels[pixi + 3]
-                } else {
-                    pixels[cani + 0] > 30 ? pixels[cani + 0]-- : 30;
-                    pixels[cani + 1] > 10 ? pixels[cani + 1]-- : 10;
-                    pixels[cani + 2] > 0 ? pixels[cani + 2]-- : 0;
-                    pixels[cani + 3] = 255;
-                }
+                pixels[cani + 0] = img.pixels[pixi + (Math.ceil(random(80 * vol)) * 4)]
+                pixels[cani + 1] = img.pixels[pixi + 1 + (Math.ceil(random(80 * vol)) * 4)]
+                pixels[cani + 2] = img.pixels[pixi + 2 + (Math.ceil(random(80 * vol)) * 4)]
+                pixels[cani + 3] = 255;
             }
         }
         updatePixels();
-
     }
 }
 
