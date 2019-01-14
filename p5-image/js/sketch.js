@@ -6,34 +6,8 @@ let init = false,
     freq,
     vol,
     song,
-    col = {
-        0: {
-            r: 30,
-            g: 10,
-            b: 22
-        },
-        1: {
-            r: 250,
-            g: 73,
-            b: 60
-        },
-        2: {
-            r: 82,
-            g: 10,
-            b: 20
-        },
-        3: {
-            r: 155,
-            g: 120,
-            b: 120
-        },
-        4: {
-            r: 222,
-            g: 23,
-            b: 120
-        },
-    },
-    circles = [];
+    xoff = 0,
+    yoff = 1000;
 
 function preload() {
     img = loadImage('assets/madara.jpg');
@@ -42,36 +16,36 @@ function preload() {
 
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
-    for (let i = 0; i < 20; i++) {
-        circles[i] = new Circle();
-    }
-    pixelDensity(1);
+    //    pixelDensity(1);
     if (song.isLoaded()) { //Condition here
         let btn = document.getElementById('play');
         btn.classList.add('in');
     }
-    fft = new p5.FFT(0, 256);
+    fft = new p5.FFT();
     amp = new p5.Amplitude();
-    background(col[0].r, col[0].g, col[0].b);
     img.loadPixels();
-    loadPixels();
+    //loadPixels();
 }
 
 function draw() {
+    background(10, 10, 10);
     if (init) {
         freq = fft.analyze();
         vol = amp.getLevel();
-        for (let y = 0; y < img.height; y++) {
-            for (let x = 0; x < img.width; x++) {
-                let pixi = (x + y * img.width) * 4,
-                    cani = (x + y * width) * 4;
-                pixels[cani + 0] = img.pixels[pixi + (Math.ceil(random(80 * vol)) * 4)]
-                pixels[cani + 1] = img.pixels[pixi + 1 + (Math.ceil(random(80 * vol)) * 4)]
-                pixels[cani + 2] = img.pixels[pixi + 2 + (Math.ceil(random(80 * vol)) * 4)]
-                pixels[cani + 3] = 255;
+        for (let y = 0; y < height; y++) {
+            for (let x = 0; x < width; x++) {
+                let pixi = (x + y * img.width) * 4;
+                if (x % 15 == 0 && y % 15 == 0) {
+                    let str = map(noise(xoff, yoff), 0, 1, 0, 20);
+                    noFill();
+                    stroke(img.pixels[pixi + 0] + (vol * 20), img.pixels[pixi + 1], img.pixels[pixi + 2], 255);
+                    strokeWeight(Math.floor(str));
+                    point(x, y);
+                }
+                xoff += (vol / 100);
             }
+            yoff += (vol / 100);
         }
-        updatePixels();
     }
 }
 
