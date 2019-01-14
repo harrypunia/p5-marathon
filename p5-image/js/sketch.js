@@ -5,9 +5,7 @@ let init = false,
     amp,
     freq,
     vol,
-    song,
-    xoff = 0,
-    yoff = 1000;
+    song;
 
 function preload() {
     img = loadImage('assets/madara.jpg');
@@ -21,35 +19,32 @@ function setup() {
         let btn = document.getElementById('play');
         btn.classList.add('in');
     }
-    fft = new p5.FFT();
     amp = new p5.Amplitude();
+    fft = new p5.FFT(0, 256);
     img.loadPixels();
     loadPixels();
 }
 
 function draw() {
     if (init) {
-        freq = fft.analyze();
         vol = amp.getLevel();
+        freq = fft.analyze();
         for (let y = 0; y < img.height; y++) {
             for (let x = 0; x < img.width; x++) {
                 var pixi,
                     cani = (x + y * width) * 4,
-                    str = Math.ceil(map((vol * 4), 0, 2, 0, 2));
+                    str = Math.ceil(map((vol * 4), 0, 2.5, 0, 2));
                 if (vol < .4) {
                     pixi = (x + y * img.width) * 4;
                 } else {
                     pixi = (img.width - x + y * img.width) * 4;
                 }
-                pixels[cani + 0] = img.pixels[pixi + str] / 2;
-                pixels[cani + 1] = img.pixels[pixi + str] / 100;
-                pixels[cani + 2] = img.pixels[pixi + str] / 100;
-                pixels[cani + 3] = 255;
+                pixels[cani + 0] = img.pixels[pixi + str];
+                pixels[cani + 1] = img.pixels[pixi] / 10;
+                pixels[cani + 2] = img.pixels[pixi] / 10;
+                pixels[cani + 3] = vol * 400;
             }
-            xoff += 0.01;
         }
-        yoff += 0.01;
-        console.log(frameRate());
     }
     updatePixels();
 }
