@@ -7,15 +7,25 @@ class Bullet {
         this.shoot = false;
     }
     show() {
-        stroke(0);
         point(this.x, this.y);
     }
     update(r, g, b) {
-        stroke(r, g, b);
-        console.log(r, g, b);
         if (this.shoot == true) {
+            stroke(r, g, b);
             this.x += this.xInc;
             this.y += this.yInc;
+        }
+    }
+    reset() {
+        if (this.x > width) {
+            this.x = 0;
+            this.y = height / 2;
+            this.shoot = false;
+        }
+        if (this.y < 0 || this.y > height) {
+            this.x = 0;
+            this.y = height / 2;
+            this.shoot = false;
         }
     }
 }

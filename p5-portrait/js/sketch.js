@@ -53,18 +53,19 @@ function setup() {
         }
     }
     updatePixels();
-    for (let i = 0; i < 40; i++) {
+    for (let i = 0; i < 200; i++) {
         leftBullets[i] = new Bullet(0, height / 2);
     }
 }
 
 function draw() {
     if (init) {
-        for (let i = 0; i < 40; i++) {
+        for (let i = 0; i < leftBullets.length; i++) {
             let chance = Math.floor(random(100)),
-                pixi = (leftBullets[i].x + leftBullets[i].y * img.width) * 4;
+                cani = (Math.floor(leftBullets[i].x) + Math.floor(leftBullets[i].y) * width) * 4;
             leftBullets[i].show();
-            leftBullets[i].update(img.pixels[pixi + 0], img.pixels[pixi + 1], img.pixels[pixi + 2]);
+            leftBullets[i].update(img.pixels[cani + 0], img.pixels[cani + 1], img.pixels[cani + 2]);
+            leftBullets[i].reset();
             if (chance == 0 && leftBullets[i].shoot == false) {
                 leftBullets[i].xInc = random(0, 1);
                 leftBullets[i].yInc = random(-1, 1);
