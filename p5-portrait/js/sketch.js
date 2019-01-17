@@ -28,7 +28,8 @@ let init = false,
         },
     },
     img,
-    leftBullets = []
+    leftBullets = [],
+    rightBullets = [];
 
 function preload() {
     img = loadImage('assets/main.jpg');
@@ -55,6 +56,7 @@ function setup() {
     updatePixels();
     for (let i = 0; i < 200; i++) {
         leftBullets[i] = new Bullet(0, height / 2);
+        rightBullets[i] = new Bullet(width, height / 2);
     }
 }
 
@@ -63,13 +65,23 @@ function draw() {
         for (let i = 0; i < leftBullets.length; i++) {
             let chance = Math.floor(random(100)),
                 cani = (Math.floor(leftBullets[i].x) + Math.floor(leftBullets[i].y) * width) * 4;
-            leftBullets[i].show();
-            leftBullets[i].update(img.pixels[cani + 0], img.pixels[cani + 1], img.pixels[cani + 2]);
+
             leftBullets[i].reset();
+            leftBullets[i].update(img.pixels[cani + 0], img.pixels[cani + 1], img.pixels[cani + 2]);
+            leftBullets[i].show();
+
+            rightBullets[i].reset();
+            rightBullets[i].update(img.pixels[cani + 0], img.pixels[cani + 1], img.pixels[cani + 2]);
+            rightBullets[i].show();
+
             if (chance == 0 && leftBullets[i].shoot == false) {
-                leftBullets[i].xInc = random(0, 1);
-                leftBullets[i].yInc = random(-1, 1);
+                leftBullets[i].xInc = random(0, 2);
+                leftBullets[i].yInc = random(-2, 2);
                 leftBullets[i].shoot = true;
+
+                rightBullets[i].xInc = random(0, -2);
+                rightBullets[i].yInc = random(-2, 2);
+                rightBullets[i].shoot = true;
             }
         }
     }
