@@ -31,23 +31,31 @@ let init = false,
 
 
 function setup() {
-    createCanvas(window.innerWidth, window.innerHeight);
-    if (0 == 0) { //Condition here
+    createCanvas(900 , 628);
+    if (0 == 0) {
         let btn = document.getElementById('play');
         btn.classList.add('in');
     }
+    pixelDensity(1);
     img = loadImage('assets/main.jpg');
+    img.loadPixels();
+    loadPixels();
 }
 
 function draw() {
-    reset ? (background(col[0].r, col[0].g, col[0].b), reset = false) : background(col[0].r, col[0].g, col[0].b, 90);
-
-    if (init) {}
-}
-
-function windowResized() {
-    reset = true;
-    resizeCanvas(window.innerWidth, window.innerHeight);
+    if (init) {
+        for (let y = 0; y < img.height; y++) {
+            for (let x = 0; x < img.width; x++) {
+                var pixi = (x + (y * img.width)) * 4,
+                    cani = (x + (y * width)) * 4;
+                pixels[cani + 0] = img.pixels[pixi + 0];
+                pixels[cani + 1] = img.pixels[pixi + 1];
+                pixels[cani + 2] = img.pixels[pixi + 2];
+                pixels[cani + 3] = img.pixels[pixi + 3];
+            }
+        }
+    }
+    updatePixels();
 }
 
 
