@@ -27,35 +27,38 @@ let init = false,
             b: 120
         },
     },
-    img;
+    img,
+    leftBullets = []
 
+function preload() {
+    img = loadImage('assets/main.jpg');
+}
 
 function setup() {
-    createCanvas(900 , 628);
+    createCanvas(900, 628);
     if (0 == 0) {
         let btn = document.getElementById('play');
         btn.classList.add('in');
     }
     pixelDensity(1);
-    img = loadImage('assets/main.jpg');
     img.loadPixels();
     loadPixels();
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            var pixi = (x + y * width) * 4;
+            pixels[pixi + 0] = 227;
+            pixels[pixi + 1] = 164;
+            pixels[pixi + 2] = 101;
+            pixels[pixi + 3] = 255;
+        }
+    }
+    updatePixels();
 }
 
 function draw() {
     if (init) {
-        for (let y = 0; y < img.height; y++) {
-            for (let x = 0; x < img.width; x++) {
-                var pixi = (x + (y * img.width)) * 4,
-                    cani = (x + (y * width)) * 4;
-                pixels[cani + 0] = img.pixels[pixi + 0];
-                pixels[cani + 1] = img.pixels[pixi + 1];
-                pixels[cani + 2] = img.pixels[pixi + 2];
-                pixels[cani + 3] = img.pixels[pixi + 3];
-            }
-        }
+        
     }
-    updatePixels();
 }
 
 
