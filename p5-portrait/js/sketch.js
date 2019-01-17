@@ -53,11 +53,24 @@ function setup() {
         }
     }
     updatePixels();
+    for (let i = 0; i < 40; i++) {
+        leftBullets[i] = new Bullet(0, height / 2);
+    }
 }
 
 function draw() {
     if (init) {
-        
+        for (let i = 0; i < 40; i++) {
+            let chance = Math.floor(random(100)),
+                pixi = (leftBullets[i].x + leftBullets[i].y * img.width) * 4;
+            leftBullets[i].show();
+            leftBullets[i].update(img.pixels[pixi + 0], img.pixels[pixi + 1], img.pixels[pixi + 2]);
+            if (chance == 0 && leftBullets[i].shoot == false) {
+                leftBullets[i].xInc = random(0, 1);
+                leftBullets[i].yInc = random(-1, 1);
+                leftBullets[i].shoot = true;
+            }
+        }
     }
 }
 
