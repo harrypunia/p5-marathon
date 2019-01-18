@@ -90,9 +90,9 @@ let init = false,
     img2,
     img3,
     img4,
-    speed = 2,
-    population = 100,
-    particlePop = 25,
+    speed = .5,
+    population = 50,
+    particlePop = 5,
     images = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     messages = ['Fear', 'Misbelief', 'Gender?', 'Offensive', 'Pick-pocketer', 'Predator', 'Gross', 'Drugs', 'Unseen', 'Affair'],
     img1Num = Math.floor(Math.random() * 10),
@@ -133,17 +133,28 @@ function preload() {
     r4.innerHTML = messages[img4Num];
     img4 = loadImage('assets/main' + imgSRC + '.jpg');
 
+    song = loadSound('assets/song.mp3');
 }
 
 function setup() {
     cnv = createCanvas(window.innerWidth, window.innerHeight);
     cnv.parent('container');
     smooth();
+
+    amp = new p5.Amplitude();
+    
+    for (let i = 0; i < particlePop; i++) {
+        BLParticles[i] = new Particle(height, 0);
+        TLParticles[i] = new Particle(0, 0);
+        TRParticles[i] = new Particle(width, 0);
+        BRParticles[i] = new Particle(width, height);
+    }
+
     img1.resize(width / 3, 0);
     img2.resize(width / 3, 0);
     img3.resize(width / 3, 0);
     img4.resize(width / 3, 0);
-    if (0 == 0) {
+    if (song.isLoaded()) {
         let btn = document.getElementById('play');
         btn.classList.add('in');
     }
@@ -159,16 +170,23 @@ function setup() {
     setParticles(_img2_, img2, _img2_.col);
     setParticles(_img3_, img3, _img3_.col);
     setParticles(_img4_, img4, _img4_.col);
-
-    for (let i = 0; i < particlePop; i++) {
-        BLParticles = [i] = new Particle(height, 0, 1);
-        TLParticles = [i] = new Particle(0, 0, 1);
-        TRParticles = [i] = new Particle(width, 0, 1);
-        BRParticles = [i] = new Particle(width, height, 1);
-    }
 }
 
 function draw() {
+    vol = amp.getLevel();
+    for (let i = 0; i < particlePop; i++) {
+        BLParticles[i].show();
+        BLParticles[i].update(vol * 10);
+
+        TLParticles[i].show();
+        TLParticles[i].update(vol * 10);
+
+        TRParticles[i].show();
+        TRParticles[i].update(vol * 10);
+
+        BRParticles[i].show();
+        BRParticles[i].update(vol * 10);
+    }
     if (init) {
         applyMatrix();
         translate(0, height / 2 - img1.height / 2);
@@ -183,20 +201,6 @@ function draw() {
         translate(width * .75, height / 2 - img4.height / 2);
         drawImage(_img4_, img4, speed);
         resetMatrix();
-
-        for (let i = 0; i < particlePop; i++) {
-            BLParticles.show();
-            BLParticles.update(vol);
-
-            TLParticles.show();
-            TLParticles.update(vol);
-
-            TRParticles.show();
-            TRParticles.update(vol);
-
-            BRParticles.show();
-            BRParticles.update(vol);
-        }
     }
 }
 
@@ -204,6 +208,7 @@ const initSketch = () => {
     init = true;
     let btn = document.getElementById('play'),
         races = document.getElementsByClassName('races-all')[0];
+    song.play();
     btn.style.display = 'none';
     races.style.display = 'flex';
 }
