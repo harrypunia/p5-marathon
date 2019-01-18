@@ -70,9 +70,14 @@
                     x: event.clientX,
                     y: event.clientY
                 },
-                translate = ((m.x * 100 / window.innerWidth) / 2) - (m.x * 100 / window.innerWidth);
+                startDistort = 15,
+                distortIntensity = 1000,
+                translateX = 50 - (m.x * 100 / window.innerWidth),
+                translateY = 50 - (m.y * 100 / window.innerHeight),
+                scaleX = (translateX < startDistort && translateX > -startDistort) ? 1 : (((Math.abs(translateX) - startDistort) / distortIntensity) + 1),
+                scaleY = (translateY < startDistort && translateY > -startDistort) ? 1 : (((Math.abs(translateY) - startDistort) / distortIntensity) + 1);
 
-            container.style.transform = 'translateX(' + translate + 'px)';
+            container.style.transform = 'translate(' + translateX + 'px,' + translateY + 'px) scale(' + scaleX + ',' + scaleY + ')';
             //            container.style.transform = 'rotateX(' + m.x / window.innerWidth + 'deg)';
         })
     </script>
