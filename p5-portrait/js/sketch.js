@@ -53,10 +53,10 @@ let init = false,
     population = 50;
 
 function preload() {
-    img1 = loadImage('assets/main.jpg');
-    img2 = loadImage('assets/main.jpg');
-    img3 = loadImage('assets/main.jpg');
-    img4 = loadImage('assets/main.jpg');
+    img1 = loadImage('assets/main' + Math.floor(random(11)) + '.jpg');
+    img2 = loadImage('assets/main' + Math.floor(random(11)) + '.jpg');
+    img3 = loadImage('assets/main' + Math.floor(random(11)) + '.jpg');
+    img4 = loadImage('assets/main' + Math.floor(random(11)) + '.jpg');
 }
 
 function setup() {
