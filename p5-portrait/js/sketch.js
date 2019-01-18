@@ -62,6 +62,10 @@ function preload() {
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
     smooth();
+    img1.resize(width/4, 0);
+    img2.resize(width/4, 0);
+    img3.resize(width/4, 0);
+    img4.resize(width/4, 0);
     if (0 == 0) {
         let btn = document.getElementById('play');
         btn.classList.add('in');
