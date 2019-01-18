@@ -1,13 +1,13 @@
-const setParticles = (Obj, img) => {
+const setParticles = (Obj, img, col) => {
     for (let i = 0; i < population; i++) {
-        Obj.lB1[i] = new Bullet(0, img.height / 6);
-        Obj.lB2[i] = new Bullet(0, img.height / 3);
-        Obj.lB3[i] = new Bullet(0, img.height / 1.75);
-        Obj.lB4[i] = new Bullet(0, img.height / 1.25);
-        Obj.rB1[i] = new Bullet(width / 4, img.height / 6);
-        Obj.rB2[i] = new Bullet(width / 4, img.height / 3);
-        Obj.rB3[i] = new Bullet(width / 4, img.height / 1.75);
-        Obj.rB4[i] = new Bullet(width / 4, img.height / 1.25);
+        Obj.lB1[i] = new Bullet(0, img.height / 6, col);
+        Obj.lB2[i] = new Bullet(0, img.height / 3, col);
+        Obj.lB3[i] = new Bullet(0, img.height / 1.75, col);
+        Obj.lB4[i] = new Bullet(0, img.height / 1.25, col);
+        Obj.rB1[i] = new Bullet(width / 4, img.height / 6, col);
+        Obj.rB2[i] = new Bullet(width / 4, img.height / 3, col);
+        Obj.rB3[i] = new Bullet(width / 4, img.height / 1.75, col);
+        Obj.rB4[i] = new Bullet(width / 4, img.height / 1.25, col);
     }
 }
 

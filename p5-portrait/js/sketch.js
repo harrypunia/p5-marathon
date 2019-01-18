@@ -51,7 +51,7 @@ let init = false,
         rB2: [],
         rB3: [],
         rB4: [],
-        col: Math.floor(Math.random * 8)
+        col: Math.floor(Math.random() * 8)
     },
     _img2_ = {
         lB1: [],
@@ -62,7 +62,7 @@ let init = false,
         rB2: [],
         rB3: [],
         rB4: [],
-        col: Math.floor(Math.random * 8)
+        col: Math.floor(Math.random() * 8)
     },
     _img3_ = {
         lB1: [],
@@ -73,7 +73,7 @@ let init = false,
         rB2: [],
         rB3: [],
         rB4: [],
-        col: Math.floor(Math.random * 8)
+        col: Math.floor(Math.random() * 8)
     },
     _img4_ = {
         lB1: [],
@@ -84,7 +84,7 @@ let init = false,
         rB2: [],
         rB3: [],
         rB4: [],
-        col: Math.floor(Math.random * 8)
+        col: Math.floor(Math.random() * 8)
     },
     img1,
     img2,
