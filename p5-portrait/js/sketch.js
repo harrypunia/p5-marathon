@@ -28,8 +28,14 @@ let init = false,
         },
     },
     img,
-    leftBullets = [],
-    rightBullets = [];
+    lB1 = [],
+    lB2 = [],
+    lB3 = [],
+    lB4 = [],
+    rB1 = [];
+    rB2 = [];
+    rB3 = [];
+    rB4 = [];
 
 function preload() {
     img = loadImage('assets/main.jpg');
@@ -54,36 +60,68 @@ function setup() {
         }
     }
     updatePixels();
-    for (let i = 0; i < 200; i++) {
-        leftBullets[i] = new Bullet(0, height / 2);
-        rightBullets[i] = new Bullet(width, height / 2);
+    for (let i = 0; i < 50; i++) {
+        lB1[i] = new Bullet(width / 4, height / 6);
+        lB2[i] = new Bullet(width / 4, height / 3);
+        lB3[i] = new Bullet(width / 4, height / 1.75);
+        lB4[i] = new Bullet(width / 4, height / 1.25);
+        rB1[i] = new Bullet(width / 1.5, height / 6);
+        rB2[i] = new Bullet(width / 1.5, height / 3);
+        rB3[i] = new Bullet(width / 1.5, height / 1.75);
+        rB4[i] = new Bullet(width / 1.5, height / 1.25);
     }
 }
 
 function draw() {
     if (init) {
-        for (let i = 0; i < leftBullets.length; i++) {
-            let chance = Math.floor(random(100)),
-                cani = (Math.floor(leftBullets[i].x) + Math.floor(leftBullets[i].y) * width) * 4;
+        for (let i = 0; i < lB1.length; i++) {
+            let chance = Math.floor(random(500)) == 0,
+                lPi1 = (Math.floor(lB1[i].x) + Math.floor(lB1[i].y) * width) * 4,
+                lPi2 = (Math.floor(lB2[i].x) + Math.floor(lB2[i].y) * width) * 4,
+                lPi3 = (Math.floor(lB3[i].x) + Math.floor(lB3[i].y) * width) * 4,
+                lPi4 = (Math.floor(lB4[i].x) + Math.floor(lB4[i].y) * width) * 4,
+                rPi1 = (Math.floor(rB1[i].x) + Math.floor(rB1[i].y) * width) * 4,
+                rPi2 = (Math.floor(rB2[i].x) + Math.floor(rB2[i].y) * width) * 4,
+                rPi3 = (Math.floor(rB3[i].x) + Math.floor(rB3[i].y) * width) * 4,
+                rPi4 = (Math.floor(rB4[i].x) + Math.floor(rB4[i].y) * width) * 4;
 
-            leftBullets[i].reset();
-            leftBullets[i].update(img.pixels[cani + 0], img.pixels[cani + 1], img.pixels[cani + 2]);
-            leftBullets[i].show();
+            bulletPhysics(lB1[i], 'left', lPi1);
+            bulletPhysics(lB2[i], 'left', lPi2);
+            bulletPhysics(lB3[i], 'left', lPi3);
+            bulletPhysics(lB4[i], 'left', lPi4);
+            bulletPhysics(rB1[i], 'right', rPi1);
+            bulletPhysics(rB2[i], 'right', rPi2);
+            bulletPhysics(rB3[i], 'right', rPi3);
+            bulletPhysics(rB4[i], 'right', rPi4);
 
-            rightBullets[i].reset();
-            rightBullets[i].update(img.pixels[cani + 0], img.pixels[cani + 1], img.pixels[cani + 2]);
-            rightBullets[i].show();
-
-            if (chance == 0 && leftBullets[i].shoot == false) {
-                leftBullets[i].xInc = random(0, 2);
-                leftBullets[i].yInc = random(-2, 2);
-                leftBullets[i].shoot = true;
-
-                rightBullets[i].xInc = random(0, -2);
-                rightBullets[i].yInc = random(-2, 2);
-                rightBullets[i].shoot = true;
-            }
+            shootBullet(lB1[i], 'left', chance, 2);
+            shootBullet(lB2[i], 'left', chance, 2);
+            shootBullet(lB3[i], 'left', chance, 2);
+            shootBullet(lB4[i], 'left', chance, 2);
+            shootBullet(rB1[i], 'right', chance, 2);
+            shootBullet(rB2[i], 'right', chance, 2);
+            shootBullet(rB3[i], 'right', chance, 2);
+            shootBullet(rB4[i], 'right', chance, 2);
         }
+    }
+}
+
+const bulletPhysics = (arr, to, col) => {
+    arr.update(img.pixels[col + 0], img.pixels[col + 1], img.pixels[col + 2]);
+    arr.reset(to);
+    arr.show();
+}
+
+const shootBullet = (arr, to, chance, speed) => {
+    if (chance) {
+        if (to == 'left') {
+            arr.xInc = random(0, speed);
+            arr.yInc = random(-speed, speed);
+        } else {
+            arr.xInc = random(0, -speed);
+            arr.yInc = random(speed, -speed);
+        }
+        arr.shoot = true;
     }
 }
 
