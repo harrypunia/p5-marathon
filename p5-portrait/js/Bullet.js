@@ -11,12 +11,18 @@ class Bullet {
         this.shoot = false;
         this.death = random(-40, 40);
         this.life = Math.floor(random(5));
+        this.prevR;
+        this.prevG;
+        this.prevB;
     }
     show() {
         point(this.x, this.y);
     }
     update(r, g, b) {
         if (this.shoot == true) {
+            r == undefined ? r = this.prevR : this.prevR = r;
+            g == undefined ? g = this.prevG : this.prevG = g;
+            b == undefined ? b = this.prevB : this.prevB = b;
             let mR = map(r, 0, 255, 0, col["r"]),
                 mG = map(g, 0, 255, 0, col["g"]),
                 mB = map(b, 0, 255, 0, col["b"]),
