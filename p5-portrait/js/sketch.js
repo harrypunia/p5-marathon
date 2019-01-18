@@ -97,7 +97,7 @@ let init = false,
     img2Num = Math.floor(Math.random() * 9),
     img3Num = Math.floor(Math.random() * 8),
     img4Num = Math.floor(Math.random() * 7),
-    canvas;
+    cnv;
 
 function preload() {
     let imgSRC;
@@ -116,8 +116,8 @@ function preload() {
 }
 
 function setup() {
-    canvas = createCanvas(window.innerWidth, window.innerHeight);
-    canvas.parent('container')
+    cnv = createCanvas(window.innerWidth, window.innerHeight);
+    cnv.parent('container');
     smooth();
     img1.resize(width / 3, 0);
     img2.resize(width / 3, 0);

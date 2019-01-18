@@ -30,6 +30,7 @@
             opacity: 0;
             cursor: pointer;
             transition: width .2s ease-in, height .2s ease-in;
+            z-index: 10000;
         }
 
         #play:hover {
@@ -53,7 +54,6 @@
         .container {
             position: absolute;
             background: red;
-            overflow: hidden;
             width: 100vw;
             height: 100vh;
         }
@@ -70,7 +70,8 @@
                 x: event.clientX,
                 y: event.clientY
             }
-            container.style.transform = 'transformX(' + m.x / 100 + 'px)'
+            container.style.transform = 'translateX(' + m.x / 100 + 'px)';
+            //            container.style.transform = 'rotateX(' + m.x / window.innerWidth + 'deg)';
         })
     </script>
     <script src="js/Bullet.js"></script>
