@@ -49,11 +49,20 @@
                 opacity: 1;
             }
         }
+
+        .container {
+            width: 100vw;
+            height: 100vh;
+        }
     </style>
 </head>
 
 <body>
+    <script>
+        let canvas = document.getElementById('container');
+    </script>
     <div id="play" onclick="initSketch()"></div>
+    <div id="container"></div>
     <script src="js/Bullet.js"></script>
     <script src="js/functions.js"></script>
     <script src="js/sketch.js"></script>
