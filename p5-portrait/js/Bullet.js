@@ -1,7 +1,7 @@
 class Bullet {
     constructor(x, y) {
-        this.xOffset = random(-50, 50);
-        this.YOffset = random(-50, 50);
+        this.xOffset = random(-40, 40);
+        this.YOffset = random(-40, 40);
         this.initX = x - this.xOffset;
         this.initY = y - this.YOffset;
         this.x = x - this.xOffset;
@@ -9,7 +9,7 @@ class Bullet {
         this.xInc = 0;
         this.yInc = 0;
         this.shoot = false;
-        this.death = random(20);
+        this.death = random(-40, 40);
         this.life = Math.floor(random(5));
     }
     show() {
@@ -28,9 +28,9 @@ class Bullet {
             this.y += this.yInc;
         }
     }
-    reset(to) {
+    reset(to, img) {
         if (to == 'left') {
-            if (this.x > (img.width / 1.75) + this.death) {
+            if (this.x > (width / 7) + this.death) {
                 this.x = this.initX;
                 this.y = this.initY;
                 this.shoot = false;
@@ -38,7 +38,7 @@ class Bullet {
                 stroke(0);
             }
         } else {
-            if (this.x < (img.width / 3) - this.death) {
+            if (this.x < (width / 12) + this.death) {
                 this.x = this.initX;
                 this.y = this.initY;
                 this.shoot = false;
@@ -46,7 +46,7 @@ class Bullet {
                 stroke(0);
             }
         }
-        if (this.y < 0 || this.y > img.height) {
+        if (this.y < this.death || this.y > img.height + this.death) {
             this.x = this.initX;
             this.y = this.initY;
             this.shoot = false;

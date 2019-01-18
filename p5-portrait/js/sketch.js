@@ -5,11 +5,58 @@ let init = false,
         g: 20,
         b: 50
     },
-    img,
+    _img1_ = {
+        lB1: [],
+        lB2: [],
+        lB3: [],
+        lB4: [],
+        rB1: [],
+        rB2: [],
+        rB3: [],
+        rB4: []
+    },
+    _img2_ = {
+        lB1: [],
+        lB2: [],
+        lB3: [],
+        lB4: [],
+        rB1: [],
+        rB2: [],
+        rB3: [],
+        rB4: []
+    },
+    _img3_ = {
+        lB1: [],
+        lB2: [],
+        lB3: [],
+        lB4: [],
+        rB1: [],
+        rB2: [],
+        rB3: [],
+        rB4: []
+    },
+    _img4_ = {
+        lB1: [],
+        lB2: [],
+        lB3: [],
+        lB4: [],
+        rB1: [],
+        rB2: [],
+        rB3: [],
+        rB4: []
+    },
+    img1,
+    img2,
+    img3,
+    img4,
+    speed = 2;
     population = 50;
 
 function preload() {
-    img = loadImage('assets/main.jpg');
+    img1 = loadImage('assets/main.jpg');
+    img2 = loadImage('assets/main.jpg');
+    img3 = loadImage('assets/main.jpg');
+    img4 = loadImage('assets/main.jpg');
 }
 
 function setup() {
@@ -20,21 +67,33 @@ function setup() {
         btn.classList.add('in');
     }
     pixelDensity(1);
-    img.loadPixels();
+    img1.loadPixels();
+    img2.loadPixels();
+    img4.loadPixels();
+    img4.loadPixels();
+    
     background(0)
     
-    img1Particles();
-    img2Particles();
-    img3Particles();
-    img4Particles();
+    setParticles(_img1_, img1);
+    setParticles(_img2_, img2);
+    setParticles(_img3_, img3);
+    setParticles(_img4_, img4);
 }
 
 function draw() {
     if (init) {
         applyMatrix();
-        for (let i = 0; i < population; i++) {
-    
-        }
+        translate(0, height / 2 - img1.height / 2);
+        drawImage(_img1_, img1, speed);
+        resetMatrix();
+//        translate(width / 4, height / 2 - img2.height / 2);
+//        drawImage(_img2_, img2, speed);
+//        resetMatrix();
+//        translate(width / 2, height / 2 - img3.height / 2);
+//        drawImage(_img3_, img3, speed);
+//        resetMatrix();
+//        translate(width * .75, height / 2 - img4.height / 2);
+//        drawImage(_img4_, img4, speed);
         resetMatrix();
     }
 }
