@@ -1,6 +1,11 @@
 let init = false,
     reset = false,
     col = {
+        0: {
+            r: 150,
+            g: 20,
+            b: 50
+        },
         1: {
             r: 150,
             g: 20,

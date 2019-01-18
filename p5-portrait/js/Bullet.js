@@ -11,6 +11,7 @@ class Bullet {
         this.shoot = false;
         this.death = random(-40, 40);
         this.life = Math.floor(random(5));
+        this.col = Math.floor(random(8));
         this.prevR;
         this.prevG;
         this.prevB;
@@ -23,9 +24,9 @@ class Bullet {
             r == undefined ? r = this.prevR : this.prevR = r;
             g == undefined ? g = this.prevG : this.prevG = g;
             b == undefined ? b = this.prevB : this.prevB = b;
-            let mR = map(r, 0, 255, 0, col["r"]),
-                mG = map(g, 0, 255, 0, col["g"]),
-                mB = map(b, 0, 255, 0, col["b"]),
+            let mR = map(r, 0, 255, 0, col[this.col].r),
+                mG = map(g, 0, 255, 0, col[this.col].g),
+                mB = map(b, 0, 255, 0, col[this.col].b),
                 _mA = map(this.yInc, -2, 2, 0, 510),
                 mA = _mA < 255 ? _mA : 510 - _mA;
             stroke(mR, mG, mB, mA);
