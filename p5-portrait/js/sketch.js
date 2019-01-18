@@ -7,9 +7,9 @@ let init = false,
             b: 50
         },
         1: {
-            r: 25,
-            g: 23,
-            b: 22
+            r: 39,
+            g: 31,
+            b: 48
         },
         2: {
             r: 3,
@@ -37,9 +37,9 @@ let init = false,
             b: 209
         },
         7: {
-            r: 249,
-            g: 222,
-            b: 201
+            r: 147,
+            g: 75,
+            b: 0
         }
     },
     _img1_ = {
@@ -92,14 +92,14 @@ let init = false,
     img4,
     speed = 2,
     population = 50,
-    images = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    images = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    img1Num = Math.floor(Math.random() * 10),
+    img2Num = Math.floor(Math.random() * 9),
+    img3Num = Math.floor(Math.random() * 8),
+    img4Num = Math.floor(Math.random() * 7);
 
 function preload() {
-    let img1Num = Math.floor(random(10)),
-        img2Num = Math.floor(random(9)),
-        img3Num = Math.floor(random(8)),
-        img4Num = Math.floor(random(7)),
-        imgSRC;
+    let imgSRC;
 
     imgSRC = images[img1Num];
     img1 = loadImage('assets/main' + img1Num + '.jpg');
