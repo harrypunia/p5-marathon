@@ -137,7 +137,7 @@ function setup() {
     smooth();
 
     amp = new p5.Amplitude();
-    
+
     img1.resize(width / 3, 0);
     img2.resize(width / 3, 0);
     img3.resize(width / 3, 0);
@@ -163,16 +163,20 @@ function draw() {
     vol = amp.getLevel();
     if (init) {
         applyMatrix();
+        scale(1 + vol);
         translate(0, height / 2 - img1.height / 2);
         drawImage(_img1_, img1, speed);
         resetMatrix();
         translate(width / 4, height / 2 - img2.height / 2);
+        scale(1 + vol);
         drawImage(_img2_, img2, speed);
         resetMatrix();
         translate(width / 2, height / 2 - img3.height / 2);
+        scale(1 + vol);
         drawImage(_img3_, img3, speed);
         resetMatrix();
         translate(width * .75, height / 2 - img4.height / 2);
+        scale(1 + vol);
         drawImage(_img4_, img4, speed);
         resetMatrix();
     }
