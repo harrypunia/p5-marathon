@@ -10,7 +10,7 @@ class Bullet {
         this.yInc = 0;
         this.shoot = false;
         this.death = random(20);
-        this.life = Math.floor(random(10));
+        this.life = Math.floor(random(5));
     }
     show() {
         point(this.x, this.y);
@@ -30,7 +30,7 @@ class Bullet {
     }
     reset(to) {
         if (to == 'left') {
-            if (this.x > (width / 1.75) + this.death) {
+            if (this.x > (img.width / 1.75) + this.death) {
                 this.x = this.initX;
                 this.y = this.initY;
                 this.shoot = false;
@@ -38,7 +38,7 @@ class Bullet {
                 stroke(0);
             }
         } else {
-            if (this.x < (width / 3) - this.death) {
+            if (this.x < (img.width / 3) - this.death) {
                 this.x = this.initX;
                 this.y = this.initY;
                 this.shoot = false;
@@ -46,7 +46,7 @@ class Bullet {
                 stroke(0);
             }
         }
-        if (this.y < 0 || this.y > height) {
+        if (this.y < 0 || this.y > img.height) {
             this.x = this.initX;
             this.y = this.initY;
             this.shoot = false;
