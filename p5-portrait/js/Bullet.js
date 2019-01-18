@@ -1,5 +1,5 @@
 class Bullet {
-    constructor(x, y) {
+    constructor(x, y, col) {
         this.xOffset = random(-40, 40);
         this.YOffset = random(-40, 40);
         this.initX = x - this.xOffset;
@@ -11,7 +11,7 @@ class Bullet {
         this.shoot = false;
         this.death = random(-40, 40);
         this.life = Math.floor(random(5));
-        this.col = Math.floor(random(8));
+        this.col = col;
         this.prevR;
         this.prevG;
         this.prevB;

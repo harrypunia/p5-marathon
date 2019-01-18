@@ -7,39 +7,39 @@ let init = false,
             b: 50
         },
         1: {
-            r: 150,
-            g: 20,
-            b: 50
+            r: 25,
+            g: 23,
+            b: 22
         },
         2: {
-            r: 10,
-            g: 10,
-            b: 0
+            r: 3,
+            g: 76,
+            b: 60
         },
         3: {
-            r: 10,
-            g: 10,
-            b: 0
+            r: 129,
+            g: 83,
+            b: 85
         },
         4: {
-            r: 10,
-            g: 10,
-            b: 0
+            r: 46,
+            g: 45,
+            b: 77
         },
         5: {
-            r: 10,
-            g: 10,
-            b: 0
+            r: 189,
+            g: 139,
+            b: 156
         },
         6: {
-            r: 10,
-            g: 10,
-            b: 0
+            r: 52,
+            g: 84,
+            b: 209
         },
         7: {
-            r: 10,
-            g: 10,
-            b: 0
+            r: 210,
+            g: 191,
+            b: 85
         }
     },
     _img1_ = {
@@ -50,7 +50,8 @@ let init = false,
         rB1: [],
         rB2: [],
         rB3: [],
-        rB4: []
+        rB4: [],
+        col: Math.floor(random(8))
     },
     _img2_ = {
         lB1: [],
@@ -60,7 +61,8 @@ let init = false,
         rB1: [],
         rB2: [],
         rB3: [],
-        rB4: []
+        rB4: [],
+        col: Math.floor(random(8))
     },
     _img3_ = {
         lB1: [],
@@ -70,7 +72,8 @@ let init = false,
         rB1: [],
         rB2: [],
         rB3: [],
-        rB4: []
+        rB4: [],
+        col: Math.floor(random(8))
     },
     _img4_ = {
         lB1: [],
@@ -80,20 +83,21 @@ let init = false,
         rB1: [],
         rB2: [],
         rB3: [],
-        rB4: []
+        rB4: [],
+        col: Math.floor(random(8))
     },
     img1,
     img2,
     img3,
     img4,
-    speed = 2;
-population = 50;
+    speed = 2,
+    population = 50;
 
 function preload() {
-    img1 = loadImage('assets/main' + Math.floor(random(11)) + '.jpg');
-    img2 = loadImage('assets/main' + Math.floor(random(11)) + '.jpg');
-    img3 = loadImage('assets/main' + Math.floor(random(11)) + '.jpg');
-    img4 = loadImage('assets/main' + Math.floor(random(11)) + '.jpg');
+    img1 = loadImage('assets/main' + Math.floor(random(11)) + '.jpg', _img1_[col]);
+    img2 = loadImage('assets/main' + Math.floor(random(11)) + '.jpg', _img2_[col]);
+    img3 = loadImage('assets/main' + Math.floor(random(11)) + '.jpg', _img3_[col]);
+    img4 = loadImage('assets/main' + Math.floor(random(11)) + '.jpg', _img4_[col]);
 }
 
 function setup() {
