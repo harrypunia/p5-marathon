@@ -51,7 +51,7 @@ let init = false,
         rB2: [],
         rB3: [],
         rB4: [],
-        col: Math.floor(random(8))
+        col: Math.floor(Math.random * 8)
     },
     _img2_ = {
         lB1: [],
@@ -62,7 +62,7 @@ let init = false,
         rB2: [],
         rB3: [],
         rB4: [],
-        col: Math.floor(random(8))
+        col: Math.floor(Math.random * 8)
     },
     _img3_ = {
         lB1: [],
@@ -73,7 +73,7 @@ let init = false,
         rB2: [],
         rB3: [],
         rB4: [],
-        col: Math.floor(random(8))
+        col: Math.floor(Math.random * 8)
     },
     _img4_ = {
         lB1: [],
@@ -84,7 +84,7 @@ let init = false,
         rB2: [],
         rB3: [],
         rB4: [],
-        col: Math.floor(random(8))
+        col: Math.floor(Math.random * 8)
     },
     img1,
     img2,
@@ -94,10 +94,10 @@ let init = false,
     population = 50;
 
 function preload() {
-    img1 = loadImage('assets/main' + Math.floor(random(11)) + '.jpg', _img1_[col]);
-    img2 = loadImage('assets/main' + Math.floor(random(11)) + '.jpg', _img2_[col]);
-    img3 = loadImage('assets/main' + Math.floor(random(11)) + '.jpg', _img3_[col]);
-    img4 = loadImage('assets/main' + Math.floor(random(11)) + '.jpg', _img4_[col]);
+    img1 = loadImage('assets/main' + Math.floor(random(11)) + '.jpg');
+    img2 = loadImage('assets/main' + Math.floor(random(11)) + '.jpg');
+    img3 = loadImage('assets/main' + Math.floor(random(11)) + '.jpg');
+    img4 = loadImage('assets/main' + Math.floor(random(11)) + '.jpg');
 }
 
 function setup() {
@@ -119,10 +119,10 @@ function setup() {
 
     background(0)
 
-    setParticles(_img1_, img1);
-    setParticles(_img2_, img2);
-    setParticles(_img3_, img3);
-    setParticles(_img4_, img4);
+    setParticles(_img1_, img1, _img1_.col);
+    setParticles(_img2_, img2, _img2_.col);
+    setParticles(_img3_, img3, _img3_.col);
+    setParticles(_img4_, img4, _img4_.col);
 }
 
 function draw() {
