@@ -92,12 +92,20 @@ let init = false,
     img4,
     speed = 2,
     population = 100,
+    particlePop = 25,
     images = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     messages = ['Fear', 'Misbelief', 'Gender?', 'Offensive', 'Pick-pocketer', 'Predator', 'Gross', 'Drugs', 'Unseen', 'Affair'],
     img1Num = Math.floor(Math.random() * 10),
     img2Num = Math.floor(Math.random() * 9),
     img3Num = Math.floor(Math.random() * 8),
     img4Num = Math.floor(Math.random() * 7),
+    BLParticles = [],
+    TLParticles = [],
+    TRParticles = [],
+    BRParticles = [],
+    song,
+    amp,
+    vol,
     cnv;
 
 function preload() {
@@ -151,7 +159,13 @@ function setup() {
     setParticles(_img2_, img2, _img2_.col);
     setParticles(_img3_, img3, _img3_.col);
     setParticles(_img4_, img4, _img4_.col);
-    console.log(_img1_.col, _img2_.col, _img3_.col, _img4_.col)
+
+    for (let i = 0; i < particlePop; i++) {
+        BLParticles = [i] = new Particle(height, 0, 1);
+        TLParticles = [i] = new Particle(0, 0, 1);
+        TRParticles = [i] = new Particle(width, 0, 1);
+        BRParticles = [i] = new Particle(width, height, 1);
+    }
 }
 
 function draw() {
@@ -169,6 +183,20 @@ function draw() {
         translate(width * .75, height / 2 - img4.height / 2);
         drawImage(_img4_, img4, speed);
         resetMatrix();
+
+        for (let i = 0; i < particlePop; i++) {
+            BLParticles.show();
+            BLParticles.update(vol);
+
+            TLParticles.show();
+            TLParticles.update(vol);
+
+            TRParticles.show();
+            TRParticles.update(vol);
+
+            BRParticles.show();
+            BRParticles.update(vol);
+        }
     }
 }
 
