@@ -51,6 +51,9 @@
         }
 
         .container {
+            position: absolute;
+            background: red;
+            overflow: hidden;
             width: 100vw;
             height: 100vh;
         }
@@ -58,11 +61,18 @@
 </head>
 
 <body>
-    <script>
-        let canvas = document.getElementById('container');
-    </script>
     <div id="play" onclick="initSketch()"></div>
     <div id="container"></div>
+    <script>
+        var container = document.getElementById('container');
+        window.addEventListener('mousemove', event => {
+            let m = {
+                x: event.clientX,
+                y: event.clientY
+            }
+            container.style.transform = 'transformX(' + m.x / 100 + 'px)'
+        })
+    </script>
     <script src="js/Bullet.js"></script>
     <script src="js/functions.js"></script>
     <script src="js/sketch.js"></script>
