@@ -9,7 +9,7 @@ class Bullet {
         this.xInc = 0;
         this.yInc = 0;
         this.shoot = false;
-        this.death = random(0, 40);
+        this.death = random(-40, 40);
         this.life = Math.floor(random(5));
         this.col = color;
         this.prevR = col[this.col].r;
@@ -30,7 +30,7 @@ class Bullet {
                 _mA = map(this.yInc, -2, 2, 0, 510),
                 mA = _mA < 255 ? _mA : 510 - _mA;
             stroke(mR, mG, mB, mA);
-            strokeWeight(2);
+            strokeWeight(1);
             this.x += this.xInc;
             this.y += this.yInc;
         }

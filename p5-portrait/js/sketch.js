@@ -7,9 +7,9 @@ let init = false,
             b: 50
         },
         1: {
-            r: 39,
-            g: 31,
-            b: 48
+            r: 81,
+            g: 43,
+            b: 71
         },
         2: {
             r: 3,
@@ -91,7 +91,7 @@ let init = false,
     img3,
     img4,
     speed = 2,
-    population = 50,
+    population = 100,
     images = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     img1Num = Math.floor(Math.random() * 10),
     img2Num = Math.floor(Math.random() * 9),

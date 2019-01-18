@@ -45,17 +45,17 @@ const drawImage = (arr, img, speed) => {
 
 
 const bulletPhysics = (arr, to, col, img) => {
-    arr.reset(to, img);
     arr.update(img.pixels[col + 0], img.pixels[col + 1], img.pixels[col + 2]);
+    arr.reset(to, img);
     arr.show();
 }
 
 const shootBullet = (arr, to, chance, speed) => {
     if (chance) {
         if (to == 'left') {
-            arr.xInc = random(0, speed);
+            arr.xInc = random(speed / 10, speed);
         } else {
-            arr.xInc = random(0, -speed);
+            arr.xInc = random(-(speed / 10), -speed);
         }
         arr.yInc = random(-speed, speed);
         arr.shoot = true;

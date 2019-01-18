@@ -67,10 +67,12 @@
         var container = document.getElementById('container');
         window.addEventListener('mousemove', event => {
             let m = {
-                x: event.clientX,
-                y: event.clientY
-            }
-            container.style.transform = 'translateX(' + m.x / 100 + 'px)';
+                    x: event.clientX,
+                    y: event.clientY
+                },
+                translate = ((m.x * 100 / window.innerWidth) / 2) - (m.x * 100 / window.innerWidth);
+
+            container.style.transform = 'translateX(' + translate + 'px)';
             //            container.style.transform = 'rotateX(' + m.x / window.innerWidth + 'deg)';
         })
     </script>
