@@ -91,22 +91,37 @@ let init = false,
     img3,
     img4,
     speed = 2,
-    population = 50;
+    population = 50,
+    images = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 function preload() {
+    let img1Num = Math.floor(random(10)),
+        img2Num = Math.floor(random(9)),
+        img3Num = Math.floor(random(8)),
+        img4Num = Math.floor(random(7)),
+        imgSRC;
+
+    imgSRC = images[img1Num];
     img1 = loadImage('assets/main' + Math.floor(random(11)) + '.jpg');
+    images.splice(img1Num, 1);
+    imgSRC = images[img2Num];
     img2 = loadImage('assets/main' + Math.floor(random(11)) + '.jpg');
+    images.splice(img2Num, 1);
+    imgSRC = images[img3Num];
     img3 = loadImage('assets/main' + Math.floor(random(11)) + '.jpg');
+    images.splice(img3Num, 1);
+    imgSRC = images[img4Num];
     img4 = loadImage('assets/main' + Math.floor(random(11)) + '.jpg');
+    images.splice(img4Num, 1);
 }
 
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
     smooth();
-    img1.resize(width / 4, 0);
-    img2.resize(width / 4, 0);
-    img3.resize(width / 4, 0);
-    img4.resize(width / 4, 0);
+    img1.resize(width / 3, 0);
+    img2.resize(width / 3, 0);
+    img3.resize(width / 3, 0);
+    img4.resize(width / 3, 0);
     if (0 == 0) {
         let btn = document.getElementById('play');
         btn.classList.add('in');

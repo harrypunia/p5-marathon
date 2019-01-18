@@ -1,7 +1,7 @@
 class Bullet {
-    constructor(x, y, col) {
-        this.xOffset = random(-40, 40);
-        this.YOffset = random(-40, 40);
+    constructor(x, y, color) {
+        this.xOffset = random(-20, 20);
+        this.YOffset = random(-80, 80);
         this.initX = x - this.xOffset;
         this.initY = y - this.YOffset;
         this.x = x - this.xOffset;
@@ -11,10 +11,10 @@ class Bullet {
         this.shoot = false;
         this.death = random(-40, 40);
         this.life = Math.floor(random(5));
-        this.col = col;
-        this.prevR;
-        this.prevG;
-        this.prevB;
+        this.col = color;
+        this.prevR = col[this.col].r;
+        this.prevG = col[this.col].g;
+        this.prevB = col[this.col].b;
     }
     show() {
         point(this.x, this.y);
@@ -53,7 +53,7 @@ class Bullet {
                 stroke(0);
             }
         }
-        if (this.y < this.death || this.y > img.height + this.death) {
+        if (this.y < this.death || this.y > height + this.death) {
             this.x = this.initX;
             this.y = this.initY;
             this.shoot = false;
