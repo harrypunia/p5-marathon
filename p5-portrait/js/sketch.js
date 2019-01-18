@@ -22,9 +22,9 @@ let init = false,
             b: 85
         },
         4: {
-            r: 46,
-            g: 45,
-            b: 77
+            r: 73,
+            g: 71,
+            b: 91
         },
         5: {
             r: 189,
@@ -93,6 +93,7 @@ let init = false,
     speed = 2,
     population = 100,
     images = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    messages = ['Fear', 'Misbelief', 'Gender', 'Offensive', 'Food', 'Predator', 'Children', 'Drugs', 'Unseen', 'Money'],
     img1Num = Math.floor(Math.random() * 10),
     img2Num = Math.floor(Math.random() * 9),
     img3Num = Math.floor(Math.random() * 8),
@@ -103,16 +104,27 @@ function preload() {
     let imgSRC;
 
     imgSRC = images[img1Num];
+    r1.innerHTML = messages[img1Num];
     img1 = loadImage('assets/main' + imgSRC + '.jpg');
     images.splice(img1Num, 1);
+    messages.splice(img1Num, 1);
+
     imgSRC = images[img2Num];
+    r2.innerHTML = messages[img2Num];
     img2 = loadImage('assets/main' + imgSRC + '.jpg');
     images.splice(img2Num, 1);
+    messages.splice(img2Num, 1);
+
     imgSRC = images[img3Num];
+    r3.innerHTML = messages[img3Num];
     img3 = loadImage('assets/main' + imgSRC + '.jpg');
     images.splice(img3Num, 1);
+    messages.splice(img3Num, 1);
+
     imgSRC = images[img4Num];
+    r4.innerHTML = messages[img4Num];
     img4 = loadImage('assets/main' + imgSRC + '.jpg');
+
 }
 
 function setup() {
@@ -160,9 +172,10 @@ function draw() {
     }
 }
 
-
 const initSketch = () => {
     init = true;
-    let btn = document.getElementById('play');
+    let btn = document.getElementById('play'),
+        races = document.getElementsByClassName('races-all')[0];
     btn.style.display = 'none';
+    races.style.display = 'flex';
 }
