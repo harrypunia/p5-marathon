@@ -1,40 +1,18 @@
 let init = false,
     reset = false,
     col = {
-        0: {
-            r: 30,
-            g: 10,
-            b: 22
-        },
-        1: {
-            r: 250,
-            g: 73,
-            b: 60
-        },
-        2: {
-            r: 82,
-            g: 10,
-            b: 20
-        },
-        3: {
-            r: 155,
-            g: 120,
-            b: 120
-        },
-        4: {
-            r: 222,
-            g: 23,
-            b: 120
-        },
+        r: 150,
+        g: 20,
+        b: 50
     },
     img,
     lB1 = [],
     lB2 = [],
     lB3 = [],
     lB4 = [],
-    rB1 = [];
-    rB2 = [];
-    rB3 = [];
+    rB1 = [],
+    rB2 = [],
+    rB3 = [],
     rB4 = [];
 
 function preload() {
@@ -43,23 +21,14 @@ function preload() {
 
 function setup() {
     createCanvas(900, 628);
+    smooth();
     if (0 == 0) {
         let btn = document.getElementById('play');
         btn.classList.add('in');
     }
     pixelDensity(1);
     img.loadPixels();
-    loadPixels();
-    for (let y = 0; y < height; y++) {
-        for (let x = 0; x < width; x++) {
-            var pixi = (x + y * width) * 4;
-            pixels[pixi + 0] = 227;
-            pixels[pixi + 1] = 164;
-            pixels[pixi + 2] = 101;
-            pixels[pixi + 3] = 255;
-        }
-    }
-    updatePixels();
+    background(0)
     for (let i = 0; i < 50; i++) {
         lB1[i] = new Bullet(width / 4, height / 6);
         lB2[i] = new Bullet(width / 4, height / 3);
@@ -74,8 +43,9 @@ function setup() {
 
 function draw() {
     if (init) {
+        translate(mouseX / 200, mouseY / 200);
         for (let i = 0; i < lB1.length; i++) {
-            let chance = Math.floor(random(500)) == 0,
+            let chance = Math.floor(random(100)) == 0,
                 lPi1 = (Math.floor(lB1[i].x) + Math.floor(lB1[i].y) * width) * 4,
                 lPi2 = (Math.floor(lB2[i].x) + Math.floor(lB2[i].y) * width) * 4,
                 lPi3 = (Math.floor(lB3[i].x) + Math.floor(lB3[i].y) * width) * 4,
@@ -116,11 +86,10 @@ const shootBullet = (arr, to, chance, speed) => {
     if (chance) {
         if (to == 'left') {
             arr.xInc = random(0, speed);
-            arr.yInc = random(-speed, speed);
         } else {
             arr.xInc = random(0, -speed);
-            arr.yInc = random(speed, -speed);
         }
+        arr.yInc = random(-speed, speed);
         arr.shoot = true;
     }
 }
