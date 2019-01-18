@@ -1,6 +1,6 @@
 class Bullet {
     constructor(x, y, color) {
-        this.xOffset = random(-20, 20);
+        this.xOffset = random(-40, 40);
         this.YOffset = random(-80, 80);
         this.initX = x - this.xOffset;
         this.initY = y - this.YOffset;
@@ -9,7 +9,7 @@ class Bullet {
         this.xInc = 0;
         this.yInc = 0;
         this.shoot = false;
-        this.death = random(-40, 40);
+        this.death = random(0, 40);
         this.life = Math.floor(random(5));
         this.col = color;
         this.prevR = col[this.col].r;
