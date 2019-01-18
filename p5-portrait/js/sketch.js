@@ -187,6 +187,7 @@ const initSketch = () => {
     let btn = document.getElementById('play'),
         races = document.getElementsByClassName('races-all')[0];
     song.play();
+    song.loop = true;
     btn.style.display = 'none';
     races.style.display = 'flex';
 }
