@@ -45,8 +45,8 @@ const drawImage = (arr, img, speed) => {
 
 
 const bulletPhysics = (arr, to, col, img) => {
-    arr.update(img.pixels[col + 0], img.pixels[col + 1], img.pixels[col + 2]);
     arr.reset(to, img);
+    arr.update(img.pixels[col + 0], img.pixels[col + 1], img.pixels[col + 2]);
     arr.show();
 }
 

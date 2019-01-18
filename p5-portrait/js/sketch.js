@@ -102,16 +102,16 @@ function preload() {
     let imgSRC;
 
     imgSRC = images[img1Num];
-    img1 = loadImage('assets/main' + img1Num + '.jpg');
+    img1 = loadImage('assets/main' + imgSRC + '.jpg');
     images.splice(img1Num, 1);
     imgSRC = images[img2Num];
-    img2 = loadImage('assets/main' + img2Num + '.jpg');
+    img2 = loadImage('assets/main' + imgSRC + '.jpg');
     images.splice(img2Num, 1);
     imgSRC = images[img3Num];
-    img3 = loadImage('assets/main' + img3Num + '.jpg');
+    img3 = loadImage('assets/main' + imgSRC + '.jpg');
     images.splice(img3Num, 1);
     imgSRC = images[img4Num];
-    img4 = loadImage('assets/main' + img4Num + '.jpg');
+    img4 = loadImage('assets/main' + imgSRC + '.jpg');
 }
 
 function setup() {
