@@ -69,7 +69,7 @@ function setup() {
     pixelDensity(1);
     img1.loadPixels();
     img2.loadPixels();
-    img4.loadPixels();
+    img3.loadPixels();
     img4.loadPixels();
     
     background(0)
@@ -86,14 +86,14 @@ function draw() {
         translate(0, height / 2 - img1.height / 2);
         drawImage(_img1_, img1, speed);
         resetMatrix();
-//        translate(width / 4, height / 2 - img2.height / 2);
-//        drawImage(_img2_, img2, speed);
-//        resetMatrix();
-//        translate(width / 2, height / 2 - img3.height / 2);
-//        drawImage(_img3_, img3, speed);
-//        resetMatrix();
-//        translate(width * .75, height / 2 - img4.height / 2);
-//        drawImage(_img4_, img4, speed);
+        translate(width / 4, height / 2 - img2.height / 2);
+        drawImage(_img2_, img2, speed);
+        resetMatrix();
+        translate(width / 2, height / 2 - img3.height / 2);
+        drawImage(_img3_, img3, speed);
+        resetMatrix();
+        translate(width * .75, height / 2 - img4.height / 2);
+        drawImage(_img4_, img4, speed);
         resetMatrix();
     }
 }
