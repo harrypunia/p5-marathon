@@ -37,9 +37,9 @@ let init = false,
             b: 209
         },
         7: {
-            r: 210,
-            g: 191,
-            b: 85
+            r: 249,
+            g: 222,
+            b: 201
         }
     },
     _img1_ = {
@@ -102,17 +102,16 @@ function preload() {
         imgSRC;
 
     imgSRC = images[img1Num];
-    img1 = loadImage('assets/main' + Math.floor(random(11)) + '.jpg');
+    img1 = loadImage('assets/main' + img1Num + '.jpg');
     images.splice(img1Num, 1);
     imgSRC = images[img2Num];
-    img2 = loadImage('assets/main' + Math.floor(random(11)) + '.jpg');
+    img2 = loadImage('assets/main' + img2Num + '.jpg');
     images.splice(img2Num, 1);
     imgSRC = images[img3Num];
-    img3 = loadImage('assets/main' + Math.floor(random(11)) + '.jpg');
+    img3 = loadImage('assets/main' + img3Num + '.jpg');
     images.splice(img3Num, 1);
     imgSRC = images[img4Num];
-    img4 = loadImage('assets/main' + Math.floor(random(11)) + '.jpg');
-    images.splice(img4Num, 1);
+    img4 = loadImage('assets/main' + img4Num + '.jpg');
 }
 
 function setup() {
@@ -138,6 +137,7 @@ function setup() {
     setParticles(_img2_, img2, _img2_.col);
     setParticles(_img3_, img3, _img3_.col);
     setParticles(_img4_, img4, _img4_.col);
+    console.log(_img1_.col, _img2_.col, _img3_.col, _img4_.col)
 }
 
 function draw() {
