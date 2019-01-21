@@ -35,7 +35,7 @@ let col = {
     resetBackground = false;
 
 function preload() {
-    song = loadSound('../assets/hell.mp3');
+    song = loadSound('p5-spiral-eq/assets/hell.mp3');
 }
 
 function setup() {
