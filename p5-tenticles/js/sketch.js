@@ -50,8 +50,7 @@ function draw() {
     if (init) {
         amp = new p5.Amplitude();
         vol = amp.getLevel();
-        tent.show();
-        tent.update(vol);
+        tent.show(vol);
     }
 }
 
