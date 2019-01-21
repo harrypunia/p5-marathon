@@ -34,7 +34,7 @@ function preload() {
 
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
-    if (song.hasLoaded) { //Condition here
+    if (song.isLoaded()) { //Condition here
         let btn = document.getElementById('play');
         btn.classList.add('in');
     }
