@@ -30,7 +30,7 @@ let init = false,
     song,
     amp,
     vol = 0,
-    tent;
+    tents = [];
 
 function preload() {
     song = loadSound('assets/hell.mp3');
@@ -42,7 +42,9 @@ function setup() {
         let btn = document.getElementById('play');
         btn.classList.add('in');
     }
-    tent = new Tenticle(60);
+    for (let i = 0; i < 20; i++) {
+        tents[i] = new Tenticle(400);
+    }
     amp = new p5.Amplitude();
 }
 
@@ -50,7 +52,9 @@ function draw() {
     background(col[0].r, col[0].g, col[0].b, 90);
     if (init) {
         vol = amp.getLevel();
-        tent.show(vol);
+        for (let i in tents) {
+            tents[i].show(vol, i);
+        }
     }
 }
 
