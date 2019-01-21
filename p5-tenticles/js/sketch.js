@@ -26,7 +26,11 @@ let init = false,
             g: 23,
             b: 120
         },
-    };
+    },
+    song,
+    amp,
+    vol = 0,
+    tent;
 
 function preload() {
     song = loadSound('assets/hell.mp3');
@@ -38,12 +42,17 @@ function setup() {
         let btn = document.getElementById('play');
         btn.classList.add('in');
     }
+    tent = new Tenticle(20);
 }
 
 function draw() {
-    reset ? (background(col[0].r, col[0].g, col[0].b), reset = false) : background(col[0].r, col[0].g, col[0].b, 90);
-
-    if (init) {}
+    background(col[0].r, col[0].g, col[0].b, 90);
+    if (init) {
+        amp = new p5.Amplitude();
+        vol = amp.getLevel();
+        tent.show();
+        tent.update(vol);
+    }
 }
 
 function windowResized() {
