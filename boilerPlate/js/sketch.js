@@ -26,20 +26,30 @@ let init = false,
             g: 23,
             b: 120
         },
-    };
+    },
+    song,
+    amp,
+    vol;
+
+function preload() {
+    song = loadSound('assets/song.mp3');
+}
 
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
-    if (0 == 0) { //Condition here
+    if (song.isLoaded()) { //Condition here
         let btn = document.getElementById('play');
         btn.classList.add('in');
     }
+    amp = new p5.Amplitude();
 }
 
 function draw() {
     reset ? (background(col[0].r, col[0].g, col[0].b), reset = false) : background(col[0].r, col[0].g, col[0].b, 90);
 
-    if (init) {}
+    if (init) {
+        amp.getLevel();
+    }
 }
 
 function windowResized() {
@@ -50,6 +60,7 @@ function windowResized() {
 
 const initSketch = () => {
     init = true;
+    song.play();
     let btn = document.getElementById('play');
     btn.style.display = 'none';
 }
