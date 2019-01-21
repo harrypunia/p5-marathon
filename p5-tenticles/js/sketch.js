@@ -42,13 +42,13 @@ function setup() {
         let btn = document.getElementById('play');
         btn.classList.add('in');
     }
-    tent = new Tenticle(20);
+    tent = new Tenticle(60);
+    amp = new p5.Amplitude();
 }
 
 function draw() {
     background(col[0].r, col[0].g, col[0].b, 90);
     if (init) {
-        amp = new p5.Amplitude();
         vol = amp.getLevel();
         tent.show(vol);
     }
