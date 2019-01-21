@@ -28,9 +28,13 @@ let init = false,
         },
     };
 
+function preload() {
+    song = loadSound('assets/hell.mp3');
+}
+
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
-    if (0 == 0) { //Condition here
+    if (song.hasLoaded()) { //Condition here
         let btn = document.getElementById('play');
         btn.classList.add('in');
     }
@@ -50,6 +54,7 @@ function windowResized() {
 
 const initSketch = () => {
     init = true;
+    song.play();
     let btn = document.getElementById('play');
     btn.style.display = 'none';
 }
