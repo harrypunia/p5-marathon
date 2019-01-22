@@ -27,8 +27,7 @@ class Rain {
         }
     }
     distort(rad) {
-        let gapX = this.x > -rad && this.x < rad,
-            force = 20;
+        let gapX = this.x > -rad && this.x < rad;
         //
         if (gapX) {
             for (let i = 0; i < this.l; i++) {
@@ -37,6 +36,18 @@ class Rain {
                     this.posX[i] < 0 ? this.posX[i] += 1 : this.posX[i] > 0 ? this.posX[i] -= 1 : 0;
                 } else {
                     this.posX[i] < this.storeX ? this.posX[i] += 1 : this.posX[i] > this.storeX ? this.posX[i] -= 1 : 0;
+                }
+            }
+        } else {
+            for (let i = 0; i < this.l; i++) {
+                let op_gap = this.posY[i] < 0 && this.posY[i] > -rad,
+                    __force = map(this.posX[i], -width / 2, width / 2, 0, 2),
+                    _force = __force < 1 ? __force : 2 - __force,
+                    force = _force;
+                if (op_gap) {
+                    this.posX[i] < 0 ? this.posX[i] -= force : this.posX[i] > 0 ? this.posX[i] += force : 0;
+                } else {
+                    this.posX[i] < this.storeX ? this.posX[i] += force : this.posX[i] > this.storeX ? this.posX[i] -= force : 0;
                 }
             }
         }

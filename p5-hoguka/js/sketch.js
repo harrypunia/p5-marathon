@@ -29,7 +29,7 @@ let init = false,
     },
     circle = {
         size: 400,
-        reponsive: 100,
+        reponsive: 500,
     },
     song,
     amp,
@@ -74,14 +74,20 @@ function draw() {
         translate(width / 2, height / 2);
         //
         if (vol > 0.5) {
-            fill(80, 5, 70, 150);
+            stroke(255);
         } else {
             noStroke();
         }
         //
         fill(0);
         ellipse(circle.x, circle.y, circle.size + (vol * circle.reponsive), circle.size + (vol * circle.reponsive));
-        vol > 0.5 ? ellipse(0, 0, 20 + (vol * 10), 20 + (vol * 10)) : 0;
+        if (vol > 0.5) {
+            fill(80, 5, 70, 100);
+            noStroke();
+            ellipse(circle.x, circle.y, circle.size / 2, circle.size / 2);
+            ellipse(circle.x, circle.y, circle.size / 4, circle.size / 4);
+            ellipse(circle.x, circle.y, circle.size / 8, circle.size / 8);
+        }
         //
         for (let i = 0; i < rainIntensity; i++) {
             rain[i].show();
@@ -89,6 +95,7 @@ function draw() {
             rain[i].distort((circle.size + (vol * circle.reponsive)) / 2);
         }
         pop();
+        console.log(frameRate());
         //-------------------
     }
 }
