@@ -11,7 +11,7 @@ class Rain {
     preload() {
         for (let i = 0; i < this.l; i++) {
             this.posX[i] = this.x;
-            this.posY[i] = this.y - (i * 8);
+            this.posY[i] = this.y - (i * 2);
         }
     }
     show() {
@@ -25,7 +25,7 @@ class Rain {
         for (let i = 0; i < this.l; i++) {
             this.posY[i] += 2;
             if (this.posY[i] > height / 2) {
-                this.posY[i] = this.storeY - (i * 8)
+                this.posY[i] = this.storeY - (i * 2)
                 if (this.posX[i] < 0) {
                     this.posX[i] = this.storeX + random(100);
                 } else {

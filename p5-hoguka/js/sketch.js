@@ -35,7 +35,7 @@ let init = false,
     eye = 255,
     amp,
     rain = [],
-    rainIntensity = 80,
+    rainIntensity = 100,
     vol,
     test = 0;
 
@@ -51,7 +51,7 @@ function setup() {
     }
     amp = new p5.Amplitude();
     for (let i = 0; i < rainIntensity; i++) {
-        rain[i] = new Rain((width / (rainIntensity)) * (i + 1) - (width / 2), random(-height / 2, -height * 2), random(10, 50));
+        rain[i] = new Rain((width / (rainIntensity)) * (i + 1) - (width / 2), random(-height / 2, -height * 2), 100);
         rain[i].preload();
     }
 }
