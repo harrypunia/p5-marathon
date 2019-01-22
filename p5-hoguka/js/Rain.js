@@ -26,13 +26,13 @@ class Rain {
             this.posY[i] > (height / 2) + this.l ? this.posY[i] = this.storeY - (i * 4) : 0;
         }
     }
-    distort(rad) {
-        let gapX = this.x > -rad && this.x < rad;
+    distort(radX, radY) {
+        let gapX = this.x > -radX && this.x < radX;
         //
         if (gapX) {
             for (let i = 0; i < this.l; i++) {
                 let gap = dist(this.posX[i], this.posY[i], 0, 0);
-                if (gap < rad) {
+                if (gap < radX) {
                     this.posX[i] < 0 ? this.posX[i] += 1 : this.posX[i] > 0 ? this.posX[i] -= 1 : 0;
                 } else {
                     this.posX[i] < this.storeX ? this.posX[i] += 1 : this.posX[i] > this.storeX ? this.posX[i] -= 1 : 0;
@@ -40,7 +40,7 @@ class Rain {
             }
         } else {
             for (let i = 0; i < this.l; i++) {
-                let op_gap = this.posY[i] < 0 && this.posY[i] > -rad,
+                let op_gap = this.posY[i] < 0 && this.posY[i] > -radY,
                     __force = map(this.posX[i], -width / 2, width / 2, 0, 2),
                     _force = __force < 1 ? __force : 2 - __force,
                     force = _force;

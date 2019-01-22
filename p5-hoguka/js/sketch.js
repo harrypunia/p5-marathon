@@ -50,7 +50,7 @@ function setup() {
     }
     amp = new p5.Amplitude();
     for (let i = 0; i < rainIntensity; i++) {
-        rain[i] = new Rain((width / rainIntensity) * (i + 1) - width / 2, random(-height / 2, -height), random(10, 100));
+        rain[i] = new Rain((width / rainIntensity) * (i + 1) - width / 2, random(-height / 2, -height * 2), random(10, 100));
         rain[i].preload();
     }
 }
@@ -65,7 +65,7 @@ function mouseReleased() {
 
 function draw() {
     test++;
-    reset ? (background(col[0].r, col[0].g, col[0].b), reset = false) : background(col[0].r, col[0].g, col[0].b, 50);
+    reset ? (background(col[0].r, col[0].g, col[0].b), reset = false) : background(col[0].r, col[0].g, col[0].b, 100);
     circle.x = map(mouseX, 0, width, -20, 20);
     circle.y = map(mouseY, 0, height, -20, 20);
 
@@ -75,29 +75,23 @@ function draw() {
         push();
         translate(width / 2, height / 2);
         //
-        if (vol > 0.5) {
-            stroke(255);
-        } else {
-            noStroke();
-        }
-        //
         fill(0);
-        ellipse(circle.x, circle.y, circle.size + (vol * circle.reponsive), circle.size + (vol * circle.reponsive));
+        ellipse(circle.x, circle.y, (circle.size / 10) + (vol * circle.reponsive), circle.size + (vol * circle.reponsive));
         if (vol > 0.5) {
             fill(80, 5, 70, 100);
             noStroke();
-            ellipse(circle.x, circle.y, circle.size / 2, circle.size / 2);
-            ellipse(circle.x, circle.y, circle.size / 4, circle.size / 4);
-            ellipse(circle.x, circle.y, circle.size / 8, circle.size / 8);
+            ellipse(circle.x, circle.y, circle.size / 20, circle.size / 2);
+            ellipse(circle.x, circle.y, circle.size / 40, circle.size / 4);
+            ellipse(circle.x, circle.y, circle.size / 80, circle.size / 8);
         }
         //
         for (let i = 0; i < rainIntensity; i++) {
             rain[i].show();
             rain[i].fall();
-            rain[i].distort((circle.size + (vol * circle.reponsive)) / 2);
+            rain[i].distort((circle.size / 10) + (vol * circle.reponsive), (circle.size + (vol * circle.reponsive)) / 2);
         }
         pop();
-        test % 600 == 0 ? console.log(frameRate()) : 0;
+        test % 100 == 0 ? console.log(frameRate()) : 0;
         //-------------------
     }
 }
