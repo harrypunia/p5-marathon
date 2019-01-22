@@ -51,7 +51,7 @@ function setup() {
     }
     amp = new p5.Amplitude();
     for (let i = 0; i < rainIntensity; i++) {
-        rain[i] = new Rain((width / rainIntensity) * (i + 1) - width / 2, random(-height / 2, -height * 2), random(10, 100));
+        rain[i] = new Rain((width / (2 * rainIntensity)) * (i + 1) - (width / 4), random(-height / 2, -height * 2), random(10, 100));
         rain[i].preload();
     }
 }
@@ -66,7 +66,7 @@ function mouseReleased() {
 
 function draw() {
     test++;
-    reset ? (background(col[0].r, col[0].g, col[0].b), reset = false) : background(col[0].r, col[0].g, col[0].b, 100);
+    reset ? (background(col[0].r, col[0].g, col[0].b), reset = false) : background(col[0].r, col[0].g, col[0].b, 20);
     circle.x = map(mouseX, 0, width, -20, 20);
     circle.y = map(mouseY, 0, height, -20, 20);
 
@@ -78,19 +78,24 @@ function draw() {
         //
         fill(0);
         ellipse(circle.x, circle.y, (circle.size / 10) + (vol * circle.reponsive), circle.size + (vol * circle.reponsive));
+        //
         noFill();
-        stroke(0);
-        ellipse(circle.x, circle.y, (circle.size / 10) + 20 + (vol * circle.reponsive), circle.size + 20 + (vol * circle.reponsive));
+        for (let i = 0; i < 10; i++) {
+            let op = map(i, 0, 10, 255, 0);
+            stroke(0, op);
+            ellipse(circle.x, circle.y, (circle.size / 10) + (i * 10) + (vol * circle.reponsive), circle.size + (i * 10) + (vol * circle.reponsive));
+        }
+        //
         if (vol > 0.5) {
             eye = 255
             fill(190, 200, 200);
             noStroke();
-            ellipse(circle.x, circle.y, circle.size / 6, circle.size / 6);
+            ellipse(circle.x, circle.y, (circle.size / 12) + vol * 100, (circle.size / 12) + vol * 100);
         } else {
             eye -= 5;
             fill(190, 200, 200, eye);
             noStroke();
-            ellipse(circle.x, circle.y, circle.size / 6, circle.size / 6);
+            ellipse(circle.x, circle.y, (circle.size / 12) + vol * 100, (circle.size / 12) + vol * 100);
         }
         //
         for (let i = 0; i < rainIntensity; i++) {
