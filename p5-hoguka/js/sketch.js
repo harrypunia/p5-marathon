@@ -35,7 +35,7 @@ let init = false,
     eye = 255,
     amp,
     rain = [],
-    rainIntensity = 50,
+    rainIntensity = 80,
     vol,
     test = 0;
 
@@ -51,7 +51,7 @@ function setup() {
     }
     amp = new p5.Amplitude();
     for (let i = 0; i < rainIntensity; i++) {
-        rain[i] = new Rain((width / (2 * rainIntensity)) * (i + 1) - (width / 4), random(-height / 2, -height * 2), random(10, 100));
+        rain[i] = new Rain((width / (rainIntensity)) * (i + 1) - (width / 2), random(-height / 2, -height * 2), random(10, 50));
         rain[i].preload();
     }
 }
@@ -76,7 +76,14 @@ function draw() {
         push();
         translate(width / 2, height / 2);
         //
+        for (let i = 0; i < rainIntensity; i++) {
+            rain[i].show();
+            rain[i].fall();
+            rain[i].distort((circle.size / 10) + (vol * circle.reponsive), (circle.size + (vol * circle.reponsive)));
+        }
+        //
         fill(0);
+        noStroke();
         ellipse(circle.x, circle.y, (circle.size / 10) + (vol * circle.reponsive), circle.size + (vol * circle.reponsive));
         //
         noFill();
@@ -98,11 +105,6 @@ function draw() {
             ellipse(circle.x, circle.y, (circle.size / 12) + vol * 100, (circle.size / 12) + vol * 100);
         }
         //
-        for (let i = 0; i < rainIntensity; i++) {
-            rain[i].show();
-            rain[i].fall();
-            rain[i].distort((circle.size / 10) + (vol * circle.reponsive), (circle.size + (vol * circle.reponsive)));
-        }
         pop();
         test % 100 == 0 ? console.log(frameRate()) : 0;
         //-------------------
