@@ -32,6 +32,7 @@ let init = false,
         reponsive: 500,
     },
     song,
+    eye = 255,
     amp,
     rain = [],
     rainIntensity = 50,
@@ -77,18 +78,25 @@ function draw() {
         //
         fill(0);
         ellipse(circle.x, circle.y, (circle.size / 10) + (vol * circle.reponsive), circle.size + (vol * circle.reponsive));
+        noFill();
+        stroke(0);
+        ellipse(circle.x, circle.y, (circle.size / 10) + 20 + (vol * circle.reponsive), circle.size + 20 + (vol * circle.reponsive));
         if (vol > 0.5) {
-            fill(80, 5, 70, 100);
+            eye = 255
+            fill(190, 200, 200);
             noStroke();
-            ellipse(circle.x, circle.y, circle.size / 20, circle.size / 2);
-            ellipse(circle.x, circle.y, circle.size / 40, circle.size / 4);
-            ellipse(circle.x, circle.y, circle.size / 80, circle.size / 8);
+            ellipse(circle.x, circle.y, circle.size / 6, circle.size / 6);
+        } else {
+            eye -= 5;
+            fill(190, 200, 200, eye);
+            noStroke();
+            ellipse(circle.x, circle.y, circle.size / 6, circle.size / 6);
         }
         //
         for (let i = 0; i < rainIntensity; i++) {
             rain[i].show();
             rain[i].fall();
-            rain[i].distort((circle.size / 10) + (vol * circle.reponsive), (circle.size + (vol * circle.reponsive)) / 2);
+            rain[i].distort((circle.size / 10) + (vol * circle.reponsive), (circle.size + (vol * circle.reponsive)));
         }
         pop();
         test % 100 == 0 ? console.log(frameRate()) : 0;
