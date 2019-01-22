@@ -37,6 +37,7 @@ let init = false,
     rain = [],
     rainIntensity = 100,
     vol,
+    openEye = 10,
     test = 0;
 
 function preload() {
@@ -79,34 +80,36 @@ function draw() {
         for (let i = 0; i < rainIntensity; i++) {
             rain[i].show();
             rain[i].fall();
-            rain[i].distort((circle.size / 10) + (vol * circle.reponsive), (circle.size + (vol * circle.reponsive)));
+            rain[i].distort((circle.size / 40) + (vol * circle.reponsive), (circle.size / 2) + (vol * circle.reponsive));
         }
         //
         fill(0);
         noStroke();
-        ellipse(circle.x, circle.y, (circle.size / 10) + (vol * circle.reponsive), circle.size + (vol * circle.reponsive));
+        ellipse(circle.x, circle.y - 200, (circle.size / 40) + (vol * circle.reponsive / openEye), (circle.size / 2) + (vol * circle.reponsive / 4));
+        ellipse(circle.x - 200, circle.y + 200, (circle.size / 2) + (vol * circle.reponsive / 4), (circle.size / 20) + (vol * circle.reponsive / openEye));
+        ellipse(circle.x + 200, circle.y + 200, (circle.size / 2) + (vol * circle.reponsive / 4), (circle.size / 20) + (vol * circle.reponsive / openEye));
         //
         noFill();
-        for (let i = 0; i < 10; i++) {
-            let op = map(i, 0, 10, 255, 0);
-            stroke(0, op);
-            ellipse(circle.x, circle.y, (circle.size / 10) + (i * 10) + (vol * circle.reponsive), circle.size + (i * 10) + (vol * circle.reponsive));
-        }
-        //
         if (vol > 0.5) {
             eye = 255
             fill(50, 10, 38);
             noStroke();
-            ellipse(circle.x, circle.y, (circle.size / 12) + vol * 100, (circle.size / 12) + vol * 100);
+            ellipse(circle.x, circle.y - 200, (circle.size / 20) + vol * 100, (circle.size / 12) + vol * 100);
+            ellipse(circle.x - 200, circle.y + 200, (circle.size / 20) + vol * 100, (circle.size / 12) + vol * 100);
+            ellipse(circle.x + 200, circle.y + 200, (circle.size / 20) + vol * 100, (circle.size / 12) + vol * 100);
+            openEye = 4;
         } else {
             eye -= 5;
             fill(50, 10, 38, eye);
             noStroke();
-            ellipse(circle.x, circle.y, (circle.size / 12) + vol * 100, (circle.size / 12) + vol * 100);
+            ellipse(circle.x, circle.y - 200, (circle.size / 20) + vol * 100, (circle.size / 12) + vol * 100);
+            ellipse(circle.x - 200, circle.y + 200, (circle.size / 20) + vol * 100, (circle.size / 20) + vol * 100);
+            ellipse(circle.x + 200, circle.y + 200, (circle.size / 20) + vol * 100, (circle.size / 20) + vol * 100);
+            openEye = 10;
         }
         //
         pop();
-        test % 100 == 0 ? console.log(frameRate()) : 0;
+        //test % 100 == 0 ? console.log(frameRate()) : 0;
         //-------------------
     }
 }

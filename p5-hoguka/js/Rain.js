@@ -16,7 +16,12 @@ class Rain {
     }
     show() {
         for (let i = 0; i < this.l; i++) {
-            stroke(255);
+            let __opX = map(this.posX[i], -width / 2, width / 2, 0, 122.5),
+                _opX = __opX < 122.5 ? __opX : 255 - __opX,
+                __opY = map(this.posY[i], -height / 2, height / 2, 0, 122.5),
+                _opY = __opY < 122.5 ? __opY : 255 - __opY,
+                op = _opY + _opX;
+            stroke(255, op);
             strokeWeight(1);
             point(this.posX[i], this.posY[i]);
         }
