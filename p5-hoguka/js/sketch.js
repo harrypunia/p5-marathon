@@ -51,7 +51,16 @@ function draw() {
         vol = amp.getLevel();
         push();
         translate(width / 2, height / 2);
+        //
+        fill(0);
+        if (vol > 0.5) {
+            stroke(255);
+            ellipse(0, 0, 20 + (vol * 10), 20 + (vol * 10));
+        } else {
+            noStroke();
+        }
         ellipse(0, 0, 40 + (vol * 100), 40 + (vol * 100));
+        //
         pop();
     }
 }
