@@ -48,7 +48,7 @@ function draw() {
     reset ? (background(col[0].r, col[0].g, col[0].b), reset = false) : background(col[0].r, col[0].g, col[0].b, 90);
 
     if (init) {
-        amp.getLevel();
+        vol = amp.getLevel();
     }
 }
 
