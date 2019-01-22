@@ -19,4 +19,13 @@ class Rain {
     boundry() {
         this.y > (height / 2) + this.l ? this.y = this.storeY : 0;
     }
+    distort(rad) {
+        let gapX = this.x > -rad && this.x < rad,
+            gapY = this.y > -rad && this.y < rad,
+            force = Math.cos(this.y) * 10;
+        //
+        if (gapX && gapY) {
+
+        }
+    }
 }
