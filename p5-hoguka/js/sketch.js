@@ -35,7 +35,8 @@ let init = false,
     amp,
     rain = [],
     rainIntensity = 50,
-    vol;
+    vol,
+    test = 0;
 
 function preload() {
     song = loadSound('assets/song.mp3');
@@ -63,6 +64,7 @@ function mouseReleased() {
 }
 
 function draw() {
+    test++;
     reset ? (background(col[0].r, col[0].g, col[0].b), reset = false) : background(col[0].r, col[0].g, col[0].b, 50);
     circle.x = map(mouseX, 0, width, -20, 20);
     circle.y = map(mouseY, 0, height, -20, 20);
@@ -95,7 +97,7 @@ function draw() {
             rain[i].distort((circle.size + (vol * circle.reponsive)) / 2);
         }
         pop();
-        console.log(frameRate());
+        test % 600 == 0 ? console.log(frameRate()) : 0;
         //-------------------
     }
 }
