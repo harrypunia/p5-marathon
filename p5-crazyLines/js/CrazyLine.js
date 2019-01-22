@@ -8,12 +8,12 @@ class CrazyLine {
     }
     show(vol) {
         stroke(255);
-        this.rotateVal = map(noise(this.xoff), 0, 1, 0, 360);
+        this.rotateVal = noise(this.xoff) * 2;
         applyMatrix();
         translate(this.transX, this.transY);
-        rotate(Math.PI * this.rotateVal);
+        rotate(PI);
         line(0, 0, 0, this.length);
         resetMatrix();
-        this.xoff += 0.01;
+        this.xoff += 0.1;
     }
 }
