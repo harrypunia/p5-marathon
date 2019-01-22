@@ -95,12 +95,12 @@ function draw() {
         //
         if (vol > 0.5) {
             eye = 255
-            fill(190, 200, 200);
+            fill(50, 10, 38);
             noStroke();
             ellipse(circle.x, circle.y, (circle.size / 12) + vol * 100, (circle.size / 12) + vol * 100);
         } else {
             eye -= 5;
-            fill(190, 200, 200, eye);
+            fill(50, 10, 38, eye);
             noStroke();
             ellipse(circle.x, circle.y, (circle.size / 12) + vol * 100, (circle.size / 12) + vol * 100);
         }
