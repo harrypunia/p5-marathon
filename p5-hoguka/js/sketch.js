@@ -2,9 +2,9 @@ let init = false,
     reset = false,
     col = {
         0: {
-            r: 30,
+            r: 50,
             g: 10,
-            b: 22
+            b: 38
         },
         1: {
             r: 250,
@@ -29,6 +29,8 @@ let init = false,
     },
     song,
     amp,
+    rain = [],
+    rainIntensity = 10,
     vol;
 
 function preload() {
@@ -42,26 +44,39 @@ function setup() {
         btn.classList.add('in');
     }
     amp = new p5.Amplitude();
+    for (let i = 0; i < rainIntensity; i++) {
+        rain[i] = new Rain((width / rainIntensity) * (i + 1) - width / 2, -height / 2, 100);
+    }
 }
 
 function draw() {
-    reset ? (background(col[0].r, col[0].g, col[0].b), reset = false) : background(col[0].r, col[0].g, col[0].b, 90);
+    reset ? (background(col[0].r, col[0].g, col[0].b), reset = false) : background(col[0].r, col[0].g, col[0].b, 50);
+    let circle = {
+        size: 40,
+        reponsive: 100
+    }
 
     if (init) {
         vol = amp.getLevel();
+        //-------------------
         push();
         translate(width / 2, height / 2);
         //
-        fill(0);
-        if (vol > 0.5) {
-            stroke(255);
-            ellipse(0, 0, 20 + (vol * 10), 20 + (vol * 10));
-        } else {
-            noStroke();
+        for (let i = 0; i < rainIntensity; i++) {
+            rain[i].show();
+            rain[i].fall();
         }
-        ellipse(0, 0, 40 + (vol * 100), 40 + (vol * 100));
+        //
+        fill(0);
+        ellipse(0, 0, circle.size + (vol * circle.reponsive), circle.size + (vol * circle.reponsive));
+        //
+        if (vol > 0.5) {
+            fill(80, 5, 70, 150);
+            ellipse(0, 0, 20 + (vol * 10), 20 + (vol * 10));
+        } else {}
         //
         pop();
+        //-------------------
     }
 }
 
