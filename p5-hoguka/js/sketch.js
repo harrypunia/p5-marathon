@@ -38,6 +38,7 @@ let init = false,
     rainIntensity = 100,
     vol,
     openEye = 10,
+    a = 0,
     test = 0;
 
 function preload() {
@@ -57,14 +58,6 @@ function setup() {
     }
 }
 
-function mousePressed() {
-    circle.size = 700
-}
-
-function mouseReleased() {
-    circle.size = 400;
-}
-
 function draw() {
     test++;
     reset ? (background(col[0].r, col[0].g, col[0].b), reset = false) : background(col[0].r, col[0].g, col[0].b, 20);
@@ -72,15 +65,25 @@ function draw() {
     circle.y = map(mouseY, 0, height, -20, 20);
 
     if (init) {
+        a += 0.0001
         vol = amp.getLevel();
         //-------------------
         push();
-        translate(width / 2, height / 2);
+        translate(width / 2, height / 2 + 50);
+        //
+        rotate(degrees(1 + a));
+        rectMode(CENTER);
+        fill(0, 100);
+        rect(0, 0, 20 + (vol * 100), 20 + (vol * 100))
+        rotate(degrees(-(1 + a)));
+        translate(0, -50);
         //
         for (let i = 0; i < rainIntensity; i++) {
-            rain[i].show();
-            rain[i].fall();
-            rain[i].distort((circle.size / 40) + (vol * circle.reponsive), (circle.size / 2) + (vol * circle.reponsive));
+            let responsive = {
+                x: (circle.size / 40) + (vol * circle.reponsive),
+                y: (circle.size / 2) + (vol * circle.reponsive)
+            }
+            rain[i].show(responsive.x, responsive.y);
         }
         //
         fill(0);
@@ -109,9 +112,18 @@ function draw() {
         }
         //
         pop();
-        //test % 100 == 0 ? console.log(frameRate()) : 0;
+        test % 100 == 0 ? console.log(frameRate()) : 0;
         //-------------------
     }
+}
+
+
+function mousePressed() {
+    circle.size = 700
+}
+
+function mouseReleased() {
+    circle.size = 400;
 }
 
 function windowResized() {
