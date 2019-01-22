@@ -20,7 +20,7 @@ class Rain {
             //-------DRAW--------
             let __opX = map(this.posX[i], -(width / 2), (width / 2), 0, 100),
                 _opX = __opX < 50 ? __opX : 100 - __opX,
-                __opY = map(this.posY[i], -(height / 2), (height / 2), 0, 255),
+                __opY = map(this.posY[i], -(height / 2), (height / 2), 0, 100),
                 _opY = __opY < 50 ? __opY : 100 - __opY,
                 op = Math.floor(_opY + _opX);
             stroke(255, op);
