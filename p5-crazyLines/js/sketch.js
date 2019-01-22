@@ -3,8 +3,8 @@ let init = false,
     col = {
         0: {
             r: 30,
-            g: 10,
-            b: 22
+            g: 6,
+            b: 12
         },
         1: {
             r: 250,
@@ -27,7 +27,7 @@ let init = false,
             b: 120
         },
     },
-    cLine,
+    cLines = [],
     song,
     amp,
     vol;
@@ -43,15 +43,19 @@ function setup() {
         btn.classList.add('in');
     }
     amp = new p5.Amplitude();
-    cLine = new CrazyLine(random(width), random(height), 40);
+    for (let i = 0; i < 600; i++) {
+        cLines[i] = new CrazyLine(random(width), random(height), random(60), (i + 1));
+    }
+    background(col[0].r, col[0].g, col[0].b);
 }
 
 function draw() {
-    reset ? (background(col[0].r, col[0].g, col[0].b), reset = false) : background(col[0].r, col[0].g, col[0].b, 90);
-
     if (init) {
         vol = amp.getLevel();
-        cLine.show(vol);
+        for (let i = 0; i < cLines.length; i++) {
+            cLines[i].show(vol);
+            cLines[i].boundry();
+        }
     }
 }
 
