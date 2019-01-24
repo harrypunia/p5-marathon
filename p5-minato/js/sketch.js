@@ -29,7 +29,8 @@ let init = false,
     },
     song,
     amp,
-    vol;
+    vol,
+    tanCircle;
 
 function preload() {
     song = loadSound('assets/song.mp3');
@@ -41,6 +42,7 @@ function setup() {
         let btn = document.getElementById('play');
         btn.classList.add('in');
     }
+    tanCircle = new TanCircle(0, 0, 50);
     amp = new p5.Amplitude();
 }
 
@@ -50,6 +52,7 @@ function draw() {
     if (init) {
         fill(0);
         vol = amp.getLevel();
+        tanCircle.show();
     }
 }
 
