@@ -44,7 +44,7 @@ function setup() {
     }
     amp = new p5.Amplitude();
     for (let i = 0; i < 50; i++) {
-        tanCircles[i] = new TanCircle(width / 2, height / 2, 200);
+        tanCircles[i] = new TanCircle(200);
     }
 }
 
