@@ -8,18 +8,20 @@ class TanCircle {
             x: 0,
             y: 0,
             angle: random(10),
-            length: 200,
+            length: 280,
             rot: 0
         };
         this.angle;
     }
     show(vol, r, g, b, i) {
-        this.r = this.storeR + vol;
+        let transY = map(mouseY, 0, height, -20, 20),
+            transX = map(mouseX, 0, width, -20, 20);
+        this.r = this.storeR + vol - (transY * 2);
         this.updateLine(i);
         stroke(r, g, b);
         noFill();
         push();
-        translate(this.x, this.y);
+        translate(this.x + transX, this.y + transY);
         rotate(this.angle);
         line(this.line.x - this.line.length, this.line.y, this.line.x + this.line.length, this.line.y);
         point(this.line.x + this.line.length, this.y);
