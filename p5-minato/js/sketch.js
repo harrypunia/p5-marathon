@@ -30,7 +30,13 @@ let init = false,
     song,
     amp,
     vol,
-    tanCircles = [];
+    tanCircles = [],
+    rOff = 0,
+    gOff = 1000,
+    bOff = 1000000,
+    colR,
+    colG,
+    colB;
 
 function preload() {
     song = loadSound('assets/song.mp3');
@@ -43,7 +49,7 @@ function setup() {
         btn.classList.add('in');
     }
     amp = new p5.Amplitude();
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 100; i++) {
         tanCircles[i] = new TanCircle(200);
     }
 }
@@ -52,10 +58,16 @@ function draw() {
     reset ? (background(col[0].r, col[0].g, col[0].b), reset = false) : background(col[0].r, col[0].g, col[0].b, 90);
 
     if (init) {
+        rOff++
+        gOff++
+        bOff++
+        colR = map(noise(rOff), 0, 1, 0, 100);
+        colG = map(noise(gOff), 0, 1, 0, 100);
+        colB = map(noise(bOff), 0, 1, 0, 100);
         fill(0);
         vol = amp.getLevel();
         for (let i = 0; i < tanCircles.length; i++) {
-            tanCircles[i].show(vol * 10);
+            tanCircles[i].show(vol * 100, colR, colG, colB);
         }
     }
 }
