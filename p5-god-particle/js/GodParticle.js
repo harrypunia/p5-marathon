@@ -11,7 +11,7 @@ class GodParticle {
     }
     show(vol, r, g, b) {
         this.update(vol / 100);
-        this.r = (vol * 20) + 1;
+        this.r = (vol * 10) + 1;
         fill(r, g, b, this.strokeOp);
         noStroke();
         ellipse(this.x, this.y, this.r * 2, this.r * 2);

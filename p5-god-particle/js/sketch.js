@@ -39,7 +39,7 @@ function draw() {
     r = map(noise(rOff), 0, 1, 0, 255);
     g = map(noise(gOff), 0, 1, 0, 255);
     b = map(noise(bOff), 0, 1, 0, 255);
-    background(b - 100, r - 100, g - 100);
+    background(map(b, 0, 255, 0, 100), map(r, 0, 255, 0, 100), map(g, 0, 255, 0, 100));
     if (init) {
         fill(0);
         push();
