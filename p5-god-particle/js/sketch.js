@@ -1,35 +1,19 @@
 let init = false,
-    reset = false,
     col = {
         0: {
             r: 30,
             g: 10,
             b: 22
-        },
-        1: {
-            r: 250,
-            g: 73,
-            b: 60
-        },
-        2: {
-            r: 82,
-            g: 10,
-            b: 20
-        },
-        3: {
-            r: 155,
-            g: 120,
-            b: 120
-        },
-        4: {
-            r: 222,
-            g: 23,
-            b: 120
-        },
+        }
     },
     song,
     amp,
-    vol;
+    vol,
+    GPs = [],
+    rOff = 100,
+    gOff = 1000,
+    bOff = 10000,
+    r, g, b;
 
 function preload() {
     song = loadSound('assets/song.mp3');
@@ -42,19 +26,40 @@ function setup() {
         btn.classList.add('in');
     }
     amp = new p5.Amplitude();
-}
-
-function draw() {
-    reset ? (background(col[0].r, col[0].g, col[0].b), reset = false) : background(col[0].r, col[0].g, col[0].b, 90);
-
-    if (init) {
-        fill(0);
-        vol = amp.getLevel();
+    for (let i = 0; i < 100; i++) {
+        GPs[i] = new GodParticle();
     }
 }
 
+function draw() {
+    vol = amp.getLevel();
+    rOff += 0.001;
+    gOff += 0.001;
+    bOff += 0.001;
+    r = map(noise(rOff), 0, 1, 0, 255);
+    g = map(noise(gOff), 0, 1, 0, 255);
+    b = map(noise(bOff), 0, 1, 0, 255);
+    background(b - 100, r - 100, g - 100);
+    if (init) {
+        fill(0);
+        push();
+        translate(width / 2, height / 2);
+        for (let i = 0; i < GPs.length; i++) {
+            GPs[i].show(vol, r, g, b);
+            GPs[i].move();
+            GPs[i].connectCorner(i, r, g, b);
+            for (let j = 0; j < GPs.length; j++) {
+                if (i != j && i - j < 4 && i - j > -4) {
+                    GPs[i].connect(GPs[j], r, g, b);
+                }
+            }
+        }
+        pop();
+    }
+    console.log(frameRate());
+}
+
 function windowResized() {
-    reset = true;
     resizeCanvas(window.innerWidth, window.innerHeight);
 }
 
