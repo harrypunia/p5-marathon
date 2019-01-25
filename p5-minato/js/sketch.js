@@ -30,7 +30,7 @@ let init = false,
     song,
     amp,
     vol,
-    tanCircle;
+    tanCircles = [];
 
 function preload() {
     song = loadSound('assets/song.mp3');
@@ -42,8 +42,10 @@ function setup() {
         let btn = document.getElementById('play');
         btn.classList.add('in');
     }
-    tanCircle = new TanCircle(0, 0, 50);
     amp = new p5.Amplitude();
+    for (let i = 0; i < 50; i++) {
+        tanCircles[i] = new TanCircle(width / 2, height / 2, 200);
+    }
 }
 
 function draw() {
@@ -52,7 +54,9 @@ function draw() {
     if (init) {
         fill(0);
         vol = amp.getLevel();
-        tanCircle.show();
+        for (let i = 0; i < tanCircles.length; i++) {
+            tanCircles[i].show(vol * 10);
+        }
     }
 }
 
