@@ -34,9 +34,11 @@ let init = false,
     rOff = 0,
     gOff = 1000,
     bOff = 1000000,
+    sOff = 1000,
     colR,
     colG,
-    colB;
+    colB,
+    pSize;
 
 function preload() {
     song = loadSound('assets/song.mp3');
@@ -58,16 +60,17 @@ function draw() {
     reset ? (background(col[0].r, col[0].g, col[0].b), reset = false) : background(col[0].r, col[0].g, col[0].b, 90);
 
     if (init) {
-        rOff++
-        gOff++
-        bOff++
-        colR = map(noise(rOff), 0, 1, 0, 100);
-        colG = map(noise(gOff), 0, 1, 0, 100);
+        rOff += 0.01;
+        gOff += 0.01;
+        bOff += 0.01;
+        sOff += 0.01;
+        colR = map(noise(rOff), 0, 1, 0, 200);
+        colG = map(noise(gOff), 0, 1, 0, 255);
         colB = map(noise(bOff), 0, 1, 0, 100);
-        fill(0);
+        pSize = map(noise(sOff), 0, 1, 0, 100);
         vol = amp.getLevel();
         for (let i = 0; i < tanCircles.length; i++) {
-            tanCircles[i].show(vol * 100, colR, colG, colB);
+            tanCircles[i].show((vol * 50) + pSize, colR, colG, colB, i);
         }
     }
 }
