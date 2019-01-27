@@ -7,13 +7,13 @@ class Electron {
     }
     show(size) {
         noFill();
-        stroke(255, 10, 10);
+        stroke(170, 16, 214);
         strokeWeight(size);
         point(this.x, this.y);
     }
     revolve(speed) {
         this.angle += speed;
-        this.x = this.r / 4 * Math.sin(this.angle);
+        this.x = (this.r / 4) * Math.sin(this.angle);
         this.y = this.r * Math.cos(this.angle);
     }
 }

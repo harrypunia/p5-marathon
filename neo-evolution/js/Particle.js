@@ -10,7 +10,9 @@ class Particle {
             g: g == undefined ? r : g,
             b: b == undefined ? r : b
         }
+        this.maxOpacity = 20;
         this.opacity;
+        this.invertOpacity = false;
     }
     show() {
         noFill();
@@ -23,8 +25,8 @@ class Particle {
         this.updateOpacity();
         this.xOff += this.speed;
         this.yOff += this.speed;
-        this.x = map(noise(this.xOff), 0, 1, -500, width + 500);
-        this.y = map(noise(this.yOff), 0, 1, -500, height + 500);
+        this.x = map(noise(this.xOff), 0, 1, 0, width);
+        this.y = map(noise(this.yOff), 0, 1, 0, height);
     }
     checkBoundry() {
         if (this.x < 0 || this.x > width) {
@@ -35,10 +37,17 @@ class Particle {
         }
     }
     updateOpacity() {
-        let _opX = map(this.x, 0, width, 0, 50),
-            _opY = map(this.y, 0, height, 0, 50),
-            opX = _opX < 25 ? _opX : 50 - _opX,
-            opY = _opY < 25 ? _opY : 50 - _opY;
+        let _opX = map(this.x, 0, width, 0, this.maxOpacity),
+            _opY = map(this.y, 0, height, 0, this.maxOpacity),
+            opX,
+            opY;
+        if (this.invertOpacity) {
+            opX = _opX < (this.maxOpacity / 2) ? (this.maxOpacity / 2) - _opX : _opX - (this.maxOpacity / 2);
+            opY = _opY < (this.maxOpacity / 2) ? (this.maxOpacity / 2) - _opY : _opY - (this.maxOpacity / 2);
+        } else {
+            opX = _opX < (this.maxOpacity / 2) ? _opX : this.maxOpacity - _opX;
+            opY = _opY < (this.maxOpacity / 2) ? _opY : this.maxOpacity - _opY;
+        }
         this.opacity = opX + opX;
     }
     link(other, r, g, b) {
