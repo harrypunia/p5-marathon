@@ -1,33 +1,39 @@
 let init = false,
     reset = false,
-    col = {
+    col = { // Canvas color
         r: 25,
         g: 19,
         b: 53
     },
-    web = {
+    web = { //Web object
         particles: [],
         population: 100,
     },
-    atom = {
+    atom = { //Atom object
         shape: null,
         x: null,
         y: null,
         r: 20,
-        electron: {
-            population: 4,
-            radius: 100
-        }
+    },
+    electrons = { //Electron Object
+        e: [],
+        population: 4,
+        radius: 100
     };
 
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
     for (let i = 0; i < web.population; i++) {
-        web.particles[i] = new Particle(255);
+        web.particles[i] = new Particle(255); //(r, g, b);
     }
-    atom.x = width / 2;
-    atom.y = height / 2;
-    atom.shape = new Atom(atom.x, atom.y, atom.r);
+    //--
+    atom.x = width / 2; //Position of atom
+    atom.y = height / 2; //Position of atom
+    atom.shape = new Atom(atom.x, atom.y, atom.r); //(x, y, r, electronPopulatio, electronRadius)
+    //--
+    for (let i = 0; i < electrons.population; i++) {
+        electrons.e[i] = new Electron(i, electrons.population, electrons.radius); // (x, y, radius, increment, population)
+    }
 }
 
 function draw() {
@@ -46,9 +52,12 @@ function draw() {
             }
         }
     }
-    atom.shape.update();
-    atom.shape.displayElectrons(atom.electron.population, atom.electron.radius);
     atom.shape.show();
+
+    for (let i in electrons.e) {
+        electrons.e[i].revolve();
+        electrons.e[i].show();
+    }
 }
 
 function windowResized() {

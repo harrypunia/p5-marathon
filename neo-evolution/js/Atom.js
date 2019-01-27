@@ -3,24 +3,28 @@ class Atom {
         this.x = x;
         this.y = y;
         this.r = r;
-        this.electron = {
-            x: null,
-            y: null
-        };
     }
     show() {
+        for (let i in this.electrons) {
+            this.electrons[i].show();
+        }
         noStroke();
         fill(255);
         ellipse(this.x, this.y, this.r * 2, this.r * 2);
     }
-    update() {
+}
 
+class Electron {
+    constructor(x, y, r, i, population) {
+        this.x = x;
+        this.y = y;
+        this.i = i;
+        this.population = population;
+        this.r = r;
+        this.angle
     }
-    displayElectrons(population, radius) {
-        for (let i = 0; i < population; i++) {
-            let angle = (i / population) * 3.14
-            this.electrons[i].x = radius * Math.sin(angle);
-            this.electrons[i].y = radius * Math.cos(angle);
-        }
+    show() {
+        point(this.x, this.y);
     }
+    revolve() {}
 }
