@@ -12,10 +12,10 @@ let col = {
     },
     electrons = {
         e: [],
-        population: 6,
+        population: 3,
         radius: 150,
         speed: 0.01,
-        size: 10
+        size: 12
     },
     connectionLength = 100,
     connectionDensity = 5;
@@ -56,14 +56,14 @@ function draw() {
     ellipse(width / 2, height / 2, atom.r * 2, atom.r * 2);
     //ELECTRONS
     for (let i = 0; i < electrons.population; i++) {
-        let angle = (i / electrons.population) * 6.28;
+        let angle = (i / electrons.population) * 6.28 + (1 / electrons.population);
         push();
         translate(width / 2, height / 2);
         rotate(angle);
         electrons.e[i].revolve(electrons.speed);
         electrons.e[i].show(electrons.size);
         //
-        stroke(170, 16, 214, 50);
+        stroke(170, 16, 214, 200);
         strokeWeight(1);
         noFill();
         ellipse(0, 0, electrons.radius / 2, electrons.radius * 2);
