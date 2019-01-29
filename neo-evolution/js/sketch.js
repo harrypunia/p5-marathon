@@ -39,7 +39,6 @@ function draw() {
     fill(0);
     //WEB
     for (let i in web.particles) {
-        web.particles[i].update();
         web.particles[i].show();
         for (let j in web.particles) {
             //stroke(255, 30);
