@@ -29,18 +29,17 @@ class Particle {
         this.stroke = random(1) > .5 ? 8 : 4;
         this.blink = {
             type:'blink',
-            chance: 0,
+            chance: 0.0005,
             firing: false,
             ascend: true,
             max: 150,
-            speed: 8
+            speed: 4
         }
         this.lineBlink = {
-            type: 'lineBlink',
             firing: false,
             ascend: true,
             max: 100,
-            speed: 8
+            speed: 4
         }
         this.opacity = {
             max: 20,
@@ -48,7 +47,6 @@ class Particle {
             storeValue: 0
         }
         this.lineOpacity = {
-            max: 20,
             value: 0,
             storeValue: 0
         }
@@ -59,11 +57,10 @@ class Particle {
         this.opacity.value = this.opacity.storeValue = this.lineOpacity.value = this.lineOpacity.storeValue = opX + opY;
     }
     show() {
-        this.blink.chance = Math.floor(random(10000)) == 1;
         stroke(255, this.opacity.value * 2);
         strokeWeight(this.stroke);
         point(this.position.x, this.position.y);
-        ((this.blink.chance || this.blink.firing)) ? this.fire(this.opacity, this.blink) : 0;
+        ((Math.random() < this.blink.chance || this.blink.firing)) ? this.fire(this.opacity, this.blink) : 0;
         this.lineBlink.firing ? this.fire(this.lineOpacity, this.lineBlink) : 0;
     }
     link(other) {
@@ -78,8 +75,8 @@ class Particle {
         }
     }
     fire(opacity, blink) {
-        const {storeValue} = opacity,
-              {max, speed, type} = blink;
+        const {storeValue} = opacity;
+        const {max, speed, type} = blink;
         blink.firing = true;
         if (opacity.value < max && blink.ascend) {
             opacity.value += speed;
