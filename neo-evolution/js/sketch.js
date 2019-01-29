@@ -56,7 +56,7 @@ function draw() {
     ellipse(width / 2, height / 2, atom.r * 2, atom.r * 2);
     //ELECTRONS
     for (let i = 0; i < electrons.population; i++) {
-        let angle = (i / electrons.population) * 6.28 + (1 / electrons.population);
+        let angle = (i / electrons.population) * 6.28 + (1.57 / electrons.population);
         push();
         translate(width / 2, height / 2);
         rotate(angle);
