@@ -13,6 +13,7 @@ class Particle {
         this.minX = this.i * this.columnSize;
         this.minY = this.yCounter * this.rowSize;
         this.i = i;
+        this.density = density;
         this.col = {
             r: r,
             g: g == undefined ? r : g,
@@ -23,7 +24,7 @@ class Particle {
         this.invertOpacity = false;
         this.xOff = random(1000);
         this.yOff = random(1000);
-        this.speed = 0.0001;
+        this.speed = 0.001;
     }
     show() {
         noFill();
@@ -32,7 +33,7 @@ class Particle {
         point(this.x, this.y);
     }
     update() {
-        //this.updateOpacity();
+        this.updateOpacity();
         this.xOff += this.speed;
         this.yOff += this.speed;
         this.x = map(noise(this.xOff), 0, 1, this.minX, this.minX + this.columnSize);
@@ -53,8 +54,10 @@ class Particle {
         this.opacity = opX + opX;
     }
     link(other, r, g, b) {
-        stroke(this.r, this.g, this.b, this.opacity / 10);
-        strokeWeight(1);
-        line(this.x, this.y, other.x, other.y);
+        if ((other.minX - this.minxX <= this.columnSize) && (other.yCounter - this.yCounter <= 2)) {
+            stroke(this.r, this.g, this.b, this.opacity / 10);
+            strokeWeight(1);
+            line(this.x, this.y, other.x, other.y);
+        }
     }
 }
