@@ -1,5 +1,5 @@
 class Particle {
-    constructor(r, g, b) {
+    constructor(r, g, b, density, i) {
         this.x = 0;
         this.y = 0;
         this.xOff = random(1000);
@@ -10,6 +10,8 @@ class Particle {
             g: g == undefined ? r : g,
             b: b == undefined ? r : b
         }
+        this.columns = density;
+        this.rows = density;
         this.maxOpacity = 20;
         this.opacity;
         this.invertOpacity = false;
@@ -21,20 +23,11 @@ class Particle {
         point(this.x, this.y);
     }
     update() {
-        this.checkBoundry();
         this.updateOpacity();
         this.xOff += this.speed;
         this.yOff += this.speed;
         this.x = map(noise(this.xOff), 0, 1, 0, width);
         this.y = map(noise(this.yOff), 0, 1, 0, height);
-    }
-    checkBoundry() {
-        if (this.x < 0 || this.x > width) {
-            this.xOff = random(1000);
-        }
-        if (this.y < 0 || this.y > height) {
-            this.yOff = random(1000);
-        }
     }
     updateOpacity() {
         let _opX = map(this.x, 0, width, 0, this.maxOpacity),

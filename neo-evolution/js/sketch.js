@@ -6,6 +6,7 @@ let col = {
     web = {
         particles: [],
         population: 150,
+        density: 20
     },
     atom = {
         r: 20,
@@ -24,7 +25,7 @@ function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
     //WEB
     for (let i = 0; i < web.population; i++) {
-        web.particles[i] = new Particle(255); //(r, g, b);
+        web.particles[i] = new Particle(255, 255, 255, 20, i); //(r, g, b, density, index);
     }
     //ELECTRONS
     for (let i = 0; i < electrons.population; i++) {
@@ -40,14 +41,7 @@ function draw() {
         web.particles[i].update();
         web.particles[i].show();
         for (let j in web.particles) {
-            if (i != j) {
-                let gap = Math.abs(dist(web.particles[i].x, web.particles[i].y, web.particles[j].x, web.particles[j].y)),
-                    inRange = gap < connectionLength && gap > connectionLength - connectionDensity;
-
-                if (inRange) {
-                    i != j ? web.particles[i].link(web.particles[j]) : 0;
-                }
-            }
+            (i != j && Math.abs(i - j) < 2) ? web.particles[i].link(web.particles[j]): 0;
         }
     }
     //ATOM
