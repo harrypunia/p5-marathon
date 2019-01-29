@@ -1,23 +1,31 @@
 class Particle {
     constructor(r, g, b, densityX, densityY, i) {
-        this.x = 0;
-        this.y = 0;
         this.i = i;
-        this.light = {
-            range: 150,
-            brightness: 1
+        this.size = {
+            w: width / 1.5,
+            h: height / 1.5,
+        }
+        this.begin = {
+            x: (width - this.size.w) / 2,
+            y: (height - this.size.h) / 2
         }
         this.grid = {
-            columnSize: width / densityX,
-            rowSize: height / densityY,
+            columnSize: this.size.w / densityX,
+            rowSize: this.size.h / densityY,
             yCount: 0
         }
         while (this.i >= densityX) {
             this.i -= densityX;
             this.grid.yCount++
         }
-        this.minX = this.i * this.grid.columnSize;
-        this.minY = this.grid.yCount * this.grid.rowSize;
+        this.position = {
+            min: {
+                x: this.i * this.grid.columnSize,
+                y: this.grid.yCount * this.grid.rowSize
+            }
+        };
+        this.position.x = map(noise(random(100)), 0, 1, this.position.min.x, this.position.min.x + this.grid.columnSize) + this.begin.x;
+        this.position.y = map(noise(random(100)), 0, 1, this.position.min.y, this.position.min.y + this.grid.rowSize) + this.begin.y;
         this.color = {
             r: r,
             g: g == undefined ? r : g,
@@ -25,53 +33,31 @@ class Particle {
         }
         this.opacity = {
             max: 20,
-            value: 10,
-            invert: false
-        }
-        this.movement = {
-            xOff: random(10),
-            yOff: random(10),
-            speed: 0.001,
+            value: 10
         }
         this.stroke = random(1) > .5 ? 8 : 4;
     }
     show() {
-        stroke(this.color.r, this.color.g, this.color.b, 255);
+        stroke(this.color.r, this.color.g, this.color.b, this.opacity.value);
         strokeWeight(this.stroke);
-        point(this.x, this.y);
+        point(this.position.x, this.position.y);
     }
     update() {
         this.updateOpacity();
-        this.movement.xOff += this.movement.speed;
-        this.movement.yOff += this.movement.speed;
-        this.x = map(noise(this.movement.xOff), 0, 1, this.minX, this.minX + this.grid.columnSize);
-        this.y = map(noise(this.movement.yOff), 0, 1, this.minY, this.minY + this.grid.rowSize);
     }
     updateOpacity() {
-        let _opX = map(this.x, 0, width, 0, this.opacity.max),
-            _opY = map(this.y, 0, height, 0, this.opacity.max),
+        let _opX = map(this.position.x, this.begin.x, width - this.begin.x, 0, this.opacity.max),
+            _opY = map(this.position.y, this.begin.y, height - this.begin.y, 0, this.opacity.max),
             opX,
             opY;
-        //define OPs
-        if (this.opacity.invert) {
-            opX = _opX < (this.opacity.max / 2) ? (this.opacity.max / 2) - _opX : _opX - (this.opacity.max / 2);
-            opY = _opY < (this.opacity.max / 2) ? (this.opacity.max / 2) - _opY : _opY - (this.opacity.max / 2);
-        } else {
             opX = _opX < (this.opacity.max / 2) ? _opX : this.opacity.max - _opX;
             opY = _opY < (this.opacity.max / 2) ? _opY : this.opacity.max - _opY;
-        }
-        //Mouse-hovers
-        if (Math.abs(this.x - mouseX) < this.light.range && Math.abs(this.y - mouseY) < this.light.range) {
-            this.opacity.value <= this.light.brightness * (opX + opY) ? this.opacity.value += 2 : 0;
-        } else {
-            this.opacity.value >= (opX + opY) ? this.opacity.value -= 2 : 0;
-        }
+            this.opacity.value = opX + opY;
     }
-    link(other, r, g, b) {
-        if ((this.minX - other.minX == this.grid.columnSize) && (Math.abs(this.grid.yCount - other.grid.yCount) <= 1)) {
+    link(other) {
+        if ((this.position.min.x - other.position.min.x == this.grid.columnSize) && (Math.abs(this.grid.yCount - other.grid.yCount) <= 1)) {
             strokeWeight(1);
-            //stroke(this.r, this.g, this.b, this.opacity.value);
-            line(this.x, this.y, other.x, other.y);
+            line(this.position.x, this.position.y, other.position.x, other.position.y);
         }
     }
 }

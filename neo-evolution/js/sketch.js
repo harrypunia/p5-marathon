@@ -6,8 +6,8 @@ let col = {
     web = {
         particles: [],
         density: {
-            x: 8,
-            y: 4
+            x: 10,
+            y: 6
         }
     },
     atom = {
@@ -42,7 +42,7 @@ function draw() {
         web.particles[i].update();
         web.particles[i].show();
         for (let j in web.particles) {
-            stroke(255, 30);
+            //stroke(255, 30);
             i != j ? web.particles[i].link(web.particles[j]) : 0;
         }
     }
