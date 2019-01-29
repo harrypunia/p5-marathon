@@ -5,7 +5,10 @@ let col = {
     },
     web = {
         particles: [],
-        density: 20
+        density: {
+            x: 10,
+            y: 6
+        }
     },
     atom = {
         r: 20,
@@ -23,8 +26,8 @@ let col = {
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
     //WEB
-    for (let i = 0; i < web.density * web.density; i++) {
-        web.particles[i] = new Particle(255, 255, 255, web.density, i); //(r, g, b, density, index);
+    for (let i = 0; i < web.density.x * web.density.y; i++) {
+        web.particles[i] = new Particle(255, 255, 255, web.density.x, web.density.y, i); //(r, g, b, density, index);
     }
     //ELECTRONS
     for (let i = 0; i < electrons.population; i++) {

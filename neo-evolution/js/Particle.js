@@ -1,26 +1,27 @@
 class Particle {
-    constructor(r, g, b, density, i) {
+    constructor(r, g, b, densityX, densityY, i) {
         this.x = 0;
         this.y = 0;
         this.i = i;
-        this.columnSize = width / density;
-        this.rowSize = height / density;
+        this.spotLight = 150;
+        this.brightness = 50;
+        this.columnSize = width / densityX;
+        this.rowSize = height / densityY;
         this.yCounter = 0;
-        while (this.i >= density) {
-            this.i -= density;
+        while (this.i >= densityX) {
+            this.i -= densityX;
             this.yCounter++
         }
         this.minX = this.i * this.columnSize;
         this.minY = this.yCounter * this.rowSize;
         this.i = i;
-        this.density = density;
         this.col = {
             r: r,
             g: g == undefined ? r : g,
             b: b == undefined ? r : b
         }
         this.maxOpacity = 20;
-        this.opacity;
+        this.opacity = 10;
         this.invertOpacity = false;
         this.xOff = random(1000);
         this.yOff = random(1000);
@@ -44,17 +45,21 @@ class Particle {
             _opY = map(this.y, 0, height, 0, this.maxOpacity),
             opX,
             opY;
-        if (this.invertOpacity) {
-            opX = _opX < (this.maxOpacity / 2) ? (this.maxOpacity / 2) - _opX : _opX - (this.maxOpacity / 2);
-            opY = _opY < (this.maxOpacity / 2) ? (this.maxOpacity / 2) - _opY : _opY - (this.maxOpacity / 2);
+        if (Math.abs(this.x - mouseX) < this.spotLight && Math.abs(this.y - mouseY) < this.spotLight) {
+            this.opacity <= this.brightness ? this.opacity += 2 : 0;
         } else {
-            opX = _opX < (this.maxOpacity / 2) ? _opX : this.maxOpacity - _opX;
-            opY = _opY < (this.maxOpacity / 2) ? _opY : this.maxOpacity - _opY;
+            if (this.invertOpacity) {
+                opX = _opX < (this.maxOpacity / 2) ? (this.maxOpacity / 2) - _opX : _opX - (this.maxOpacity / 2);
+                opY = _opY < (this.maxOpacity / 2) ? (this.maxOpacity / 2) - _opY : _opY - (this.maxOpacity / 2);
+            } else {
+                opX = _opX < (this.maxOpacity / 2) ? _opX : this.maxOpacity - _opX;
+                opY = _opY < (this.maxOpacity / 2) ? _opY : this.maxOpacity - _opY;
+            }
+            this.opacity >= (opX + opY) ? this.opacity -= 2 : 0;
         }
-        this.opacity = opX + opX;
     }
     link(other, r, g, b) {
-        if ((other.minX - this.minxX <= this.columnSize) && (other.yCounter - this.yCounter <= 2)) {
+        if ((this.minX - other.minX == this.columnSize) && (Math.abs(this.yCounter - other.yCounter) <= 1)) {
             stroke(this.r, this.g, this.b, this.opacity / 10);
             strokeWeight(1);
             line(this.x, this.y, other.x, other.y);
