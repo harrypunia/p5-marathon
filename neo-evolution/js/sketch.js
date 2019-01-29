@@ -17,8 +17,9 @@ let col = {
         e: [],
         population: 3,
         radius: 150,
-        speed: 0.01,
-        size: 12
+        speed: 0.03,
+        size: 12,
+        trail: false
     };
 
 function setup() {
@@ -29,7 +30,7 @@ function setup() {
     }
     //ELECTRONS
     for (let i = 0; i < electrons.population; i++) {
-        electrons.e[i] = new Electron(electrons.radius); // (x, y, radius, increment, population)
+        electrons.e[i] = new Electron(electrons.radius, electrons.trail); // (radius, trail(true/false));
     }
 }
 
@@ -54,13 +55,14 @@ function draw() {
         push();
         translate(width / 2, height / 2);
         rotate(angle);
-        electrons.e[i].revolve(electrons.speed);
-        electrons.e[i].show(electrons.size);
+        electrons.e[i].show(electrons.size, electrons.speed);
         //
-        stroke(170, 16, 214, 200);
-        strokeWeight(1);
-        noFill();
-        ellipse(0, 0, electrons.radius / 2, electrons.radius * 2);
+        if (!electrons.trail) {
+            stroke(170, 16, 214, 200);
+            strokeWeight(1);
+            noFill();
+            ellipse(0, 0, electrons.radius / 2, electrons.radius * 2);
+        }
         //
         pop();
     }
