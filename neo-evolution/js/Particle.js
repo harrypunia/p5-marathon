@@ -7,17 +7,18 @@ class Particle {
             range: 150,
             brightness: 2
         }
-        this.columnSize = width / densityX;
-        this.rowSize = height / densityY;
-        this.yCounter = 0;
+        this.grid = {
+            columnSize: width / densityX,
+            rowSize: height / densityY,
+            yCount: 0
+        }
         while (this.i >= densityX) {
             this.i -= densityX;
-            this.yCounter++
+            this.grid.yCount++
         }
-        this.minX = this.i * this.columnSize;
-        this.minY = this.yCounter * this.rowSize;
-        this.i = i;
-        this.col = {
+        this.minX = this.i * this.grid.columnSize;
+        this.minY = this.grid.yCount * this.grid.rowSize;
+        this.color = {
             r: r,
             g: g == undefined ? r : g,
             b: b == undefined ? r : b
@@ -34,7 +35,7 @@ class Particle {
         }
     }
     show() {
-        stroke(this.col.r, this.col.g, this.col.b, this.opacity.value);
+        stroke(this.color.r, this.color.g, this.color.b, this.opacity.value);
         strokeWeight(4);
         point(this.x, this.y);
     }
@@ -42,8 +43,8 @@ class Particle {
         this.updateOpacity();
         this.movement.xOff += this.movement.speed;
         this.movement.yOff += this.movement.speed;
-        this.x = map(noise(this.movement.xOff), 0, 1, this.minX, this.minX + this.columnSize);
-        this.y = map(noise(this.movement.yOff), 0, 1, this.minY, this.minY + this.rowSize);
+        this.x = map(noise(this.movement.xOff), 0, 1, this.minX, this.minX + this.grid.columnSize);
+        this.y = map(noise(this.movement.yOff), 0, 1, this.minY, this.minY + this.grid.rowSize);
     }
     updateOpacity() {
         let _opX = map(this.x, 0, width, 0, this.opacity.max),
@@ -66,7 +67,7 @@ class Particle {
         }
     }
     link(other, r, g, b) {
-        if ((this.minX - other.minX == this.columnSize) && (Math.abs(this.yCounter - other.yCounter) <= 1)) {
+        if ((this.minX - other.minX == this.grid.columnSize) && (Math.abs(this.grid.yCount - other.grid.yCount) <= 1)) {
             stroke(this.r, this.g, this.b, this.opacity.value / 10);
             strokeWeight(1);
             line(this.x, this.y, other.x, other.y);
