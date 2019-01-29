@@ -3,13 +3,21 @@ class Particle {
         this.x = 0;
         this.y = 0;
         this.i = i;
+        this.columnSize = width / density;
+        this.rowSize = height / density;
+        this.yCounter = 0;
+        while (this.i >= density) {
+            this.i -= density;
+            this.yCounter++
+        }
+        this.minX = this.i * this.columnSize;
+        this.minY = this.yCounter * this.rowSize;
+        this.i = i;
         this.col = {
             r: r,
             g: g == undefined ? r : g,
             b: b == undefined ? r : b
         }
-        this.columnSize = width / density;
-        this.rowSize = height / density;
         this.maxOpacity = 20;
         this.opacity;
         this.invertOpacity = false;
@@ -24,11 +32,11 @@ class Particle {
         point(this.x, this.y);
     }
     update() {
-        this.updateOpacity();
+        //this.updateOpacity();
         this.xOff += this.speed;
         this.yOff += this.speed;
-        this.x = map(noise(this.xOff), 0, 1, 0, this.columnSize);
-        this.y = map(noise(this.yOff), 0, 1, 0, this.rowSize);
+        this.x = map(noise(this.xOff), 0, 1, this.minX, this.minX + this.columnSize);
+        this.y = map(noise(this.yOff), 0, 1, this.minY, this.minY + this.rowSize);
     }
     updateOpacity() {
         let _opX = map(this.x, 0, width, 0, this.maxOpacity),
