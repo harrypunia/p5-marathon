@@ -5,7 +5,7 @@ class Particle {
         this.i = i;
         this.light = {
             range: 150,
-            brightness: 2
+            brightness: 1
         }
         this.grid = {
             columnSize: width / densityX,
@@ -26,17 +26,18 @@ class Particle {
         this.opacity = {
             max: 20,
             value: 10,
-            invert: true
+            invert: false
         }
         this.movement = {
             xOff: random(10),
             yOff: random(10),
-            speed: 0.001
+            speed: 0.001,
         }
+        this.stroke = random(1) > .5 ? 8 : 4;
     }
     show() {
-        stroke(this.color.r, this.color.g, this.color.b, this.opacity.value);
-        strokeWeight(4);
+        stroke(this.color.r, this.color.g, this.color.b, 255);
+        strokeWeight(this.stroke);
         point(this.x, this.y);
     }
     update() {
@@ -68,8 +69,8 @@ class Particle {
     }
     link(other, r, g, b) {
         if ((this.minX - other.minX == this.grid.columnSize) && (Math.abs(this.grid.yCount - other.grid.yCount) <= 1)) {
-            stroke(this.r, this.g, this.b, this.opacity.value / 10);
             strokeWeight(1);
+            //stroke(this.r, this.g, this.b, this.opacity.value);
             line(this.x, this.y, other.x, other.y);
         }
     }
