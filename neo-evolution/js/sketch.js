@@ -19,9 +19,7 @@ let col = {
         radius: 150,
         speed: 0.01,
         size: 12
-    },
-    connectionLength = 100,
-    connectionDensity = 5;
+    };
 
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
