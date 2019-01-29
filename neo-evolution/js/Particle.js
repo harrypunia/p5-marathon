@@ -2,19 +2,20 @@ class Particle {
     constructor(r, g, b, density, i) {
         this.x = 0;
         this.y = 0;
-        this.xOff = random(1000);
-        this.yOff = random(1000);
-        this.speed = 0.0001;
+        this.i = i;
         this.col = {
             r: r,
             g: g == undefined ? r : g,
             b: b == undefined ? r : b
         }
-        this.columns = density;
-        this.rows = density;
+        this.columnSize = width / density;
+        this.rowSize = height / density;
         this.maxOpacity = 20;
         this.opacity;
         this.invertOpacity = false;
+        this.xOff = random(1000);
+        this.yOff = random(1000);
+        this.speed = 0.0001;
     }
     show() {
         noFill();
@@ -26,8 +27,8 @@ class Particle {
         this.updateOpacity();
         this.xOff += this.speed;
         this.yOff += this.speed;
-        this.x = map(noise(this.xOff), 0, 1, 0, width);
-        this.y = map(noise(this.yOff), 0, 1, 0, height);
+        this.x = map(noise(this.xOff), 0, 1, 0, this.columnSize);
+        this.y = map(noise(this.yOff), 0, 1, 0, this.rowSize);
     }
     updateOpacity() {
         let _opX = map(this.x, 0, width, 0, this.maxOpacity),
