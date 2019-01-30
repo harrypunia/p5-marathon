@@ -51,3 +51,7 @@ function draw() {
 function windowResized() {
     resizeCanvas(window.innerWidth, window.innerHeight);
 }
+
+function mousePressed() {
+    network.fire();
+}
