@@ -108,20 +108,20 @@ class Particle {
     }
     explode(initLinks) {
         let connections = this.genUniqueNumbers(initLinks, this.possibleLinks.length);
-        for(let i in connections){
+        for (let i in connections) {
             console.log(this.possibleLinks[connections[i]]);
         }
     }
     genUniqueNumbers(many, max) {
         let uniqueNumbers = []
+        many > max ? many = max : 0;
         while (uniqueNumbers.length < many) {
-            let r = Math.floor(Math.random() * max) + 1;
+            let r = Math.floor(Math.random() * max);
             if (uniqueNumbers.indexOf(r) === -1) uniqueNumbers.push(r);
         }
         return uniqueNumbers;
     }
-    fire(other) {
-    }
+    fire(other) {}
 }
 
 /*
