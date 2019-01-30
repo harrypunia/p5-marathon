@@ -3,13 +3,7 @@ let col = {
         g: 19,
         b: 53
     },
-    web = {
-        particles: [],
-        density: {
-            x: 10,
-            y: 6
-        }
-    },
+    network,
     atomRadius =  20,
     electrons = {
         e: [],
@@ -22,10 +16,7 @@ let col = {
 
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
-    //WEB
-    for (let i = 0; i < web.density.x * web.density.y; i++) {
-        web.particles[i] = new Particle(web.density.x, web.density.y, i); //(density, index);
-    }
+    network = new Network();
     //ELECTRONS
     for (let i = 0; i < electrons.population; i++) {
         electrons.e[i] = new Electron(electrons.radius, electrons.trail, electrons.size, electrons.speed); // (radius, trail(true/false));
@@ -33,14 +24,9 @@ function setup() {
 }
 
 function draw() {
-    background(col.r, col.g, col.b);
-    //WEB
-    for (let i in web.particles) {
-        web.particles[i].show();
-        for (let j in web.particles) {
-            i != j ? web.particles[i].link(web.particles[j]) : 0;
-        }
-    }
+    background(col.r, col.g, col.b);   
+    //NETWORK
+    network.show();
     //ATOM
     noStroke();
     fill(255);
