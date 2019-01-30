@@ -26,7 +26,7 @@ function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
     //WEB
     for (let i = 0; i < web.density.x * web.density.y; i++) {
-        web.particles[i] = new Particle(255, 255, 255, web.density.x, web.density.y, i); //(r, g, b, density, index);
+        web.particles[i] = new Particle(web.density.x, web.density.y, i); //(r, g, b, density, index);
     }
     //ELECTRONS
     for (let i = 0; i < electrons.population; i++) {

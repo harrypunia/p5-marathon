@@ -14,9 +14,11 @@ class Electron {
     }
     drawTrail() {
         for (let i = 0; i < this.population; i++) {
-            const opacity = 255 - (i / this.population) * 255;
-            const size = this.size - (i / this.population) * this.size;
-            const {x, y} = this.updatePoint((i / this.population) * this.length); //deconstruction
+            const relPos = i / this.population
+            const opacity = 255 - relPos * 255;
+            const size = this.size - relPos * this.size;
+            const {x, y} = this.updatePoint(relPos * this.length); //deconstruction
+            
             fill(170, 16, 214, opacity);
             ellipse(x, y, size, size);
         }
@@ -28,9 +30,9 @@ class Electron {
         point(x, y);
     }
     updatePoint(decay = 0) {
-        return {
+       return {
             x: (this.radius / 4) * Math.sin(this.angle - decay),
-            y: this.radius * Math.cos(this.angle - decay)
+            y: this.radius * Math.cos(this.angle - decay) 
         }
     }
 }
