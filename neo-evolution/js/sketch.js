@@ -10,9 +10,7 @@ let col = {
             y: 6
         }
     },
-    atom = {
-        r: 20,
-    },
+    atomRadius =  20,
     electrons = {
         e: [],
         population: 3,
@@ -26,7 +24,7 @@ function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
     //WEB
     for (let i = 0; i < web.density.x * web.density.y; i++) {
-        web.particles[i] = new Particle(web.density.x, web.density.y, i); //(r, g, b, density, index);
+        web.particles[i] = new Particle(web.density.x, web.density.y, i); //(density, index);
     }
     //ELECTRONS
     for (let i = 0; i < electrons.population; i++) {
@@ -36,19 +34,17 @@ function setup() {
 
 function draw() {
     background(col.r, col.g, col.b);
-    fill(0);
     //WEB
     for (let i in web.particles) {
         web.particles[i].show();
         for (let j in web.particles) {
-            //stroke(255, 30);
             i != j ? web.particles[i].link(web.particles[j]) : 0;
         }
     }
     //ATOM
     noStroke();
     fill(255);
-    ellipse(width / 2, height / 2, atom.r * 2, atom.r * 2);
+    ellipse(width / 2, height / 2, atomRadius * 2, atomRadius * 2);
     //ELECTRONS
     for (let i = 0; i < electrons.population; i++) {
         let angle = (i / electrons.population) * 6.28 + (1.57 / electrons.population);
@@ -62,7 +58,7 @@ function draw() {
             noFill();
             ellipse(0, 0, electrons.radius / 2, electrons.radius * 2);
         }
-        pop();
+        pop();//resets it
     }
 }
 
