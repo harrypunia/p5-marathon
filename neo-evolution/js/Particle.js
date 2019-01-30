@@ -1,6 +1,5 @@
 class Particle {
     constructor(densityX, densityY, i) {
-        this.i = i;
         this.size = {
             w: width / 1.5,
             h: height / 1.3,
@@ -14,8 +13,8 @@ class Particle {
                 y: (height - this.size.h) / 2
             }
         }
-        while (this.i >= densityX) {
-            this.i -= densityX;
+        while (i >= densityX) {
+            i -= densityX;
             this.grid.yCount++
         }
         this.point = {
@@ -30,11 +29,11 @@ class Particle {
                 x: 0,
                 y: 0,
                 min: {
-                    x: this.i * this.grid.columnSize,
+                    x: i * this.grid.columnSize,
                     y: this.grid.yCount * this.grid.rowSize
                 },
                 max: {
-                    x: this.i * this.grid.columnSize + this.grid.columnSize,
+                    x: i * this.grid.columnSize + this.grid.columnSize,
                     y: this.grid.yCount * this.grid.rowSize + this.grid.rowSize
                 }
             }
@@ -69,17 +68,17 @@ class Particle {
         }
     }
     fire(blink) {
-        const {max,speed,type,opacity,initOpacity} = blink;
+        const {max, speed, type, initOpacity} = blink;
         blink.firing = true;
-        if (opacity.value < max && blink.ascend) {
-            opacity.value += speed;
-        } else if (opacity.value > max && blink.ascend) {
+        if (blink.opacity < max && blink.ascend) {
+            blink.opacity += speed;
+        } else if (blink.opacity > max && blink.ascend) {
             blink.ascend = false;
-            type == 'point' ? this.lineBlink.firing = true : 0; //This is firing the line
-        } else if (opacity.value > initOpacity && !blink.ascend) {
-            opacity.value -= speed / 2;
-        } else if (opacity.value < initOpacity && !blink.ascend) {
-            opacity.value = initOpacity;
+            type == 'point' ? this.line.firing = true : 0; //This is firing the line
+        } else if (blink.opacity > initOpacity && !blink.ascend) {
+            blink.opacity -= speed / 2;
+        } else if (blink.opacity < initOpacity && !blink.ascend) {
+            blink.opacity = initOpacity;
             blink.ascend = true;
             blink.firing = false;
         }
