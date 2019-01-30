@@ -1,5 +1,6 @@
 class Particle {
     constructor(densityX, densityY, i) {
+        this.i = i;
         this.size = {
             w: width / 1.5,
             h: height / 1.3,
@@ -13,11 +14,11 @@ class Particle {
                 y: (height - this.size.h) / 2
             }
         };
-        while (i >= densityX) {
-            i -= densityX;
+        while (this.i >= densityX) {
+            this.i -= densityX;
             this.grid.y++
         };
-        this.grid.x = i;
+        this.grid.x = this.i;
         this.point = {
             type: 'point',
             chance: 0.0005,
@@ -30,11 +31,11 @@ class Particle {
                 x: 0,
                 y: 0,
                 min: {
-                    x: i * this.grid.columnSize,
+                    x: this.i * this.grid.columnSize,
                     y: this.grid.y * this.grid.rowSize
                 },
                 max: {
-                    x: i * this.grid.columnSize + this.grid.columnSize,
+                    x: this.i * this.grid.columnSize + this.grid.columnSize,
                     y: this.grid.y * this.grid.rowSize + this.grid.rowSize
                 }
             }
@@ -46,16 +47,7 @@ class Particle {
             speed: 4
         };
         this.possibleLinks = [];
-        for(let l = 0; l < densityX * densityY; l++) {
-            i != 0 ? this.possibleLinks.push({ x:i-1, y:this.grid.y }) : 0;
-            i != densityX ? this.possibleLinks.push({ x: i + 1, y: this.grid.y }) : 0;
-            this.grid.y != 0 ? this.possibleLinks.push({ x: i, y: this.grid.y-1 }) : 0;
-            this.grid.y != densityY ? this.possibleLinks.push({ x: i, y: this.grid.y+1 }) : 0;
-            (i != 0 && this.grid.y != 0) ? this.possibleLinks.push({x: i - 1, y: this.grid.y - 1}) : 0;
-            (i != 0 && this.grid.y != densityY) ? this.possibleLinks.push({x: i - 1, y: this.grid.y + 1}) : 0;
-            (i != densityX && this.grid.y != 0) ? this.possibleLinks.push({x: i + 1, y: this.grid.y - 1}) : 0;
-            (i != densityX && this.grid.y != densityY) ? this.possibleLinks.push({x: i + 1, y: this.grid.y + 1}) : 0;
-        };
+        this.getPossibleLinks(densityX, densityY);
         this.point.pos.x = this.point.pos.min.x + this.grid.min.x + noise(random(100)) * (this.point.pos.max.x - this.point.pos.min.x);
         this.point.pos.y = this.point.pos.min.y + this.grid.min.y + noise(random(100)) * (this.point.pos.max.y - this.point.pos.min.y);
         const _opX = map(this.point.pos.x, this.grid.min.x, width - this.grid.min.x, 0, 20),
@@ -63,13 +55,48 @@ class Particle {
             opX = _opX < 10 ? _opX : 20 - _opX,
             opY = _opY < 10 ? _opY : 20 - _opY;
         this.point.opacity = this.point.initOpacity = this.line.opacity = this.line.initOpacity = opX + opY; //Try it later
+        let once = true;
+    }
+    getPossibleLinks(densityX, densityY) {
+        this.i != 0 ? this.possibleLinks.push({
+            x: this.i - 1,
+            y: this.grid.y
+        }) : 0;
+        this.i != densityX ? this.possibleLinks.push({
+            x: this.i + 1,
+            y: this.grid.y
+        }) : 0;
+        this.grid.y != 0 ? this.possibleLinks.push({
+            x: this.i,
+            y: this.grid.y - 1
+        }) : 0;
+        this.grid.y != densityY ? this.possibleLinks.push({
+            x: this.i,
+            y: this.grid.y + 1
+        }) : 0;
+        (this.i != 0 && this.grid.y != 0) ? this.possibleLinks.push({
+            x: this.i - 1,
+            y: this.grid.y - 1
+        }): 0;
+        (this.i != 0 && this.grid.y != densityY) ? this.possibleLinks.push({
+            x: this.i - 1,
+            y: this.grid.y + 1
+        }): 0;
+        (this.i != densityX && this.grid.y != 0) ? this.possibleLinks.push({
+            x: this.i + 1,
+            y: this.grid.y - 1
+        }): 0;
+        (this.i != densityX && this.grid.y != densityY) ? this.possibleLinks.push({
+            x: this.i + 1,
+            y: this.grid.y + 1
+        }): 0;
     }
     show() {
         stroke(255, this.point.opacity * 2);
         strokeWeight(this.point.size);
         point(this.point.pos.x, this.point.pos.y);
-        (Math.random() < this.point.chance || this.point.firing) ? this.fire(this.point): 0;
-        this.line.firing ? this.fire(this.line) : 0;
+        //(Math.random() < this.point.chance || this.point.firing) ? this.fire(this.point): 0;
+        //this.line.firing ? this.fire(this.line) : 0;
     }
     link(other) {
         const inRange = (this.grid.x - other.grid.x == 1) && (Math.abs(this.grid.y - other.grid.y)) <= 1;
@@ -79,8 +106,31 @@ class Particle {
             line(this.point.pos.x, this.point.pos.y, other.point.pos.x, other.point.pos.y);
         }
     }
-    fire(blink) {
-        const {max, speed, type, initOpacity} = blink;
+    explode(initLinks) {
+        let connections = this.genUniqueNumbers(initLinks, this.possibleLinks.length);
+        for(let i in connections){
+            console.log(this.possibleLinks[connections[i]]);
+        }
+    }
+    genUniqueNumbers(many, max) {
+        let uniqueNumbers = []
+        while (uniqueNumbers.length < many) {
+            let r = Math.floor(Math.random() * max) + 1;
+            if (uniqueNumbers.indexOf(r) === -1) uniqueNumbers.push(r);
+        }
+        return uniqueNumbers;
+    }
+    fire(other) {
+    }
+}
+
+/*
+const {
+            max,
+            speed,
+            type,
+            initOpacity
+        } = blink;
         blink.firing = true;
         if (blink.opacity < max && blink.ascend) {
             blink.opacity += speed;
@@ -94,5 +144,4 @@ class Particle {
             blink.ascend = true;
             blink.firing = false;
         }
-    }
-}
+*/

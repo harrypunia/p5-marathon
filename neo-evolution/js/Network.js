@@ -24,6 +24,6 @@ class Network {
         this.explosion.start.x = Math.floor(random(this.density.x));
         this.explosion.start.y = Math.floor(random(this.density.y))
         
-        //this.particles[this.explosion.start.x + this.explosion.start.y];
+        this.particles[0].explode(4);
     }
 }
