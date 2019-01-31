@@ -22,8 +22,14 @@ class Network {
     }
     fire() {
         this.explosion.start.x = Math.floor(random(this.density.x));
-        this.explosion.start.y = Math.floor(random(this.density.y))
+        this.explosion.start.y = Math.floor(random(this.density.y));
         
-        this.particles[0].explode(4);
+        let test = 2
+        let connections = this.particles[test].getConnections(4);
+        this.particles[test].fire();
+//        for(let i in connections) {
+//            let index = connections[i].x + this.density.x * connections[i].y
+//            this.particles[test].fire(this.particles[index]);
+//        }
     }
 }
