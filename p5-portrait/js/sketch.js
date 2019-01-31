@@ -1,5 +1,5 @@
-let init = false,
-    reset = false,
+//Main sketch
+let init = false, //Initiates the sketch
     col = {
         0: {
             r: 150,
@@ -41,7 +41,7 @@ let init = false,
             g: 75,
             b: 0
         }
-    },
+    },//Color object for experimentation
     _img1_ = {
         lB1: [],
         lB2: [],
@@ -52,7 +52,7 @@ let init = false,
         rB3: [],
         rB4: [],
         col: Math.floor(Math.random() * 8)
-    },
+    },//quadrants of particles of img1 and so on
     _img2_ = {
         lB1: [],
         lB2: [],
@@ -90,28 +90,30 @@ let init = false,
     img2,
     img3,
     img4,
-    speed = .5,
-    population = 50,
-    images = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-    messages = ['Fear', 'Misbelief', 'Gender', 'Offensive', 'Pick-pocket', 'Predator', 'Gross', 'Drugs', 'Unseen', 'Affair'],
-    img1Num = Math.floor(Math.random() * 10),
+    speed = .5,//Speed of particles
+    population = 50, //Population of particles on each quadrant of 1 image
+    images = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],//Array of image names
+    messages = ['Fear', 'Misbelief', 'Gender', 'Offensive', 'Pick-pocket', 'Predator', 'Gross', 'Drugs', 'Unseen', 'Affair'],//mapped names for each image
+    img1Num = Math.floor(Math.random() * 10), //Get a random image
     img2Num = Math.floor(Math.random() * 9),
     img3Num = Math.floor(Math.random() * 8),
     img4Num = Math.floor(Math.random() * 7),
-    song,
-    amp,
-    vol,
-    cnv;
+    song, //Song
+    amp, //Amp of song
+    vol, //Volume derived from amp
+    cnv; //canvas
 
 function preload() {
-    let imgSRC;
+    let imgSRC; //image src var to store temporarily
 
-    imgSRC = images[img1Num];
-    r1.innerHTML = messages[img1Num];
-    img1 = loadImage('assets/main' + imgSRC + '.jpg');
-    images.splice(img1Num, 1);
-    messages.splice(img1Num, 1);
+    imgSRC = images[img1Num]; //get rthe image
+    r1.innerHTML = messages[img1Num]; //add image name to html
+    img1 = loadImage('assets/main' + imgSRC + '.jpg'); //loading image
+    images.splice(img1Num, 1); //remove from array to avoid repititon
+    messages.splice(img1Num, 1); //same for messages
 
+    //Repeat
+    
     imgSRC = images[img2Num];
     r2.innerHTML = messages[img2Num];
     img2 = loadImage('assets/main' + imgSRC + '.jpg');
@@ -128,45 +130,46 @@ function preload() {
     r4.innerHTML = messages[img4Num];
     img4 = loadImage('assets/main' + imgSRC + '.jpg');
 
-    song = loadSound('assets/song.mp3');
+    song = loadSound('assets/song.mp3'); //load song
 }
 
 function setup() {
     cnv = createCanvas(window.innerWidth, window.innerHeight);
     cnv.parent('container');
-    smooth();
+    smooth(); //anti-aliasing
 
-    amp = new p5.Amplitude();
+    amp = new p5.Amplitude(); //fetch amplitutde
 
-    img1.resize(width / 3, 0);
+    img1.resize(width / 3, 0); //resize image
     img2.resize(width / 3, 0);
     img3.resize(width / 3, 0);
     img4.resize(width / 3, 0);
-    if (song.isLoaded()) {
+    if (song.isLoaded()) { //if song is loaded get the play button to appear
         let btn = document.getElementById('play');
         btn.classList.add('in');
     }
-    pixelDensity(1);
-    img1.loadPixels();
+    pixelDensity(1); //avoid retina screen 4 pixel density for proportions
+    img1.loadPixels(); //load pixels
     img2.loadPixels();
     img3.loadPixels();
     img4.loadPixels();
 
-    background(0)
-    setParticles(_img1_, img1, _img1_.col);
+    background(0);
+    setParticles(_img1_, img1, _img1_.col); //custom function, set position of the partical quadrant
     setParticles(_img2_, img2, _img2_.col);
     setParticles(_img3_, img3, _img3_.col);
     setParticles(_img4_, img4, _img4_.col);
 }
 
 function draw() {
-    vol = amp.getLevel();
+    vol = amp.getLevel(); //get vol from amp
     if (init) {
-        applyMatrix();
-        scale(1 + vol);
-        translate(0, height / 2 - img1.height / 2);
-        drawImage(_img1_, img1, speed);
-        resetMatrix();
+        applyMatrix(); //change matrix
+        scale(1 + vol); //scales the canvas to give splash effect
+        translate(0, height / 2 - img1.height / 2); //translate to another image
+        drawImage(_img1_, img1, speed); //custom function, draws the color of pixel at specific pos
+        resetMatrix(); //reset matrix
+        //REPEAT
         translate(width / 4, height / 2 - img2.height / 2);
         scale(1 + vol);
         drawImage(_img2_, img2, speed);
@@ -183,11 +186,11 @@ function draw() {
 }
 
 const initSketch = () => {
-    init = true;
+    init = true;//Init the sketch
     let btn = document.getElementById('play'),
         races = document.getElementsByClassName('races-all')[0];
-    song.play();
-    song.loop = true;
-    btn.style.display = 'none';
-    races.style.display = 'flex';
+    song.play(); //play the song
+    song.loop = true; //loops the song
+    btn.style.display = 'none'; //removes the button
+    races.style.display = 'flex'; //race messages appear on screen
 }

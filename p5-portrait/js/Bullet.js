@@ -1,4 +1,4 @@
-class Bullet {
+class Bullet { //Bullet class, individual particle for each image
     constructor(x, y, color) {
         this.xOffset = random(-40, 40);
         this.YOffset = random(-80, 80);
@@ -16,7 +16,7 @@ class Bullet {
         this.prevG = col[this.col].g;
         this.prevB = col[this.col].b;
     }
-    show() {
+    show() { //shows the particle
         point(this.x, this.y);
     }
     update(r, g, b) {

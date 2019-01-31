@@ -1,6 +1,6 @@
-const setParticles = (Obj, img, col) => {
-    for (let i = 0; i < population; i++) {
-        Obj.lB1[i] = new Bullet(0, img.height / 6, col);
+const setParticles = (Obj, img, col) => {//All images drawn
+    for (let i = 0; i < population; i++) { //set population of bullet class in an array
+        Obj.lB1[i] = new Bullet(0, img.height / 6, col); //instance of bullet object
         Obj.lB2[i] = new Bullet(0, img.height / 3, col);
         Obj.lB3[i] = new Bullet(0, img.height / 1.75, col);
         Obj.lB4[i] = new Bullet(0, img.height / 1.25, col);
@@ -12,7 +12,8 @@ const setParticles = (Obj, img, col) => {
 }
 
 const drawImage = (arr, img, speed) => {
-    for (let i = 0; i < population; i++) {
+    //REFER to bullet class
+    for (let i = 0; i < population; i++) { //for loop thropguh entire population of bullets
         let chance = Math.floor(random(100)) == 0,
             lPi1 = (Math.floor(arr.lB1[i].x) + Math.floor(arr.lB1[i].y) * img.width) * 4,
             lPi2 = (Math.floor(arr.lB2[i].x) + Math.floor(arr.lB2[i].y) * img.width) * 4,
@@ -23,6 +24,7 @@ const drawImage = (arr, img, speed) => {
             rPi3 = (Math.floor(arr.rB3[i].x) + Math.floor(arr.rB3[i].y) * img.width) * 4,
             rPi4 = (Math.floor(arr.rB4[i].x) + Math.floor(arr.rB4[i].y) * img.width) * 4;
 
+        //Left and right quadrants of each image with bullet class
         bulletPhysics(arr.lB1[i], 'left', lPi1, img);
         bulletPhysics(arr.lB2[i], 'left', lPi2, img);
         bulletPhysics(arr.lB3[i], 'left', lPi3, img);
@@ -44,13 +46,13 @@ const drawImage = (arr, img, speed) => {
 }
 
 
-const bulletPhysics = (arr, to, col, img) => {
+const bulletPhysics = (arr, to, col, img) => { //Adds move ment to bullets
     arr.update(img.pixels[col + 0], img.pixels[col + 1], img.pixels[col + 2]);
     arr.reset(to, img);
     arr.show();
 }
 
-const shootBullet = (arr, to, chance, speed) => {
+const shootBullet = (arr, to, chance, speed) => { //chance of shooting
     if (chance) {
         if (to == 'left') {
             arr.xInc = random(speed / 10, speed);
