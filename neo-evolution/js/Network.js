@@ -1,14 +1,14 @@
 class Network {
     constructor(densityX, densityY) {
-        this.density = {
-            x: densityX,
-            y: densityY
-        }
         this.size = {
             w: width / 1.5,
             h: height / 1.3,
         };
         this.grid = {
+            density : {
+              x : densityX,
+              y: densityY
+            },
             columnSize: this.size.w / densityX,
             rowSize: this.size.h / densityY,
             min: {
@@ -20,14 +20,19 @@ class Network {
         this.links = [];
         for (let i = 0; i < densityX * densityY; i++) {
             const {x, y}  = this.getVoidPos(i);
-            this.particles[i] = new Particle(x, y);
+            this.voids[i] = new Void(x, y, this.grid);
         }
     }
-    getVoidPos (index) {
-        const xIndex: index;
-        const yIndex : 0
-        while(index > this.density.x) {
-            xIndex - this.density.x;
+    show() {
+        for (let i in this.particles) {
+            this.voids[i].show();
+        }
+    }
+     getVoidPos (index) {
+        let xIndex = index;
+        let yIndex = 0
+        while(xIndex > this.grid.density.x) {
+            xIndex - this.grid.density.x;
             yIndex++;
         }
         const minX = xIndex * this.grid.columnSize;
@@ -37,11 +42,6 @@ class Network {
         return {
             x: minX + this.grid.min.x + noise(random(100)) * (maxX - minX),
             y: minY +this.grid.min.y + noise(random(100)) * (maxY - minY)
-        }
-    }
-    show() {
-        for (let i in this.particles) {
-            this.particles[i].show();
         }
     }
 }
