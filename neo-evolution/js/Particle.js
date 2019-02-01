@@ -1,24 +1,5 @@
 class Particle {
-    constructor(densityX, densityY, i) {
-        this.i = i;
-        this.size = {
-            w: width / 1.5,
-            h: height / 1.3,
-        };
-        this.grid = {
-            columnSize: this.size.w / densityX,
-            rowSize: this.size.h / densityY,
-            y: 0,
-            min: {
-                x: (width - this.size.w) / 2,
-                y: (height - this.size.h) / 2
-            }
-        };
-        while (this.i >= densityX) {
-            this.i -= densityX;
-            this.grid.y++
-        };
-        this.grid.x = this.i;
+    constructor(x, y) {
         this.point = {
             firing: false,
             ascend: true,
@@ -26,21 +7,11 @@ class Particle {
             speed: 4,
             size: random(1) > .5 ? 8 : 4,
             pos: {
-                x: 0,
-                y: 0,
-                min: {
-                    x: this.i * this.grid.columnSize,
-                    y: this.grid.y * this.grid.rowSize
-                },
-                max: {
-                    x: this.i * this.grid.columnSize + this.grid.columnSize,
-                    y: this.grid.y * this.grid.rowSize + this.grid.rowSize
-                }
+                x: x,
+                y: y
             }
         };
         this.neighbours = [];
-        this.point.pos.x = this.point.pos.min.x + this.grid.min.x + noise(random(100)) * (this.point.pos.max.x - this.point.pos.min.x);
-        this.point.pos.y = this.point.pos.min.y + this.grid.min.y + noise(random(100)) * (this.point.pos.max.y - this.point.pos.min.y);
         const _opX = map(this.point.pos.x, this.grid.min.x, width - this.grid.min.x, 0, 10),
             _opY = map(this.point.pos.y, this.grid.min.y, height - this.grid.min.y, 0, 10),
             opX = _opX < 5 ? _opX : 10 - _opX,
