@@ -26,7 +26,7 @@ function setup() {
 function draw() {
     background(col.r, col.g, col.b);   
     //NETWORK
-    network.show();
+    network.show(10, 6); //(densityX, densityY)
     //ATOM
     noStroke();
     fill(255);
@@ -53,5 +53,5 @@ function windowResized() {
 }
 
 function mousePressed() {
-    network.fire();
+    //network.fire();
 }
