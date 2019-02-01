@@ -1,7 +1,13 @@
 class Link {
-    constructor(start, end) {
-        this.start = start;
-        this.end = end;
+    constructor(x1, y1, x2, y2) {
+        this.start = {
+            x: x1,
+            y: y1
+        };
+        this.end = {
+            x: x2,
+            y: y2
+        };
         this.fire = {
             status: false,
             ascend: true,
@@ -9,11 +15,10 @@ class Link {
             speed: 4
         }
     }
-    draw() {
+    show() {
+        strokeWeight(1);
+        stroke(255, 20);
         line(this.start.x, this.start.y, this.end.x, this.end.y);
-    }
-    equals(link) {
-        return (link.start == this.start && link.end == this.end) || (link.start == this.end && link.end == this.start);
     }
     //    link(other) {
 //        const inRange = (Math.abs(this.grid.x - other.grid.x) == 1) && (Math.abs(this.grid.y - other.grid.y)) <= 1;

@@ -1,79 +1,100 @@
 class Void {
     constructor(x, y, grid) {
-        console.log(x, y, grid);
         this.grid = grid;
+        this.xIndex = grid.xIndex;
+        this.yIndex = grid.yIndex;
+        this.connectionList = [];
         this.x = x;
         this.y = y;
+        this.size = random(1) > .5 ? 8 : 4,
         this.fireAttr = {
             firing: false,
             ascend: true,
             maxOpacity: 150,
             speed: 4,
-            size: random(1) > .5 ? 8 : 4,
         };
         this.neighbours = [];
         this.fireAttr.opacity = this.fireAttr.initOpacity = this.defineOpacity();
+        this.getNeighbours();
     }
     show() {
         stroke(255, this.fireAttr.opacity * 2);
-        strokeWeight(this.fireAttr.size);
+        strokeWeight(this.size);
         point(this.x, this.y);
         this.fireAttr.firing ? this.fire(this.fireAttr): 0;
     }
     fire (fireAttr) {
         const {maxOpacity, speed, type, initOpacity} = fireAttr;
-        blink.firing = true;
-        if (blink.opacity < maxOpacity && blink.ascend) {
-            blink.opacity += speed;
-        } else if (blink.opacity > maxOpacity && blink.ascend) {
-            blink.ascend = false;
-        } else if (blink.opacity > initOpacity && !blink.ascend) {
-            blink.opacity -= speed / 2;
-        } else if (blink.opacity < initOpacity && !blink.ascend) {
-            blink.opacity = initOpacity;
-            blink.ascend = true;
-            blink.firing = false;
+        fireAttr.firing = true;
+        if (fireAttr.opacity < maxOpacity && fireAttr.ascend) {
+            fireAttr.opacity += speed;
+        } else if (fireAttr.opacity > maxOpacity && fireAttr.ascend) {
+            fireAttr.ascend = false;
+        } else if (fireAttr.opacity > initOpacity && !fireAttr.ascend) {
+            fireAttr.opacity -= speed / 2;
+        } else if (fireAttr.opacity < initOpacity && !fireAttr.ascend) {
+            fireAttr.opacity = initOpacity;
+            fireAttr.ascend = true;
+            fireAttr.firing = false;
         }
     }
+    canConnect(other) {
+        if((Math.abs(this.xIndex - other.xIndex) == 1) && (Math.abs(this.yIndex - other.yIndex) == 1)) {
+            if(this.isConnectedTo(other)) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+    isConnectedTo(other) {
+        for(let i = 0; i < this.connectionList; i++) {
+            if(this.connectionList[i].xIndex == other.xIndex && this.connectionList[i].yIndex == other.yIndex) {
+                return true;
+                break;
+            }
+        }
+        return false;
+    }
     defineOpacity() {
-        const _opX = map(this.x, this.grid.min.x, width - this.grid.min.x, 0, 10);
-        const _opY = map(this.y, this.grid.min.y, height - this.grid.min.y, 0, 10);
-        const opX = _opX < 5 ? _opX : 10 - _opX;
-        const opY = _opY < 5 ? _opY : 10 - _opY;
+        const _opX = map(this.x, this.grid.min.x, width - this.grid.min.x, 0, 20);
+        const _opY = map(this.y, this.grid.min.y, height - this.grid.min.y, 0, 20);
+        const opX = _opX < 10 ? _opX : 20 - _opX;
+        const opY = _opY < 10 ? _opY : 20 - _opY;
         return (opX + opY);
     }
     getNeighbours() {
-        this.grid.x != 0 ? this.neighbours.push({
-            x: this.grid.x - 1,
-            y: this.grid.y
+        this.xIndex != 0 ? this.neighbours.push({
+            x: this.xIndex - 1,
+            y: this.yIndex
         }) : 0;
-        this.grid.x != this.grid.density.x ? this.neighbours.push({
-            x: this.grid.x + 1,
-            y: this.grid.y
+        this.xIndex != this.grid.density.x ? this.neighbours.push({
+            x: this.xIndex + 1,
+            y: this.yIndex
         }) : 0;
-        this.grid.y != 0 ? this.neighbours.push({
-            x: this.grid.x,
-            y: this.grid.y - 1
+        this.yIndex != 0 ? this.neighbours.push({
+            x: this.xIndex,
+            y: this.yIndex - 1
         }) : 0;
-        this.grid.y != this.grid.density.y ? this.neighbours.push({
-            x: this.grid.x,
-            y: this.grid.y + 1
+        this.yIndex != this.grid.density.y ? this.neighbours.push({
+            x: this.xIndex,
+            y: this.yIndex + 1
         }) : 0;
-        (this.grid.x != 0 && this.grid.y != 0) ? this.neighbours.push({
-            x: this.grid.x - 1,
-            y: this.grid.y - 1
+        (this.xIndex != 0 && this.yIndex != 0) ? this.neighbours.push({
+            x: this.xIndex - 1,
+            y: this.yIndex - 1
         }): 0;
-        (this.grid.x != 0 && this.grid.y != this.grid.density.y) ? this.neighbours.push({
-            x: this.grid.x - 1,
-            y: this.grid.y + 1
+        (this.xIndex != 0 && this.yIndex != this.grid.density.y) ? this.neighbours.push({
+            x: this.xIndex - 1,
+            y: this.yIndex + 1
         }): 0;
-        (this.grid.x != this.grid.density.x && this.grid.y != 0) ? this.neighbours.push({
-            x: this.grid.x + 1,
-            y: this.grid.y - 1
+        (this.xIndex != this.grid.density.x && this.yIndex != 0) ? this.neighbours.push({
+            x: this.xIndex + 1,
+            y: this.yIndex - 1
         }): 0;
-        (this.grid.x != this.grid.density.x && this.grid.y != this.grid.density.y) ? this.neighbours.push({
-            x: this.grid.x + 1,
-            y: this.grid.y + 1
+        (this.xIndex != this.grid.density.x && this.yIndex != this.grid.density.y) ? this.neighbours.push({
+            x: this.xIndex + 1,
+            y: this.yIndex + 1
         }): 0;
     }
 }

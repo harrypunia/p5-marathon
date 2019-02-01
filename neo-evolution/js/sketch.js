@@ -19,14 +19,14 @@ function setup() {
     network = new Network(10, 6);
     //ELECTRONS
     for (let i = 0; i < electrons.population; i++) {
-        electrons.e[i] = new Electron(electrons.radius, electrons.trail, electrons.size, electrons.speed); // (radius, trail(true/false));
+        electrons.e[i] = new Electron(electrons.radius, electrons.trail, electrons.size, electrons.speed);
     }
 }
 
 function draw() {
     background(col.r, col.g, col.b);   
     //NETWORK
-    network.show(); //(densityX, densityY)
+    network.show();
     //ATOM
     noStroke();
     fill(255);

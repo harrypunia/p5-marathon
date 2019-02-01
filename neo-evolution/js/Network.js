@@ -19,34 +19,46 @@ class Network {
         this.voids = [];
         this.links = [];
         for (let i = 0; i < densityX * densityY; i++) {
-            const {x, y}  = this.getVoidPos(i);
+            const {x, y} = this.getVoidPos(i);
             this.voids[i] = new Void(x, y, this.grid);
         }
     }
     show() {
-        for (let i in this.particles) {
+        for (let i = 0; i < this.voids.length; i++) {
             this.voids[i].show();
+            for(let j = 0; j < this.voids.length; j++) {
+                //if(this.voids[i].canConnect(this.voids[j])) {
+                    this.links[i] = new Link(this.voids[i].x, this.voids[i].y, this.voids[j].x, this.voids[j].y);
+                    this.voids[i].connectionList.xIndex = this.voids[j].xIndex;
+                    this.voids[i].connectionList.yIndex = this.voids[j].yIndex;
+                //}
+            }
         }
-    }
-     getVoidPos (index) {
+        for(let i = 0; i < this.links.length; i++) {
+            this.links[i].show();
+        }
+     }
+     getVoidPos(index) {
         let xIndex = index;
-        let yIndex = 0
-        while(xIndex > this.grid.density.x) {
-            xIndex - this.grid.density.x;
+        let yIndex = 0;
+        while(xIndex > this.grid.density.x - 1) {
+            xIndex -= this.grid.density.x;
             yIndex++;
         }
+        this.grid.xIndex = xIndex;
+        this.grid.yIndex = yIndex;
         const minX = xIndex * this.grid.columnSize;
         const minY = yIndex * this.grid.rowSize;
         const maxX = minX + this.grid.columnSize;
-        const maxY = minX + this.grid.rowSize;
+        const maxY = minY + this.grid.rowSize;
         return {
             x: minX + this.grid.min.x + noise(random(100)) * (maxX - minX),
-            y: minY +this.grid.min.y + noise(random(100)) * (maxY - minY)
+            y: minY + this.grid.min.y + noise(random(100)) * (maxY - minY)
         }
     }
 }
 
-const genUniqueNumbers = (many, max) => {
+const getUniqueNumbers = (many, max) => {
     let uniqueNumbers = []
     many > max ? many = max : 0;
     while (uniqueNumbers.length < many) {
