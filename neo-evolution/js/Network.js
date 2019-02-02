@@ -27,11 +27,11 @@ class Network {
         for (let i = 0; i < this.voids.length; i++) {
             this.voids[i].show();
             for(let j = 0; j < this.voids.length; j++) {
-                //if(this.voids[i].canConnect(this.voids[j])) {
+                if(this.voids[i].canConnect(this.voids[j])) {
                     this.links[i] = new Link(this.voids[i].x, this.voids[i].y, this.voids[j].x, this.voids[j].y);
                     this.voids[i].connectionList.xIndex = this.voids[j].xIndex;
                     this.voids[i].connectionList.yIndex = this.voids[j].yIndex;
-                //}
+                }
             }
         }
         for(let i = 0; i < this.links.length; i++) {

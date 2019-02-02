@@ -39,12 +39,12 @@ class Void {
         }
     }
     canConnect(other) {
-        if((Math.abs(this.xIndex - other.xIndex) == 1) && (Math.abs(this.yIndex - other.yIndex) == 1)) {
-            if(this.isConnectedTo(other)) {
-                return false;
-            } else {
-                return true;
-            }
+        let inRange = (Math.abs(this.xIndex - other.xIndex) <= 1) && (Math.abs(this.yIndex - other.yIndex) <= 1);
+        
+        if(this.isConnectedTo(other)) {
+            return false;
+        } else {
+            return inRange ? true : 0;
         }
     }
     isConnectedTo(other) {

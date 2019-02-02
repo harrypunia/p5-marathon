@@ -1,8 +1,8 @@
 class Electron {
-    constructor(r, showTrail, size, speed) {//non-chaning variables
+    constructor(r, showTrail, size, speed) {
         this.radius = r;
         this.angle = random(10);
-        this.showTrail = showTrail; //same name
+        this.showTrail = showTrail; 
         this.population = 150;
         this.length = 4;
         this.size = size;
@@ -17,14 +17,14 @@ class Electron {
             const relPos = i / this.population
             const opacity = 255 - relPos * 255;
             const size = this.size - relPos * this.size;
-            const {x, y} = this.updatePoint(relPos * this.length); //deconstruction
+            const {x, y} = this.updatePoint(relPos * this.length);
             
             fill(170, 16, 214, opacity);
             ellipse(x, y, size, size);
         }
     }
     drawLine() {
-        const {x, y} = this.updatePoint(); //closer to the usage in large cases
+        const {x, y} = this.updatePoint();
         stroke(170, 16, 214);
         strokeWeight(this.size);
         point(x, y);
