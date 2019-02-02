@@ -39,7 +39,7 @@ class Void {
         }
     }
     canConnectTo(other) {
-        const inRange = Math.abs(this.xIndex - other.xIndex) <= 1 && Math.abs(this.yIndex - other.yIndex) == 1;
+        const inRange = Math.abs(this.xIndex - other.xIndex) == 1 && Math.abs(this.yIndex - other.yIndex) == 1;
         if(inRange) {
             return this.isNotConnectedTo(other);
         }
