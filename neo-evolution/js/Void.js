@@ -38,23 +38,20 @@ class Void {
             fireAttr.firing = false;
         }
     }
-    canConnect(other) {
-        let inRange = (Math.abs(this.xIndex - other.xIndex) <= 1) && (Math.abs(this.yIndex - other.yIndex) <= 1);
-        
-        if(this.isConnectedTo(other)) {
-            return false;
-        } else {
-            return inRange ? true : 0;
+    canConnectTo(other) {
+        const inRange = Math.abs(this.xIndex - other.xIndex) <= 1 && Math.abs(this.yIndex - other.yIndex) == 1;
+        if(inRange) {
+            return this.isNotConnectedTo(other);
         }
     }
-    isConnectedTo(other) {
+    isNotConnectedTo(other) {
         for(let i = 0; i < this.connectionList; i++) {
             if(this.connectionList[i].xIndex == other.xIndex && this.connectionList[i].yIndex == other.yIndex) {
-                return true;
+                return false;
                 break;
             }
         }
-        return false;
+        return true;
     }
     defineOpacity() {
         const _opX = map(this.x, this.grid.min.x, width - this.grid.min.x, 0, 20);
