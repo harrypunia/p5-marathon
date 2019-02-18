@@ -38,7 +38,8 @@ let init = false,
     colR,
     colG,
     colB,
-    pSize;
+    pSize,
+    canvasAngle = 0;
 
 function preload() {
     song = loadSound('assets/song.mp3');
@@ -52,7 +53,7 @@ function setup() {
     }
     amp = new p5.Amplitude();
     for (let i = 0; i < 100; i++) {
-        tanCircles[i] = new TanCircle(200);
+        tanCircles[i] = new TanCircle(100);
     }
 }
 
@@ -60,6 +61,9 @@ function draw() {
     reset ? (background(col[0].r, col[0].g, col[0].b), reset = false) : background(col[0].r, col[0].g, col[0].b, 90);
 
     if (init) {
+        push();
+        translate(width/2, height/2);
+        rotate(canvasAngle)
         rOff += 0.01;
         gOff += 0.01;
         bOff += 0.01;
@@ -72,6 +76,12 @@ function draw() {
         for (let i = 0; i < tanCircles.length; i++) {
             tanCircles[i].show((vol * 100) + pSize, colR, colG, colB, i);
         }
+        for (var i = 0; i < frames.length; i++) {
+            var f = frames[i];
+            p5.prototype.downloadFile(f.imageData, f.filename, f.ext);
+        }
+        pop();
+        canvasAngle+=0.001;
     }
 }
 

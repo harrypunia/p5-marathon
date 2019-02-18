@@ -8,20 +8,18 @@ class TanCircle {
             x: 0,
             y: 0,
             angle: random(10),
-            length: 280,
+            length: 200,
             rot: 0
         };
         this.angle;
     }
     show(vol, r, g, b, i) {
-        let transY = map(mouseY, 0, height, -20, 20),
-            transX = map(mouseX, 0, width, -20, 20);
-        this.r = this.storeR + vol - (transY * 2);
-        this.updateLine(i);
+        this.r = this.storeR + vol;
+        this.updateLine(vol, i);
         stroke(r, g, b);
         noFill();
         push();
-        translate(this.x + transX, this.y + transY);
+        translate(this.x, this.y);
         rotate(this.angle);
         line(this.line.x - this.line.length, this.line.y, this.line.x + this.line.length, this.line.y);
         point(this.line.x + this.line.length, this.y);
@@ -39,11 +37,11 @@ class TanCircle {
         point(this.x, this.line.y + this.line.length);
         pop();
     }
-    updateLine(i) {
-        this.line.angle += 0.01;
-        this.x = this.r * Math.sin(this.line.angle) + (width / 2);
-        this.y = this.r * Math.cos(this.line.angle) + (height / 2);
+    updateLine(vol, i) {
+        this.line.angle += vol/50000;
+        this.x = this.r * Math.sin(this.line.angle);
+        this.y = this.r * Math.cos(this.line.angle);
         let pos = this.x + this.y;
-        this.angle = map(mouseX, 0, width, 0, 3.14) + this.line.angle;
+        this.angle = this.line.angle;
     }
 }
