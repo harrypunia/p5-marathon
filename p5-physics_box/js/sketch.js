@@ -4,8 +4,7 @@ let init = false,
     gOff = 1000,
     bOff = 10000,
     mp3,
-    core,
-    r, g, b;
+    core;
 
 function preload() {
     song = loadSound('assets/song.mp3');
@@ -15,7 +14,7 @@ function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
     song.isLoaded() ? document.getElementById('play').classList.add('in') : 0;
     mp3 = new MP3();
-    core = new Core(100);
+    core = new Core(200);
 }
 
 function draw() {
@@ -23,14 +22,14 @@ function draw() {
     const {r, g, b} = updateColors();
     background(30, 10, 22);
     if (init) {
-        core.draw();
+        core.draw(r, g, b);
     }
 }
 
 const updateColors = () => {
-    rOff += 0.001;
-    gOff += 0.001;
-    bOff += 0.001;
+    rOff += 0.01;
+    gOff += 0.01;
+    bOff += 0.01;
     return {
         r: mapCol(rOff),
         g: mapCol(gOff),

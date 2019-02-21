@@ -6,9 +6,9 @@ class Core {
             this.particles[i] = new Particle(random(width/2 - r, width/2 + r), random(height/2 - r, height/2 + r), random(20));
         }
     }
-    draw() {
+    draw(r, g, b) {
         for(let i in this.particles) {
-            this.particles[i].show(255, 100, 100);
+            this.particles[i].show(r, g, b);
             for(let j in this.particles) {
                 this.particles[i].isCloseTo(this.particles[j]) ? this.particles[i].repel(this.particles[j]) : 0;
             }
