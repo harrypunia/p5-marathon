@@ -31,13 +31,11 @@ const updateColors = () => {
     gOff += 0.01;
     bOff += 0.01;
     return {
-        r: mapCol(rOff),
-        g: mapCol(gOff),
-        b: mapCol(bOff)
+        r: map(noise(rOff), 0, 1, 0, 255),
+        g: map(noise(gOff), 0, 1, 0, 255),
+        b: map(noise(bOff), 0, 1, 0, 255)
     }
 }
-
-const mapCol = noiseOff => map(noiseOff, 0, 1, 0, 255)
 
 function windowResized() {
     resizeCanvas(window.innerWidth, window.innerHeight);

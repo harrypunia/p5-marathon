@@ -2,8 +2,13 @@ class Core {
     constructor(r) {
         this.r = r;
         this.particles = []
-        for(let i = 0; i < 50; i++) {
-            this.particles[i] = new Particle(random(width/2 - r, width/2 + r), random(height/2 - r, height/2 + r), random(20));
+        for(let i = 0; i < 100; i++) {
+            const randR = random(r);
+            const randA = random(6.28);
+            const x = randR * Math.sin(randA);
+            const y = randR * Math.cos(randA);
+            const radius = random(20);
+            this.particles[i] = new Particle(width/2 + x, height/2 + y , radius);
         }
     }
     draw(r, g, b) {
