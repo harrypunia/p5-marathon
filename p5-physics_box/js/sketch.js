@@ -4,6 +4,7 @@ let init = false,
     gOff = 1000,
     bOff = 10000,
     mp3,
+    core,
     r, g, b;
 
 function preload() {
@@ -12,11 +13,9 @@ function preload() {
 
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
-    if (song.isLoaded()) { //Condition here
-        let btn = document.getElementById('play');
-        btn.classList.add('in');
-    }
+    song.isLoaded() ? document.getElementById('play').classList.add('in') : 0;
     mp3 = new MP3();
+    core = new Core(100);
 }
 
 function draw() {
@@ -24,8 +23,7 @@ function draw() {
     const {r, g, b} = updateColors();
     background(30, 10, 22);
     if (init) {
-        fill(255 - r, 255 - g, 255 - b);
-        ellipse(width/2, height/2, mp3.smoothVol * 1000, mp3.smoothVol * 1000);
+        core.draw();
     }
 }
 
