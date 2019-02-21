@@ -7,20 +7,18 @@ class Particle {
         this.storeVel = this.vel.copy();
         this.acc = createVector(0, 0);
         this.hit = false;
-        this.counter = 0;
     }
     show(r, g, b) {
         this.update();
         if (this.hit) {
             fill(r, g, b);
             noStroke();
-            this.hit = false;
         } else {
             noFill();
             stroke(r, g, b);
-            this.counter = 0;
         }
         ellipse(this.pos.x, this.pos.y, this.r * 2, this.r * 2);
+        this.hit = false;
     }
     update() {
         this.border();
@@ -35,12 +33,10 @@ class Particle {
         return gap <= this.r + other.r
     }
     repel(other) {
-        this.hit = true;
-        //other.hit = true;
         const thisPos = this.pos.copy();
         const otherPos = other.pos.copy();
         let force = thisPos.sub(otherPos);
-        force.mult(0.1);
+        force.mult(mp3.vol / 2);
         this.acc.add(force);
         force.mult(-1);
         other.acc.add(force);

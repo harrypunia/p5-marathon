@@ -7,7 +7,7 @@ class Core {
             const randA = random(6.28);
             const x = randR * Math.sin(randA);
             const y = randR * Math.cos(randA);
-            const radius = random(20);
+            const radius = random(30);
             this.particles[i] = new Particle(width/2 + x, height/2 + y , radius);
         }
     }
