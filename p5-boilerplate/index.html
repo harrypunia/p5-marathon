@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GodParticle</title>
+    <script src="lib/p5.min.js"></script>
+    <script src="lib/p5.sound.js"></script>
+    <style>
+        body,
+        html {
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: black;
+        }
+
+        #play {
+            position: absolute;
+            left: 50vw;
+            top: 50vh;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: url('assets/play.png') no-repeat;
+            background-size: contain;
+            transform: translate(-50%, 0) rotate(-30deg);
+            opacity: 0;
+            cursor: pointer;
+            transition: width .2s ease-in, height .2s ease-in;
+        }
+
+        #play:hover {
+            width: 60px;
+            height: 60px;
+            transition: width .2s ease-out, height .2s ease-out;
+        }
+
+        .in {
+            animation: play-in .2s ease-in;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes play-in {
+            to {
+                transform: translate(-50%, -50%) rotate(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="play" onclick="initSketch()"></div>
+    <script src="js/MP3.js"></script>
+    <script src="js/Particle.js"></script>
+    <script src="js/Core.js"></script>
+    <script src="js/sketch.js"></script>
+</body>
+
+</html>
