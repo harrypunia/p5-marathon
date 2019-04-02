@@ -7,14 +7,12 @@ class easyRotate {
     }
     update() {
         this.a += this.s;
-        return {
-            x: this.r * Math.sin(this.a) + this.center.x,
-            y: this.r * Math.cos(this.a) + this.center.y
-        }
+        this.x = this.r * Math.sin(this.a) + this.center.x;
+        this.y = this.r * Math.cos(this.a) + this.center.y;
     }
 }
 
-class MP3 {
+class easyMP3 {
     constructor(song) {
         this.song = song;
         this.amp = new p5.Amplitude();
@@ -23,6 +21,17 @@ class MP3 {
     update(smoothness = 0.05) {
         this.vol = this.amp.getLevel();
         this.smoothVol = lerp(this.smoothVol, this.vol, smoothness);
+    }
+}
+
+class easyNoise {
+    constructor(x, s) {
+        this.x = x; 
+        this.noiseVal = noise(this.x);
+    }
+    update(speed) {
+        this.x += speed;
+        this.val = noise(this.x);   
     }
 }
 

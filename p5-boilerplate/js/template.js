@@ -1,4 +1,4 @@
-let sketch, song, mp3, init = false, cRotate;
+let sketch, song, mp3, init = false, cRotate, eNoise;
 
 function preload() {
     song = loadSound('assets/song.mp3');
@@ -7,16 +7,19 @@ function preload() {
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
     document.getElementById('play').classList.add('in');
-    mp3 = new MP3(song);
+    mp3 = new easyMP3(song);
     cRotate = new easyRotate(width/2, height/2, 40, .01);
+    eNoise = new easyNoise(0);
 }
 
 function draw() {
     mp3.update();
+    cRotate.update();
+    eNoise.update(0.01);
     background(30, 10, 22);
     if(init) {
         noFillStroke(255);
-        circle(cRotate.update().x, cRotate.update().y, 50 + 100 * mp3.smoothVol);
+        circle(cRotate.x, cRotate.y, map(eNoise.val, 0, 1, 100, 200));
     }
 }
 
