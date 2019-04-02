@@ -38,6 +38,16 @@ class easyNoise {
 //easyFunctions
 const circle = (x, y, r) => ellipse(x, y, r, r);
 
+const triangle = (x, y, s) => {
+    const dX= 0.86602540378 * s;
+    const dY= 0.5 * s;
+    beginShape();
+        vertex(x+0, y -s);
+        vertex(x+dX, y+dY);
+        vertex(x-dX, y+dY);
+    endShape(CLOSE);
+}
+
 const noFillStroke = (r, g, b, a) => {
     g == undefined ? g = r : 0;
     b == undefined ? b = r : 0;

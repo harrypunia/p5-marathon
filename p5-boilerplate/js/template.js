@@ -20,6 +20,7 @@ function draw() {
     if(init) {
         noFillStroke(255);
         circle(cRotate.x, cRotate.y, map(eNoise.val, 0, 1, 100, 200));
+        triangle(cRotate.x, cRotate.y, map(eNoise.val, 0, 1, 100, 200))
     }
 }
 
