@@ -63,3 +63,23 @@ const noStrokeFill = (r, g, b, a) => {
     noStroke();
     fill(r, g, b, a);
 }
+
+const star = (x, y, r, n) => {
+    if (n>=3) {
+        noStrokeFill(200);
+        const h = n < 8 ? PI*r/n +1 : PI*r/n;
+        for(let i = 0; i < n; i++) {
+            applyMatrix();
+            translate(x, y);
+            rotate(i/n * TWO_PI);
+            beginShape();
+                vertex(-h, -r);
+                vertex(0, -r-h);
+                vertex(h, -r);
+            endShape();
+            resetMatrix();
+        }
+    } else {
+        console.error("paramenter 'n' has to be a greater value than 2");
+    }
+}

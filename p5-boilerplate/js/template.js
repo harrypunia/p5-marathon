@@ -13,14 +13,10 @@ function setup() {
 }
 
 function draw() {
-    mp3.update();
-    cRotate.update();
-    eNoise.update(0.01);
     background(30, 10, 22);
     if(init) {
         noFillStroke(255);
-        circle(cRotate.x, cRotate.y, map(eNoise.val, 0, 1, 100, 200));
-        triangle(cRotate.x, cRotate.y, map(eNoise.val, 0, 1, 100, 200))
+        star(width/2, height/2, 20, 7);
     }
 }
 
