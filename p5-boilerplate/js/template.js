@@ -1,7 +1,4 @@
-let init = false,
-    song,
-    mp3,
-    core;
+let sketch, song, mp3, init = false, cRotate;
 
 function preload() {
     song = loadSound('assets/song.mp3');
@@ -9,24 +6,27 @@ function preload() {
 
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
-    song.isLoaded() ? document.getElementById('play').classList.add('in') : 0;
-    mp3 = new MP3();
+    document.getElementById('play').classList.add('in');
+    mp3 = new MP3(song);
+    cRotate = new easyRotate(width/2, height/2, 40, .01);
 }
 
 function draw() {
     mp3.update();
     background(30, 10, 22);
-    ellipse(width/2, height/2, 50 + 200 * mp3.smoothVol, 50 + 200 * mp3.smoothVol);
+    if(init) {
+        noFillStroke(255);
+        circle(cRotate.update().x, cRotate.update().y, 50 + 100 * mp3.smoothVol);
+    }
 }
 
 function windowResized() {
     resizeCanvas(window.innerWidth, window.innerHeight);
 }
 
-
 const initSketch = () => {
-    init = true;
     song.play();
+    init = true;
     let btn = document.getElementById('play');
     btn.style.display = 'none';
 }
