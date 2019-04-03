@@ -25,13 +25,15 @@ class easyMP3 {
 }
 
 class easyNoise {
-    constructor(x, s) {
+    constructor(x, min, max) {
         this.x = x; 
+        this.min = min;
+        this.max = max;
         this.noiseVal = noise(this.x);
     }
     update(speed) {
         this.x += speed;
-        this.val = noise(this.x);   
+        this.val = map(this.x, 0, 1, this.min, this.max);
     }
 }
 

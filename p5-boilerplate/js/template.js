@@ -9,14 +9,16 @@ function setup() {
     document.getElementById('play').classList.add('in');
     mp3 = new easyMP3(song);
     cRotate = new easyRotate(width/2, height/2, 40, .01);
-    eNoise = new easyNoise(0);
+    eNoise = new easyNoise(0, 20, 200);
 }
 
 function draw() {
     background(30, 10, 22);
+    eNoise.update(0.1);
     if(init) {
         noFillStroke(255);
         star(width/2, height/2, 20, 7);
+        triangle(width/2, height/2, eNoise.val);
     }
 }
 
