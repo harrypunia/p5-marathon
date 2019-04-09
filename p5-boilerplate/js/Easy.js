@@ -38,17 +38,6 @@ class easyNoise {
 }
 
 //easyFunctions
-const circle = (x, y, r) => ellipse(x, y, r, r);
-
-const triangle = (x, y, s) => {
-    const dX= 0.86602540378 * s;
-    const dY= 0.5 * s;
-    beginShape();
-        vertex(x+0, y -s);
-        vertex(x+dX, y+dY);
-        vertex(x-dX, y+dY);
-    endShape(CLOSE);
-}
 
 const noFillStroke = (r, g, b, a) => {
     g == undefined ? g = r : 0;
@@ -66,6 +55,7 @@ const noStrokeFill = (r, g, b, a) => {
     fill(r, g, b, a);
 }
 
+//Shaptes
 const star = (x, y, r, n) => {
     if (n>=3) {
         noStrokeFill(200);
@@ -84,4 +74,16 @@ const star = (x, y, r, n) => {
     } else {
         console.error("paramenter 'n' has to be a greater value than 2");
     }
+}
+
+const circle = (x, y, r) => ellipse(x, y, r, r);
+
+const triangle = (x, y, s) => {
+    const dX= 0.86602540378 * s;
+    const dY= 0.5 * s;
+    beginShape();
+        vertex(x+0, y -s);
+        vertex(x+dX, y+dY);
+        vertex(x-dX, y+dY);
+    endShape(CLOSE);
 }
